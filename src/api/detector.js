@@ -15,10 +15,13 @@ async function get(path) {
   return res.json()
 }
 
-export function detectPhoto(file, expectedTags = null) {
+export function detectPhoto(file, expectedTags = null, foundCount = null) {
   const fd = new FormData()
   fd.append('file', file)
-  const qs = expectedTags != null ? `?expected_tags=${expectedTags}` : ''
+  const params = new URLSearchParams()
+  if (expectedTags != null) params.set('expected_tags', expectedTags)
+  if (foundCount != null) params.set('found_count', foundCount)
+  const qs = params.size ? `?${params}` : ''
   return post(`/api/v1/detect/photo${qs}`, fd)
 }
 

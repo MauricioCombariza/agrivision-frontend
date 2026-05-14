@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import { detectPhoto } from '../../api/detector'
+import { compressImage, annotateImage } from '../../utils/imageUtils'
 import DetectionResults from './DetectionResults'
 
 export default function CameraCapture({ accumulated, onAccumulate, onClear }) {
@@ -16,8 +17,10 @@ export default function CameraCapture({ accumulated, onAccumulate, onClear }) {
     setLoading(true)
     setError(null)
     try {
-      const res = await detectPhoto(file, 25)
-      setLastAnnotated(res.detections.length > 0 ? res.annotated_image : null)
+      const compressed = await compressImage(file)
+      const res = await detectPhoto(compressed, 25, accumulated.length)
+      const dataUrl = await annotateImage(compressed, res.detections)
+      setLastAnnotated(dataUrl)
       setLastCount(res.detections.length)
       onAccumulate(res.detections)
     } catch (err) {
@@ -29,7 +32,6 @@ export default function CameraCapture({ accumulated, onAccumulate, onClear }) {
 
   return (
     <div className="det-stack">
-      {/* Banner acumulado */}
       {accumulated.length > 0 && (
         <div className="det-banner">
           <div className="det-banner__title">Tags acumulados</div>
@@ -40,7 +42,6 @@ export default function CameraCapture({ accumulated, onAccumulate, onClear }) {
         </div>
       )}
 
-      {/* Input oculto */}
       <input
         ref={inputRef}
         type="file"
@@ -50,7 +51,6 @@ export default function CameraCapture({ accumulated, onAccumulate, onClear }) {
         onChange={handleCapture}
       />
 
-      {/* Botón de captura */}
       <button
         className="det-capture-btn"
         onClick={() => inputRef.current?.click()}
@@ -68,17 +68,15 @@ export default function CameraCapture({ accumulated, onAccumulate, onClear }) {
 
       {error && <div className="det-error">{error}</div>}
 
-      {/* Última foto anotada */}
       {lastAnnotated && (
         <div className="det-annotated">
           <div className="det-annotated__label">
             Última captura — {lastCount} tag{lastCount !== 1 ? 's' : ''} detectado{lastCount !== 1 ? 's' : ''}
           </div>
-          <img src={`data:image/jpeg;base64,${lastAnnotated}`} alt="Imagen anotada" />
+          <img src={lastAnnotated} alt="Imagen anotada" />
         </div>
       )}
 
-      {/* Resultados acumulados */}
       {accumulated.length > 0 && (
         <DetectionResults detections={accumulated} onClear={onClear} />
       )}
