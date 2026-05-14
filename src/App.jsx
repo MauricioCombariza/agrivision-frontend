@@ -1,4 +1,6 @@
 import { createContext, useContext, useState } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import DetectorPage from './pages/DetectorPage'
 import { translations } from './translations'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
@@ -25,7 +27,7 @@ export default function App() {
   const t = translations[lang]
   const toggleLang = () => setLang(l => l === 'es' ? 'en' : 'es')
 
-  return (
+  const home = (
     <LangContext.Provider value={{ lang, t, toggleLang }}>
       <Navbar onLoginClick={() => setLoginOpen(true)} />
       <main>
@@ -41,5 +43,14 @@ export default function App() {
       <Footer onLoginClick={() => setLoginOpen(true)} />
       {loginOpen && <LoginModal onClose={() => setLoginOpen(false)} />}
     </LangContext.Provider>
+  )
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/detector" element={<DetectorPage />} />
+        <Route path="*" element={home} />
+      </Routes>
+    </BrowserRouter>
   )
 }
