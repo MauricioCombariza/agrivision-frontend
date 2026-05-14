@@ -1672,3 +1672,36 @@ ul, ol { list-style: none; }
 
 /* ─── Espacio entre elementos ────────────────────────────── */
 .det-stack { display: flex; flex-direction: column; gap: 0.875rem; }
+
+/* ─── Spinner pequeño (inline) ───────────────────────────── */
+.det-spinner--sm {
+  width: 14px;
+  height: 14px;
+  border-width: 2px;
+}
+
+/* ─── Estado rápido post-captura ─────────────────────────── */
+.det-quick-status {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.65rem 1rem;
+  border-radius: 10px;
+  font-size: 0.84rem;
+  font-family: var(--font-mono);
+  transition: background 0.3s, color 0.3s;
+}
+.det-quick-status--analyzing {
+  background: rgba(212, 144, 10, 0.12);
+  border: 1px solid rgba(212, 144, 10, 0.3);
+  color: var(--amber-400);
+}
+.det-quick-status--analyzing .det-spinner {
+  border-color: rgba(212,144,10,0.25);
+  border-top-color: var(--amber-400);
+}
+.det-quick-status--done {
+  background: rgba(32, 200, 50, 0.08);
+  border: 1px solid rgba(32, 200, 50, 0.25);
+  color: #20c832;
+}
