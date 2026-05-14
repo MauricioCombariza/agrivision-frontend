@@ -57,41 +57,35 @@ export default function VideoUpload() {
   const busy = status === 'uploading' || status === 'processing'
 
   return (
-    <div className="space-y-4">
-      <p className="text-sm text-gray-600">
-        Graba un video de 5–10 segundos barriendo el palet lentamente y súbelo aquí.
+    <div className="det-stack">
+      <p className="det-hint">
+        Graba un video de 5–10 segundos barriendo el palet lentamente. Cada frame se analiza con 5 variantes de preprocesado.
       </p>
 
-      <input ref={inputRef} type="file" accept="video/*" className="hidden" onChange={handleFile} />
-      <button
-        onClick={() => inputRef.current?.click()}
-        disabled={busy}
-        className="w-full h-16 rounded-2xl bg-purple-600 text-white text-lg font-bold flex items-center justify-center gap-3 active:bg-purple-700 disabled:opacity-60 transition-colors"
-      >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M15 10l4.553-2.069A1 1 0 0121 8.82v6.36a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-        </svg>
-        {busy ? 'Procesando…' : 'Seleccionar video'}
+      <input ref={inputRef} type="file" accept="video/*" style={{ display: 'none' }} onChange={handleFile} />
+
+      <button className="det-upload-btn" onClick={() => inputRef.current?.click()} disabled={busy}>
+        {busy
+          ? <><div className="det-spinner" /><span>Procesando…</span></>
+          : <><span className="det-upload-btn__icon">🎬</span><span>Seleccionar video</span></>
+        }
       </button>
 
       {busy && (
-        <div className="space-y-1.5">
-          <div className="flex justify-between text-xs text-gray-500">
-            <span>{status === 'uploading' ? 'Subiendo…' : 'Analizando frames…'}</span>
-            <span>{Math.round(progress * 100)}%</span>
+        <div className="det-progress">
+          <div className="det-progress__header">
+            <span className="det-progress__label">
+              {status === 'uploading' ? 'Subiendo archivo…' : 'Analizando frames…'}
+            </span>
+            <span className="det-progress__pct">{Math.round(progress * 100)}%</span>
           </div>
-          <div className="h-3 bg-gray-100 rounded-full overflow-hidden">
-            <div
-              className="h-full bg-purple-500 rounded-full transition-all duration-300"
-              style={{ width: `${Math.round(progress * 100)}%` }}
-            />
+          <div className="det-progress__track">
+            <div className="det-progress__bar" style={{ width: `${Math.round(progress * 100)}%` }} />
           </div>
         </div>
       )}
 
-      {error && (
-        <div className="rounded-xl bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">{error}</div>
-      )}
+      {error && <div className="det-error">{error}</div>}
 
       {status === 'done' && (
         <DetectionResults

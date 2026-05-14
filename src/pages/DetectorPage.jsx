@@ -4,10 +4,21 @@ import VideoUpload from '../components/detector/VideoUpload'
 import PhotoUpload from '../components/detector/PhotoUpload'
 
 const TABS = [
-  { id: 'camera', label: 'Cámara', icon: '📸' },
+  { id: 'camera', label: 'Cámara', icon: '📷' },
   { id: 'video',  label: 'Video',  icon: '🎬' },
   { id: 'photos', label: 'Fotos',  icon: '🖼️' },
 ]
+
+function Logo() {
+  return (
+    <svg className="det-header__logo" viewBox="0 0 28 28" fill="none">
+      <path d="M14 3C14 3 6 9.5 6 17c0 4.4 3.6 8 8 8s8-3.6 8-8c0-7.5-8-14-8-14Z" fill="#d4900a" opacity="0.9"/>
+      <path d="M14 8v17" stroke="#0f2519" strokeWidth="1.4" strokeLinecap="round"/>
+      <path d="M14 14c0 0-3.5-2.5-5.5-.5" stroke="#0f2519" strokeWidth="1.4" strokeLinecap="round"/>
+      <path d="M14 18.5c0 0 3.5-2.5 5.5.5" stroke="#0f2519" strokeWidth="1.4" strokeLinecap="round"/>
+    </svg>
+  )
+}
 
 export default function DetectorPage() {
   const [tab, setTab] = useState('camera')
@@ -25,13 +36,16 @@ export default function DetectorPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
-      <header className="bg-white border-b border-gray-200 px-4 py-3 sticky top-0 z-10">
-        <h1 className="text-base font-bold text-gray-900">Lector AprilTags</h1>
-        <p className="text-xs text-gray-500">tag36h11 · AgriVision</p>
+    <div className="det-page">
+      <header className="det-header">
+        <Logo />
+        <div className="det-header__text">
+          <h1>Lector AprilTags</h1>
+          <p>tag36h11 · AgriVision</p>
+        </div>
       </header>
 
-      <main className="flex-1 px-4 py-4 pb-24 max-w-lg mx-auto w-full">
+      <main className="det-main">
         {tab === 'camera' && (
           <CameraCapture
             accumulated={accumulated}
@@ -43,16 +57,14 @@ export default function DetectorPage() {
         {tab === 'photos' && <PhotoUpload />}
       </main>
 
-      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex z-10">
+      <nav className="det-tabs">
         {TABS.map(t => (
           <button
             key={t.id}
+            className={`det-tab ${tab === t.id ? 'active' : ''}`}
             onClick={() => setTab(t.id)}
-            className={`flex-1 flex flex-col items-center justify-center py-3 gap-0.5 text-xs font-medium transition-colors ${
-              tab === t.id ? 'text-green-700 bg-green-50' : 'text-gray-500 active:bg-gray-50'
-            }`}
           >
-            <span className="text-xl leading-none">{t.icon}</span>
+            <span className="det-tab__icon">{t.icon}</span>
             {t.label}
           </button>
         ))}
