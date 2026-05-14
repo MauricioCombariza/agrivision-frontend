@@ -16,7 +16,7 @@ export default function CameraCapture({ accumulated, onAccumulate, onClear }) {
     setLoading(true)
     setError(null)
     try {
-      const res = await detectPhoto(file)
+      const res = await detectPhoto(file, 25)
       setLastAnnotated(res.detections.length > 0 ? res.annotated_image : null)
       setLastCount(res.detections.length)
       onAccumulate(res.detections)
