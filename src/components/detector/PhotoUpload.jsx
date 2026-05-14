@@ -19,7 +19,7 @@ export default function PhotoUpload() {
     const accMap = new Map()
     for (const file of files) {
       try {
-        const res = await detectPhoto(file)
+        const res = await detectPhoto(file, 25)
         photoResults.push({ name: file.name, detections: res.detections, annotated_image: res.annotated_image })
         for (const d of res.detections) {
           const ex = accMap.get(d.tag_id)

@@ -15,10 +15,11 @@ async function get(path) {
   return res.json()
 }
 
-export function detectPhoto(file) {
+export function detectPhoto(file, expectedTags = null) {
   const fd = new FormData()
   fd.append('file', file)
-  return post('/api/v1/detect/photo', fd)
+  const qs = expectedTags != null ? `?expected_tags=${expectedTags}` : ''
+  return post(`/api/v1/detect/photo${qs}`, fd)
 }
 
 export function startVideoDetection(file) {
