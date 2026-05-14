@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import { detectPhoto } from '../../api/detector'
+import { compressImage, annotateImage } from '../../utils/imageUtils'
 import DetectionResults from './DetectionResults'
 
 export default function PhotoUpload() {
@@ -19,14 +20,16 @@ export default function PhotoUpload() {
     const accMap = new Map()
     for (const file of files) {
       try {
-        const res = await detectPhoto(file, 25)
-        photoResults.push({ name: file.name, detections: res.detections, annotated_image: res.annotated_image })
+        const compressed = await compressImage(file)
+        const res = await detectPhoto(compressed, 25, accMap.size)
+        const annotatedUrl = await annotateImage(compressed, res.detections)
+        photoResults.push({ name: file.name, detections: res.detections, annotatedUrl })
         for (const d of res.detections) {
           const ex = accMap.get(d.tag_id)
           if (!ex || d.confidence > ex.confidence) accMap.set(d.tag_id, d)
         }
       } catch (err) {
-        photoResults.push({ name: file.name, detections: [], annotated_image: '', error: err.message })
+        photoResults.push({ name: file.name, detections: [], annotatedUrl: null, error: err.message })
       }
       setResults([...photoResults])
     }
@@ -61,12 +64,8 @@ export default function PhotoUpload() {
             {r.error
               ? <p style={{ color: '#f87171', fontSize: '0.82rem' }}>{r.error}</p>
               : <>
-                  {r.annotated_image && (
-                    <img
-                      src={`data:image/jpeg;base64,${r.annotated_image}`}
-                      alt={`Anotada ${r.name}`}
-                      style={{ borderRadius: 8 }}
-                    />
+                  {r.annotatedUrl && (
+                    <img src={r.annotatedUrl} alt={`Anotada ${r.name}`} style={{ borderRadius: 8 }} />
                   )}
                   {r.detections.length > 0
                     ? <p className="det-photo-card__ids">
