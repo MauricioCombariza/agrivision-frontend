@@ -8,6 +8,7 @@ export default function CameraCapture({ accumulated, onAccumulate, onClear }) {
   const [uploading, setUploading]       = useState(false)
   const [analyzing, setAnalyzing]       = useState(0)   // jobs en background
   const [quickCount, setQuickCount]     = useState(null) // conteo rápido última foto
+  const [previewImage, setPreviewImage] = useState(null) // verde claro — antes del análisis completo
   const [lastAnnotated, setLastAnnotated] = useState(null)
   const [lastFinalCount, setLastFinalCount] = useState(null)
   const [error, setError]               = useState(null)
@@ -19,6 +20,7 @@ export default function CameraCapture({ accumulated, onAccumulate, onClear }) {
         const res = await getPhotoJobStatus(jobId)
         if (res.status === 'done') {
           const dataUrl = await annotateImage(blob, res.detections)
+          setPreviewImage(null)
           setLastAnnotated(dataUrl)
           setLastFinalCount(res.detections.length)
           onAccumulate(res.detections)
@@ -42,10 +44,13 @@ export default function CameraCapture({ accumulated, onAccumulate, onClear }) {
     e.target.value = ''
     setUploading(true)
     setError(null)
+    setPreviewImage(null)
+    setLastAnnotated(null)
     try {
       const blob = await compressImage(file)
-      const { quick_count, job_id } = await detectPhotoQuick(blob, 25, accumulated.length)
+      const { quick_count, preview_image, job_id } = await detectPhotoQuick(blob, 25, accumulated.length)
       setQuickCount(quick_count)
+      if (preview_image) setPreviewImage(`data:image/jpeg;base64,${preview_image}`)
       setAnalyzing(n => n + 1)
       pollPhotoJob(job_id, blob) // no await — corre en background
     } catch (err) {
@@ -112,6 +117,15 @@ export default function CameraCapture({ accumulated, onAccumulate, onClear }) {
               ? <span>✓ {lastFinalCount} tags confirmados</span>
               : null
           }
+        </div>
+      )}
+
+      {previewImage && !lastAnnotated && (
+        <div className="det-annotated">
+          <div className="det-annotated__label">
+            Vista previa — {quickCount} tag{quickCount !== 1 ? 's' : ''} detectado{quickCount !== 1 ? 's' : ''} · analizando en detalle…
+          </div>
+          <img src={previewImage} alt="Vista previa con bounding boxes" />
         </div>
       )}
 
