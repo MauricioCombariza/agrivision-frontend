@@ -66,6 +66,13 @@ export default function CameraCapture({ accumulated, onAccumulate, onClear }) {
 
   // ── Polling ────────────────────────────────────────────────────────────────
 
+  const stopPolling = useCallback(() => {
+    if (pollRef.current) { clearInterval(pollRef.current); pollRef.current = null }
+    setLiveCount(0)
+    const canvas = overlayRef.current
+    if (canvas) canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
+  }, [])
+
   const startPolling = useCallback(() => {
     if (pollRef.current) return
     pollRef.current = setInterval(async () => {
@@ -92,14 +99,35 @@ export default function CameraCapture({ accumulated, onAccumulate, onClear }) {
     }, POLL_INTERVAL)
   }, [drawOverlay])
 
-  const stopPolling = useCallback(() => {
-    if (pollRef.current) { clearInterval(pollRef.current); pollRef.current = null }
-    setLiveCount(0)
-    if (overlayRef.current) {
-      const ctx = overlayRef.current.getContext('2d')
-      ctx.clearRect(0, 0, overlayRef.current.width, overlayRef.current.height)
+  // ── Configurar video DESPUÉS del render (cuando videoRef.current existe) ──
+  // El <video> está siempre en el DOM (display:none cuando no hay stream),
+  // así que videoRef.current ya existe cuando stream cambia de null → MediaStream.
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (!stream || !video) return
+
+    video.srcObject = stream
+
+    const handleCanPlay = () => startPolling()
+    video.addEventListener('canplay', handleCanPlay)
+    video.play().catch(() => {}) // iOS requiere play() explícito aunque tenga autoPlay
+
+    return () => {
+      video.removeEventListener('canplay', handleCanPlay)
+      stopPolling()
+      video.srcObject = null
     }
-  }, [])
+  }, [stream, startPolling, stopPolling])
+
+  // Cleanup al desmontar
+  useEffect(() => {
+    return () => {
+      stopPolling()
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      stream?.getTracks().forEach(t => t.stop())
+    }
+  }, []) // intencionalmente vacío — solo al desmontar
 
   // ── Cámara ─────────────────────────────────────────────────────────────────
 
@@ -107,26 +135,18 @@ export default function CameraCapture({ accumulated, onAccumulate, onClear }) {
     setCamError(null)
     try {
       const s = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: 'environment', width: { ideal: 1920 } },
+        video: { facingMode: { ideal: 'environment' } },
         audio: false,
       })
-      setStream(s)
-      if (videoRef.current) {
-        videoRef.current.srcObject = s
-        videoRef.current.onloadedmetadata = () => startPolling()
-      }
+      setStream(s) // useEffect([stream]) asigna srcObject y llama play() tras el render
     } catch (err) {
       setCamError('No se pudo acceder a la cámara: ' + err.message)
     }
   }
 
   function stopCamera() {
-    stopPolling()
     if (stream) { stream.getTracks().forEach(t => t.stop()); setStream(null) }
-    if (videoRef.current) videoRef.current.srcObject = null
   }
-
-  useEffect(() => () => { stopPolling(); stream?.getTracks().forEach(t => t.stop()) }, [])  // cleanup al desmontar
 
   // ── Captura ────────────────────────────────────────────────────────────────
 
@@ -201,29 +221,29 @@ export default function CameraCapture({ accumulated, onAccumulate, onClear }) {
         </div>
       )}
 
-      {/* Viewport de cámara con overlay */}
-      {stream && (
-        <div style={{ position: 'relative', width: '100%', borderRadius: 12, overflow: 'hidden', background: '#000' }}>
-          <video
-            ref={videoRef}
-            autoPlay playsInline muted
-            style={{ width: '100%', display: 'block' }}
-          />
-          <canvas
-            ref={overlayRef}
-            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none' }}
-          />
-          <div style={{
-            position: 'absolute', bottom: 8, left: 8,
-            background: 'rgba(0,0,0,0.6)', color: '#90EE90',
-            padding: '4px 10px', borderRadius: 8, fontSize: 14, fontWeight: 600,
-          }}>
-            🟢 {liveCount} tag{liveCount !== 1 ? 's' : ''} detectado{liveCount !== 1 ? 's' : ''}
-          </div>
+      {/* Viewport: siempre en DOM para que videoRef esté disponible antes de stream */}
+      <div style={{
+        position: 'relative', width: '100%', borderRadius: 12, overflow: 'hidden',
+        background: '#000', display: stream ? 'block' : 'none',
+      }}>
+        <video
+          ref={videoRef}
+          autoPlay playsInline muted
+          style={{ width: '100%', display: 'block' }}
+        />
+        <canvas
+          ref={overlayRef}
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none' }}
+        />
+        <div style={{
+          position: 'absolute', bottom: 8, left: 8,
+          background: 'rgba(0,0,0,0.6)', color: '#90EE90',
+          padding: '4px 10px', borderRadius: 8, fontSize: 14, fontWeight: 600,
+        }}>
+          🟢 {liveCount} tag{liveCount !== 1 ? 's' : ''} detectado{liveCount !== 1 ? 's' : ''}
         </div>
-      )}
+      </div>
 
-      {/* Botones de control de cámara */}
       {!stream ? (
         <button className="det-capture-btn" onClick={activateCamera}>
           <span className="det-capture-btn__icon">📷</span>
@@ -247,11 +267,7 @@ export default function CameraCapture({ accumulated, onAccumulate, onClear }) {
                 </>
             }
           </button>
-          <button
-            className="det-upload-btn"
-            style={{ flex: 1, minWidth: 0 }}
-            onClick={stopCamera}
-          >
+          <button className="det-upload-btn" style={{ flex: 1, minWidth: 0 }} onClick={stopCamera}>
             ⏹
           </button>
         </div>
