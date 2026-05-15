@@ -7,6 +7,7 @@ export default function VideoUpload() {
   const [status, setStatus] = useState('idle')
   const [progress, setProgress] = useState(0)
   const [detections, setDetections] = useState([])
+  const [previewImage, setPreviewImage] = useState(null) // verde claro — primer frame del video
   const [error, setError] = useState(null)
 
   async function handleFile(e) {
@@ -16,9 +17,11 @@ export default function VideoUpload() {
     setStatus('uploading')
     setError(null)
     setDetections([])
+    setPreviewImage(null)
     setProgress(0)
     try {
-      const { job_id } = await startVideoDetection(file)
+      const { job_id, preview_image } = await startVideoDetection(file)
+      if (preview_image) setPreviewImage(`data:image/jpeg;base64,${preview_image}`)
       setStatus('processing')
       await pollJob(job_id)
     } catch (err) {
@@ -86,6 +89,13 @@ export default function VideoUpload() {
       )}
 
       {error && <div className="det-error">{error}</div>}
+
+      {previewImage && status !== 'done' && (
+        <div className="det-annotated">
+          <div className="det-annotated__label">Vista previa — tags detectados en verde claro</div>
+          <img src={previewImage} alt="Vista previa del video" />
+        </div>
+      )}
 
       {status === 'done' && (
         <DetectionResults
