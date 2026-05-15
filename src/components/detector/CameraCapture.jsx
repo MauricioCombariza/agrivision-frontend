@@ -1,17 +1,162 @@
-import { useRef, useState } from 'react'
-import { detectPhotoQuick, getPhotoJobStatus } from '../../api/detector'
-import { compressImage, annotateImage } from '../../utils/imageUtils'
+import { useRef, useState, useEffect, useCallback } from 'react'
+import { detectPhotoQuick, getPhotoJobStatus, detectLivePreview } from '../../api/detector'
+import { annotateImage } from '../../utils/imageUtils'
 import DetectionResults from './DetectionResults'
 
+const POLL_INTERVAL = 350   // ms entre frames enviados al servidor
+const POLL_SIZE     = 640   // px lado mayor del frame comprimido para polling
+const SNAP_SIZE     = 1600  // px lado mayor de la foto final
+
 export default function CameraCapture({ accumulated, onAccumulate, onClear }) {
-  const inputRef = useRef(null)
-  const [uploading, setUploading]       = useState(false)
-  const [analyzing, setAnalyzing]       = useState(0)   // jobs en background
-  const [quickCount, setQuickCount]     = useState(null) // conteo rápido última foto
-  const [previewImage, setPreviewImage] = useState(null) // verde claro — antes del análisis completo
-  const [lastAnnotated, setLastAnnotated] = useState(null)
+  const videoRef      = useRef(null)
+  const overlayRef    = useRef(null)
+  const pollCanvasRef = useRef(document.createElement('canvas'))
+  const pollRef       = useRef(null)
+
+  const [stream,         setStream]         = useState(null)
+  const [liveCount,      setLiveCount]      = useState(0)
+  const [uploading,      setUploading]      = useState(false)
+  const [analyzing,      setAnalyzing]      = useState(0)
+  const [quickCount,     setQuickCount]     = useState(null)
+  const [previewImage,   setPreviewImage]   = useState(null)
+  const [lastAnnotated,  setLastAnnotated]  = useState(null)
   const [lastFinalCount, setLastFinalCount] = useState(null)
-  const [error, setError]               = useState(null)
+  const [error,          setError]          = useState(null)
+  const [camError,       setCamError]       = useState(null)
+
+  // ── Overlay ────────────────────────────────────────────────────────────────
+
+  const drawOverlay = useCallback((detections, vw, vh, pw, ph) => {
+    const canvas = overlayRef.current
+    if (!canvas) return
+    canvas.width  = vw
+    canvas.height = vh
+    const ctx = canvas.getContext('2d')
+    ctx.clearRect(0, 0, vw, vh)
+    if (!detections.length) return
+
+    const sx = vw / pw
+    const sy = vh / ph
+    const lw = Math.max(2, Math.round(vw / 300))
+    const fs = Math.max(14, Math.round(vw / 60))
+    ctx.strokeStyle = '#90EE90'
+    ctx.lineWidth   = lw
+    ctx.font        = `bold ${fs}px monospace`
+
+    for (const d of detections) {
+      const [[x0, y0], [x1, y1], [x2, y2], [x3, y3]] = d.corners
+      ctx.beginPath()
+      ctx.moveTo(x0 * sx, y0 * sy)
+      ctx.lineTo(x1 * sx, y1 * sy)
+      ctx.lineTo(x2 * sx, y2 * sy)
+      ctx.lineTo(x3 * sx, y3 * sy)
+      ctx.closePath()
+      ctx.stroke()
+
+      const cx  = (x0 + x1 + x2 + x3) / 4 * sx
+      const cy  = (y0 + y1 + y2 + y3) / 4 * sy - 10
+      const lbl = `ID ${d.tag_id}`
+      const tw  = ctx.measureText(lbl).width
+      ctx.fillStyle = 'rgba(0,0,0,0.72)'
+      ctx.fillRect(cx - 4, cy - fs - 2, tw + 8, fs + 6)
+      ctx.fillStyle = '#90EE90'
+      ctx.fillText(lbl, cx, cy)
+    }
+  }, [])
+
+  // ── Polling ────────────────────────────────────────────────────────────────
+
+  const startPolling = useCallback(() => {
+    if (pollRef.current) return
+    pollRef.current = setInterval(async () => {
+      const video = videoRef.current
+      if (!video || video.readyState < 2) return
+      const vw = video.videoWidth
+      const vh = video.videoHeight
+      if (!vw || !vh) return
+
+      const ratio = POLL_SIZE / Math.max(vw, vh)
+      const pw = Math.round(vw * ratio)
+      const ph = Math.round(vh * ratio)
+      const pc = pollCanvasRef.current
+      pc.width  = pw
+      pc.height = ph
+      pc.getContext('2d').drawImage(video, 0, 0, pw, ph)
+
+      const blob = await new Promise(r => pc.toBlob(r, 'image/jpeg', 0.7))
+      try {
+        const { detections } = await detectLivePreview(blob)
+        setLiveCount(detections.length)
+        drawOverlay(detections, vw, vh, pw, ph)
+      } catch (_) {}
+    }, POLL_INTERVAL)
+  }, [drawOverlay])
+
+  const stopPolling = useCallback(() => {
+    if (pollRef.current) { clearInterval(pollRef.current); pollRef.current = null }
+    setLiveCount(0)
+    if (overlayRef.current) {
+      const ctx = overlayRef.current.getContext('2d')
+      ctx.clearRect(0, 0, overlayRef.current.width, overlayRef.current.height)
+    }
+  }, [])
+
+  // ── Cámara ─────────────────────────────────────────────────────────────────
+
+  async function activateCamera() {
+    setCamError(null)
+    try {
+      const s = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: 'environment', width: { ideal: 1920 } },
+        audio: false,
+      })
+      setStream(s)
+      if (videoRef.current) {
+        videoRef.current.srcObject = s
+        videoRef.current.onloadedmetadata = () => startPolling()
+      }
+    } catch (err) {
+      setCamError('No se pudo acceder a la cámara: ' + err.message)
+    }
+  }
+
+  function stopCamera() {
+    stopPolling()
+    if (stream) { stream.getTracks().forEach(t => t.stop()); setStream(null) }
+    if (videoRef.current) videoRef.current.srcObject = null
+  }
+
+  useEffect(() => () => { stopPolling(); stream?.getTracks().forEach(t => t.stop()) }, [])  // cleanup al desmontar
+
+  // ── Captura ────────────────────────────────────────────────────────────────
+
+  async function handleCapture() {
+    const video = videoRef.current
+    if (!video || !video.videoWidth) return
+    const vw = video.videoWidth, vh = video.videoHeight
+    const ratio = Math.min(SNAP_SIZE / vw, SNAP_SIZE / vh, 1)
+    const snapCanvas = document.createElement('canvas')
+    snapCanvas.width  = Math.round(vw * ratio)
+    snapCanvas.height = Math.round(vh * ratio)
+    snapCanvas.getContext('2d').drawImage(video, 0, 0, snapCanvas.width, snapCanvas.height)
+    const blob = await new Promise(r => snapCanvas.toBlob(r, 'image/jpeg', 0.88))
+
+    setUploading(true)
+    setError(null)
+    setPreviewImage(null)
+    setLastAnnotated(null)
+    try {
+      const { quick_count, preview_image, job_id } = await detectPhotoQuick(blob, 25, accumulated.length)
+      setQuickCount(quick_count)
+      if (preview_image) setPreviewImage(`data:image/jpeg;base64,${preview_image}`)
+      setAnalyzing(n => n + 1)
+      pollPhotoJob(job_id, blob)
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setUploading(false)
+    }
+  }
 
   async function pollPhotoJob(jobId, blob) {
     for (let i = 0; i < 60; i++) {
@@ -32,39 +177,17 @@ export default function CameraCapture({ accumulated, onAccumulate, onClear }) {
           setAnalyzing(n => n - 1)
           return
         }
-      } catch (_) { /* reintenta en el siguiente tick */ }
+      } catch (_) {}
     }
     setError('Tiempo de espera agotado')
     setAnalyzing(n => n - 1)
   }
 
-  async function handleCapture(e) {
-    const file = e.target.files?.[0]
-    if (!file) return
-    e.target.value = ''
-    setUploading(true)
-    setError(null)
-    setPreviewImage(null)
-    setLastAnnotated(null)
-    try {
-      const blob = await compressImage(file)
-      const { quick_count, preview_image, job_id } = await detectPhotoQuick(blob, 25, accumulated.length)
-      setQuickCount(quick_count)
-      if (preview_image) setPreviewImage(`data:image/jpeg;base64,${preview_image}`)
-      setAnalyzing(n => n + 1)
-      pollPhotoJob(job_id, blob) // no await — corre en background
-    } catch (err) {
-      setError(err.message)
-    } finally {
-      setUploading(false)
-    }
-  }
+  // ── Render ─────────────────────────────────────────────────────────────────
 
   const analysisLabel = analyzing === 1
     ? 'Analizando 1 foto…'
-    : analyzing > 1
-      ? `Analizando ${analyzing} fotos…`
-      : null
+    : analyzing > 1 ? `Analizando ${analyzing} fotos…` : null
 
   return (
     <div className="det-stack">
@@ -78,41 +201,69 @@ export default function CameraCapture({ accumulated, onAccumulate, onClear }) {
         </div>
       )}
 
-      <input
-        ref={inputRef}
-        type="file"
-        accept="image/*"
-        capture="environment"
-        style={{ display: 'none' }}
-        onChange={handleCapture}
-      />
+      {/* Viewport de cámara con overlay */}
+      {stream && (
+        <div style={{ position: 'relative', width: '100%', borderRadius: 12, overflow: 'hidden', background: '#000' }}>
+          <video
+            ref={videoRef}
+            autoPlay playsInline muted
+            style={{ width: '100%', display: 'block' }}
+          />
+          <canvas
+            ref={overlayRef}
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none' }}
+          />
+          <div style={{
+            position: 'absolute', bottom: 8, left: 8,
+            background: 'rgba(0,0,0,0.6)', color: '#90EE90',
+            padding: '4px 10px', borderRadius: 8, fontSize: 14, fontWeight: 600,
+          }}>
+            🟢 {liveCount} tag{liveCount !== 1 ? 's' : ''} detectado{liveCount !== 1 ? 's' : ''}
+          </div>
+        </div>
+      )}
 
-      <button
-        className="det-capture-btn"
-        onClick={() => inputRef.current?.click()}
-        disabled={uploading}
-      >
-        {uploading
-          ? <><div className="det-spinner" style={{ borderTopColor: '#0f2519' }} /><span className="det-capture-btn__label">Subiendo…</span></>
-          : <>
-              <span className="det-capture-btn__icon">📷</span>
-              <span className="det-capture-btn__label">Capturar foto</span>
-              <span className="det-capture-btn__sublabel">
-                {analysisLabel ?? 'Apunta al palet y presiona'}
-              </span>
-            </>
-        }
-      </button>
+      {/* Botones de control de cámara */}
+      {!stream ? (
+        <button className="det-capture-btn" onClick={activateCamera}>
+          <span className="det-capture-btn__icon">📷</span>
+          <span className="det-capture-btn__label">Activar cámara</span>
+          <span className="det-capture-btn__sublabel">Vista previa en vivo con detección</span>
+        </button>
+      ) : (
+        <div style={{ display: 'flex', gap: 8 }}>
+          <button
+            className="det-capture-btn"
+            style={{ flex: 3 }}
+            onClick={handleCapture}
+            disabled={uploading}
+          >
+            {uploading
+              ? <><div className="det-spinner" style={{ borderTopColor: '#0f2519' }} /><span className="det-capture-btn__label">Subiendo…</span></>
+              : <>
+                  <span className="det-capture-btn__icon">📸</span>
+                  <span className="det-capture-btn__label">Capturar</span>
+                  <span className="det-capture-btn__sublabel">{analysisLabel ?? 'Cuando veas todos los tags en verde'}</span>
+                </>
+            }
+          </button>
+          <button
+            className="det-upload-btn"
+            style={{ flex: 1, minWidth: 0 }}
+            onClick={stopCamera}
+          >
+            ⏹
+          </button>
+        </div>
+      )}
 
-      {error && <div className="det-error">{error}</div>}
+      {camError && <div className="det-error">{camError}</div>}
+      {error    && <div className="det-error">{error}</div>}
 
       {quickCount !== null && (
         <div className={`det-quick-status ${analyzing > 0 ? 'det-quick-status--analyzing' : 'det-quick-status--done'}`}>
           {analyzing > 0
-            ? <>
-                <div className="det-spinner det-spinner--sm" />
-                <span>~{quickCount} tags detectados — analizando en detalle…</span>
-              </>
+            ? <><div className="det-spinner det-spinner--sm" /><span>~{quickCount} tags detectados — analizando en detalle…</span></>
             : lastFinalCount !== null
               ? <span>✓ {lastFinalCount} tags confirmados</span>
               : null

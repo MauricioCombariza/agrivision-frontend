@@ -48,3 +48,9 @@ export function startVideoDetection(file) {
 export function getVideoStatus(jobId) {
   return get(`/api/v1/detect/video/${jobId}`)
 }
+
+export function detectLivePreview(blob) {
+  const fd = new FormData()
+  fd.append('file', blob)
+  return post('/api/v1/detect/photo/live-preview', fd)
+}
