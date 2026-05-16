@@ -8,57 +8,119 @@ export default function PhotoUpload() {
   const [loading, setLoading] = useState(false)
   const [results, setResults] = useState([])
   const [accumulated, setAccumulated] = useState([])
+  const [expectedCount, setExpectedCount] = useState(null)
+  const [newInBatch, setNewInBatch] = useState(null)
+
+  function handleNewSession() {
+    setResults([])
+    setAccumulated([])
+    setNewInBatch(null)
+  }
 
   async function handleFiles(e) {
     const files = Array.from(e.target.files ?? [])
     if (!files.length) return
     e.target.value = ''
     setLoading(true)
-    setResults([])
-    setAccumulated([])
-    const photoResults = []
-    const accMap = new Map()
+    setNewInBatch(null)
+
+    // Snapshot del acumulado actual para calcular nuevos en este lote
+    const prevAccMap = new Map(accumulated.map(d => [d.tag_id, d]))
+    const accMap = new Map(prevAccMap)
+
     for (const file of files) {
+      const sizeBeforeFile = accMap.size
+      let result
       try {
         const compressed = await compressImage(file)
-        const res = await detectPhoto(compressed, 25, accMap.size)
+        const res = await detectPhoto(compressed, expectedCount, accMap.size)
         const annotatedUrl = await annotateImage(compressed, res.detections)
-        photoResults.push({ name: file.name, detections: res.detections, annotatedUrl })
         for (const d of res.detections) {
           const ex = accMap.get(d.tag_id)
           if (!ex || d.confidence > ex.confidence) accMap.set(d.tag_id, d)
         }
+        result = {
+          name: file.name,
+          detections: res.detections,
+          annotatedUrl,
+          newCount: accMap.size - sizeBeforeFile,
+        }
       } catch (err) {
-        photoResults.push({ name: file.name, detections: [], annotatedUrl: null, error: err.message })
+        result = { name: file.name, detections: [], annotatedUrl: null, newCount: 0, error: err.message }
       }
-      setResults([...photoResults])
+      setResults(prev => [...prev, result])
+      setAccumulated(Array.from(accMap.values()))
     }
-    setAccumulated(Array.from(accMap.values()))
+
+    setNewInBatch(accMap.size - prevAccMap.size)
     setLoading(false)
   }
 
+  const hasResults = accumulated.length > 0
+
   return (
     <div className="det-stack">
+      {/* Campo conteo esperado */}
+      <div className="det-expected-field">
+        <span className="det-expected-field__label">¿Cuántas cajas hay? <em style={{ fontStyle: 'normal', opacity: 0.6 }}>(opcional)</em></span>
+        <input
+          type="number"
+          min={1}
+          value={expectedCount ?? ''}
+          onChange={e => {
+            const v = parseInt(e.target.value)
+            setExpectedCount(isNaN(v) || v < 1 ? null : v)
+          }}
+          placeholder="—"
+          className="det-expected-field__input"
+        />
+        <span className="det-expected-field__unit">cajas</span>
+      </div>
+
       <p className="det-hint">
         Sube varias fotos desde distintos ángulos. Cada imagen se procesa con 7 variantes y tiling 2×2.
       </p>
 
       <input ref={inputRef} type="file" accept="image/*" multiple style={{ display: 'none' }} onChange={handleFiles} />
 
-      <button className="det-upload-btn" onClick={() => inputRef.current?.click()} disabled={loading}>
-        {loading
-          ? <><div className="det-spinner" /><span>Procesando…</span></>
-          : <><span className="det-upload-btn__icon">🖼️</span><span>Seleccionar fotos</span></>
-        }
-      </button>
+      <div style={{ display: 'flex', gap: '0.5rem' }}>
+        <button
+          className="det-upload-btn"
+          style={{ flex: 1 }}
+          onClick={() => inputRef.current?.click()}
+          disabled={loading}
+        >
+          {loading
+            ? <><div className="det-spinner" /><span>Procesando…</span></>
+            : <><span className="det-upload-btn__icon">🖼️</span><span>{hasResults ? 'Agregar más fotos' : 'Seleccionar fotos'}</span></>
+          }
+        </button>
+        {hasResults && !loading && (
+          <button className="det-btn-session" onClick={handleNewSession}>
+            Nueva sesión
+          </button>
+        )}
+      </div>
+
+      {/* Banner de convergencia (solo sin expectedCount) */}
+      {newInBatch !== null && !expectedCount && hasResults && (
+        <div className="det-convergence-banner">
+          {newInBatch === 0
+            ? 'Sin tags nuevos en la última carga — posiblemente completo'
+            : `+${newInBatch} tag${newInBatch !== 1 ? 's' : ''} nuevos en esta carga`}
+        </div>
+      )}
 
       {results.map((r, i) => (
         <div key={i} className="det-photo-card">
           <div className="det-photo-card__header">
             <span className="det-photo-card__name">{r.name}</span>
-            <span className="det-photo-card__count">
-              {r.error ? '⚠ error' : `${r.detections.length} tags`}
-            </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              {r.newCount > 0 && <span className="det-new-count">+{r.newCount} nuevos</span>}
+              <span className="det-photo-card__count">
+                {r.error ? '⚠ error' : `${r.detections.length} tags`}
+              </span>
+            </div>
           </div>
           <div className="det-photo-card__body">
             {r.error
@@ -81,13 +143,14 @@ export default function PhotoUpload() {
         </div>
       ))}
 
-      {accumulated.length > 0 && (
+      {hasResults && (
         <>
           <hr className="det-divider" />
           <p className="det-section-title">Resumen acumulado</p>
           <DetectionResults
             detections={accumulated}
-            onClear={() => { setResults([]); setAccumulated([]) }}
+            expectedCount={expectedCount}
+            onClear={handleNewSession}
           />
         </>
       )}
