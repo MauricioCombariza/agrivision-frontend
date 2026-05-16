@@ -34,7 +34,7 @@ export default function DetectionResults({ detections, expectedCount, onClear })
         <div className={`det-status-banner ${isComplete ? 'det-status-banner--complete' : 'det-status-banner--incomplete'}`}>
           {isComplete ? '✅' : '⚠️'} {detections.length}/{expectedCount}
           {' — '}
-          {isComplete ? 'Completo' : `Faltan ${missing} etiqueta${missing !== 1 ? 's' : ''}`}
+          {isComplete ? 'Todas las etiquetas leídas' : `Faltan ${missing} etiqueta${missing !== 1 ? 's' : ''}`}
           <div style={{ fontSize: '0.75rem', fontWeight: 400, marginTop: '0.25rem', opacity: 0.8, fontFamily: 'var(--font-mono)' }}>
             [{ids.join(' · ')}]
           </div>
