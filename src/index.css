@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 /* ═══════════════════════════════════════════════════════════
    AGRIVISION — Design System
    Palette: forest green + warm amber + cream parchment
@@ -1236,4 +1238,470 @@ ul, ol { list-style: none; }
 @media (max-width: 480px) {
   .footer__inner { grid-template-columns: 1fr; }
   .footer__brand { grid-column: span 1; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   DETECTOR PAGE
+   ═══════════════════════════════════════════════════════════ */
+
+/* ─── Layout ─────────────────────────────────────────────── */
+.det-page {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--forest-950);
+  font-family: var(--font-body);
+  color: var(--cream-100);
+}
+
+.det-header {
+  background: var(--forest-900);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  padding: 0.875rem 1.25rem;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.det-header__logo {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+.det-header__text h1 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--cream-50);
+  line-height: 1.2;
+}
+.det-header__text p {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--mist);
+  text-transform: uppercase;
+}
+
+.det-main {
+  flex: 1;
+  padding: 1.25rem 1rem 6.5rem;
+  max-width: 480px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ─── Tab bar ────────────────────────────────────────────── */
+.det-tabs {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--forest-900);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  z-index: 20;
+}
+.det-tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 0 0.75rem;
+  gap: 3px;
+  font-size: 0.7rem;
+  font-family: var(--font-body);
+  font-weight: 500;
+  color: var(--mist);
+  transition: color 0.2s, background 0.2s;
+  border-top: 2px solid transparent;
+  -webkit-tap-highlight-color: transparent;
+}
+.det-tab__icon { font-size: 1.35rem; line-height: 1; }
+.det-tab.active {
+  color: var(--amber-400);
+  border-top-color: var(--amber-400);
+  background: rgba(212,144,10,0.06);
+}
+
+/* ─── Banner acumulado ───────────────────────────────────── */
+.det-banner {
+  background: linear-gradient(135deg, var(--forest-800), var(--forest-700));
+  border: 1px solid var(--forest-600);
+  border-radius: 14px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+}
+.det-banner__title {
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--mist-light);
+  margin-bottom: 0.3rem;
+}
+.det-banner__count {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--amber-400);
+  line-height: 1;
+}
+.det-banner__ids {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--mist-light);
+  margin-top: 0.4rem;
+  word-break: break-all;
+  line-height: 1.5;
+}
+
+/* ─── Botón principal de captura ─────────────────────────── */
+.det-capture-btn {
+  width: 100%;
+  background: var(--amber-500);
+  color: var(--forest-950);
+  border: none;
+  border-radius: 18px;
+  padding: 1.25rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: background 0.18s, transform 0.12s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+}
+.det-capture-btn:active { background: var(--amber-400); transform: scale(0.98); }
+.det-capture-btn:disabled { background: var(--forest-700); color: var(--mist); cursor: not-allowed; transform: none; }
+.det-capture-btn__icon { font-size: 2.5rem; line-height: 1; }
+.det-capture-btn__label {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.det-capture-btn__sublabel {
+  font-size: 0.72rem;
+  opacity: 0.7;
+  font-family: var(--font-mono);
+}
+
+/* ─── Botón secundario (video, fotos) ────────────────────── */
+.det-upload-btn {
+  width: 100%;
+  background: var(--forest-800);
+  border: 1.5px solid var(--forest-600);
+  color: var(--cream-100);
+  border-radius: 14px;
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s, transform 0.12s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.det-upload-btn:active { background: var(--forest-700); transform: scale(0.98); }
+.det-upload-btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+.det-upload-btn__icon { font-size: 1.5rem; }
+
+/* ─── Descripción ────────────────────────────────────────── */
+.det-hint {
+  font-size: 0.82rem;
+  color: var(--mist);
+  line-height: 1.55;
+  margin-bottom: 1rem;
+}
+
+/* ─── Imagen anotada ─────────────────────────────────────── */
+.det-annotated {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--forest-700);
+  background: var(--forest-900);
+}
+.det-annotated__label {
+  padding: 0.5rem 0.875rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mist);
+  background: var(--forest-850);
+  border-bottom: 1px solid var(--forest-700);
+}
+.det-annotated img { width: 100%; display: block; }
+
+/* ─── Error ──────────────────────────────────────────────── */
+.det-error {
+  background: rgba(185, 40, 40, 0.12);
+  border: 1px solid rgba(185, 40, 40, 0.35);
+  border-radius: 12px;
+  padding: 0.875rem 1rem;
+  font-size: 0.83rem;
+  color: #f87171;
+}
+
+/* ─── Barra de progreso ──────────────────────────────────── */
+.det-progress {
+  background: var(--forest-800);
+  border: 1px solid var(--forest-600);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+}
+.det-progress__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+.det-progress__label {
+  font-size: 0.8rem;
+  color: var(--mist-light);
+  font-family: var(--font-mono);
+}
+.det-progress__pct {
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+  color: var(--amber-400);
+  font-weight: 600;
+}
+.det-progress__track {
+  height: 6px;
+  background: var(--forest-700);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.det-progress__bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--amber-600), var(--amber-400));
+  border-radius: 99px;
+  transition: width 0.35s var(--ease-out);
+}
+
+/* ─── Resultado por foto ─────────────────────────────────── */
+.det-photo-card {
+  background: var(--forest-900);
+  border: 1px solid var(--forest-700);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.det-photo-card__header {
+  padding: 0.6rem 1rem;
+  background: var(--forest-850);
+  border-bottom: 1px solid var(--forest-700);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+.det-photo-card__name {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--cream-200);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+.det-photo-card__count {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--amber-400);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.det-photo-card__body { padding: 0.75rem; }
+.det-photo-card__ids {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--mist-light);
+  margin-top: 0.5rem;
+  line-height: 1.5;
+}
+
+/* ─── Resultados ─────────────────────────────────────────── */
+.det-results { margin-top: 1.25rem; }
+.det-results__summary {
+  background: linear-gradient(135deg, var(--forest-800), var(--forest-700));
+  border: 1px solid var(--forest-600);
+  border-radius: 14px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.det-results__big {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  font-weight: 600;
+  color: var(--amber-400);
+  line-height: 1;
+  flex-shrink: 0;
+}
+.det-results__meta { min-width: 0; }
+.det-results__meta-title {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--cream-200);
+  margin-bottom: 0.2rem;
+}
+.det-results__meta-ids {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--mist-light);
+  word-break: break-all;
+  line-height: 1.5;
+}
+.det-table-wrap {
+  background: var(--forest-900);
+  border: 1px solid var(--forest-700);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+.det-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+.det-table th {
+  padding: 0.6rem 1rem;
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--mist);
+  background: var(--forest-850);
+  border-bottom: 1px solid var(--forest-700);
+}
+.det-table td {
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.det-table tr:last-child td { border-bottom: none; }
+.det-table__id {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--amber-300);
+  font-size: 0.9rem;
+}
+.det-badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 99px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  font-family: var(--font-mono);
+}
+.det-badge--high { background: rgba(82,183,136,0.15); color: var(--forest-300); border: 1px solid rgba(82,183,136,0.3); }
+.det-badge--mid  { background: rgba(212,144,10,0.15); color: var(--amber-300); border: 1px solid rgba(212,144,10,0.3); }
+.det-badge--low  { background: rgba(185,40,40,0.12); color: #f87171; border: 1px solid rgba(185,40,40,0.25); }
+
+/* ─── Botones de acción ──────────────────────────────────── */
+.det-actions { display: flex; gap: 0.625rem; }
+.det-btn-primary {
+  flex: 1;
+  background: var(--amber-500);
+  color: var(--forest-950);
+  border: none;
+  border-radius: 12px;
+  padding: 0.875rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: background 0.18s, transform 0.12s;
+  -webkit-tap-highlight-color: transparent;
+}
+.det-btn-primary:active { background: var(--amber-400); transform: scale(0.98); }
+.det-btn-ghost {
+  background: transparent;
+  color: var(--mist-light);
+  border: 1px solid var(--forest-700);
+  border-radius: 12px;
+  padding: 0.875rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.18s, transform 0.12s;
+  -webkit-tap-highlight-color: transparent;
+}
+.det-btn-ghost:active { background: var(--forest-800); transform: scale(0.98); }
+
+/* ─── Divisor ────────────────────────────────────────────── */
+.det-divider {
+  border: none;
+  border-top: 1px solid var(--forest-800);
+  margin: 1.25rem 0 1rem;
+}
+.det-section-title {
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--mist);
+  margin-bottom: 0.75rem;
+}
+
+/* ─── Spinner ────────────────────────────────────────────── */
+@keyframes det-spin { to { transform: rotate(360deg); } }
+.det-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2.5px solid rgba(15,37,25,0.3);
+  border-top-color: var(--forest-950);
+  border-radius: 50%;
+  animation: det-spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+/* ─── Espacio entre elementos ────────────────────────────── */
+.det-stack { display: flex; flex-direction: column; gap: 0.875rem; }
+
+/* ─── Spinner pequeño (inline) ───────────────────────────── */
+.det-spinner--sm {
+  width: 14px;
+  height: 14px;
+  border-width: 2px;
+}
+
+/* ─── Estado rápido post-captura ─────────────────────────── */
+.det-quick-status {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.65rem 1rem;
+  border-radius: 10px;
+  font-size: 0.84rem;
+  font-family: var(--font-mono);
+  transition: background 0.3s, color 0.3s;
+}
+.det-quick-status--analyzing {
+  background: rgba(212, 144, 10, 0.12);
+  border: 1px solid rgba(212, 144, 10, 0.3);
+  color: var(--amber-400);
+}
+.det-quick-status--analyzing .det-spinner {
+  border-color: rgba(212,144,10,0.25);
+  border-top-color: var(--amber-400);
+}
+.det-quick-status--done {
+  background: rgba(32, 200, 50, 0.08);
+  border: 1px solid rgba(32, 200, 50, 0.25);
+  color: #20c832;
 }
