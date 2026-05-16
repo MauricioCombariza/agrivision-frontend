@@ -11,6 +11,11 @@ export default function CameraCapture({ accumulated, onAccumulate, onClear }) {
   const [lastAnnotated, setLastAnnotated] = useState(null)
   const [lastFinalCount, setLastFinalCount] = useState(null)
   const [error, setError]               = useState(null)
+  const [expectedCount, setExpectedCount] = useState(null)
+  const [caajasSinLeer, setCaajasSinLeer] = useState(null)
+  const [lockedExpected, setLockedExpected] = useState(null)
+
+  const effectiveExpected = lockedExpected ?? expectedCount
 
   async function pollPhotoJob(jobId, blob) {
     for (let i = 0; i < 60; i++) {
@@ -44,7 +49,7 @@ export default function CameraCapture({ accumulated, onAccumulate, onClear }) {
     setError(null)
     try {
       const blob = await compressImage(file)
-      const { quick_count, job_id } = await detectPhotoQuick(blob, 25, accumulated.length)
+      const { quick_count, job_id } = await detectPhotoQuick(blob, effectiveExpected, accumulated.length)
       setQuickCount(quick_count)
       setAnalyzing(n => n + 1)
       pollPhotoJob(job_id, blob) // no await — corre en background
@@ -63,6 +68,47 @@ export default function CameraCapture({ accumulated, onAccumulate, onClear }) {
 
   return (
     <div className="det-stack">
+      {/* Campo conteo esperado total */}
+      <div className="det-expected-field">
+        <span className="det-expected-field__label">¿Cuántas cajas hay? <em style={{ fontStyle: 'normal', opacity: 0.6 }}>(opcional)</em></span>
+        <input
+          type="number"
+          min={1}
+          value={expectedCount ?? ''}
+          onChange={e => {
+            const v = parseInt(e.target.value)
+            setExpectedCount(isNaN(v) || v < 1 ? null : v)
+            setCaajasSinLeer(null)
+            setLockedExpected(null)
+          }}
+          placeholder="—"
+          className="det-expected-field__input"
+          disabled={lockedExpected != null}
+        />
+        <span className="det-expected-field__unit">cajas</span>
+      </div>
+
+      {/* Campo cajas sin leer */}
+      <div className="det-expected-field">
+        <span className="det-expected-field__label">Cajas sin leer <em style={{ fontStyle: 'normal', opacity: 0.6 }}>(opcional)</em></span>
+        <input
+          type="number"
+          min={0}
+          value={caajasSinLeer ?? ''}
+          onChange={e => {
+            const v = parseInt(e.target.value)
+            const val = isNaN(v) || v < 0 ? null : v
+            setCaajasSinLeer(val)
+            setLockedExpected(val != null ? accumulated.length + val : null)
+            if (val != null) setExpectedCount(null)
+          }}
+          placeholder="—"
+          className="det-expected-field__input"
+          disabled={expectedCount != null}
+        />
+        <span className="det-expected-field__unit">cajas</span>
+      </div>
+
       {accumulated.length > 0 && (
         <div className="det-banner">
           <div className="det-banner__title">Tags acumulados</div>
@@ -125,7 +171,7 @@ export default function CameraCapture({ accumulated, onAccumulate, onClear }) {
       )}
 
       {accumulated.length > 0 && (
-        <DetectionResults detections={accumulated} onClear={onClear} />
+        <DetectionResults detections={accumulated} expectedCount={effectiveExpected} onClear={onClear} />
       )}
     </div>
   )
