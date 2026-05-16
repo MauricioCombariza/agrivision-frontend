@@ -1705,3 +1705,88 @@ ul, ol { list-style: none; }
   border: 1px solid rgba(32, 200, 50, 0.25);
   color: #20c832;
 }
+
+/* ─── Expected count + coverage status ─────────────────── */
+.det-expected-field {
+  background: var(--forest-850);
+  border: 1px solid rgba(82,183,136,0.2);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.det-expected-field__label {
+  font-size: 0.78rem;
+  color: var(--mist-light);
+  flex: 1;
+}
+.det-expected-field__input {
+  width: 4rem;
+  background: var(--forest-900);
+  border: 1px solid rgba(82,183,136,0.3);
+  border-radius: 8px;
+  color: var(--cream-50);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 0.3rem 0.4rem;
+  outline: none;
+}
+.det-expected-field__input:focus {
+  border-color: var(--amber-500);
+}
+.det-expected-field__unit {
+  font-size: 0.78rem;
+  color: var(--mist);
+}
+.det-status-banner {
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.det-status-banner--complete {
+  background: rgba(82,183,136,0.12);
+  border: 1px solid rgba(82,183,136,0.35);
+  color: var(--forest-300);
+}
+.det-status-banner--incomplete {
+  background: rgba(212,144,10,0.10);
+  border: 1px solid rgba(212,144,10,0.3);
+  color: var(--amber-300);
+}
+.det-convergence-banner {
+  border-radius: 12px;
+  padding: 0.65rem 1rem;
+  font-size: 0.82rem;
+  border: 1px solid rgba(82,183,136,0.2);
+  background: rgba(82,183,136,0.07);
+  color: var(--forest-300);
+}
+.det-new-count {
+  font-size: 0.72rem;
+  color: var(--forest-300);
+  font-weight: 600;
+}
+.det-low-conf-warning {
+  border-radius: 10px;
+  padding: 0.6rem 0.875rem;
+  font-size: 0.78rem;
+  background: rgba(185,40,40,0.08);
+  border: 1px solid rgba(185,40,40,0.2);
+  color: #f87171;
+}
+.det-btn-session {
+  background: var(--forest-800);
+  border: 1px solid rgba(82,183,136,0.2);
+  border-radius: 12px;
+  color: var(--mist-light);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+.det-btn-session:active { background: var(--forest-700); }
