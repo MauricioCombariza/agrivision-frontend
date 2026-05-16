@@ -17,6 +17,13 @@ export default function CameraCapture({ accumulated, onAccumulate, onClear }) {
 
   const effectiveExpected = lockedExpected ?? expectedCount
 
+  function handleClear() {
+    setExpectedCount(null)
+    setCaajasSinLeer(null)
+    setLockedExpected(null)
+    onClear()
+  }
+
   async function pollPhotoJob(jobId, blob) {
     for (let i = 0; i < 60; i++) {
       await new Promise(r => setTimeout(r, 400))
@@ -171,7 +178,7 @@ export default function CameraCapture({ accumulated, onAccumulate, onClear }) {
       )}
 
       {accumulated.length > 0 && (
-        <DetectionResults detections={accumulated} expectedCount={effectiveExpected} onClear={onClear} />
+        <DetectionResults detections={accumulated} expectedCount={effectiveExpected} onClear={handleClear} />
       )}
     </div>
   )
