@@ -9,12 +9,18 @@ export default function PhotoUpload() {
   const [results, setResults] = useState([])
   const [accumulated, setAccumulated] = useState([])
   const [expectedCount, setExpectedCount] = useState(null)
+  const [caajasSinLeer, setCaajasSinLeer] = useState(null)
+  const [lockedExpected, setLockedExpected] = useState(null)
   const [newInBatch, setNewInBatch] = useState(null)
+
+  const effectiveExpected = lockedExpected ?? expectedCount
 
   function handleNewSession() {
     setResults([])
     setAccumulated([])
     setNewInBatch(null)
+    setCaajasSinLeer(null)
+    setLockedExpected(null)
   }
 
   async function handleFiles(e) {
@@ -33,7 +39,7 @@ export default function PhotoUpload() {
       let result
       try {
         const compressed = await compressImage(file)
-        const res = await detectPhoto(compressed, expectedCount, accMap.size)
+        const res = await detectPhoto(compressed, effectiveExpected, accMap.size)
         const annotatedUrl = await annotateImage(compressed, res.detections)
         for (const d of res.detections) {
           const ex = accMap.get(d.tag_id)
@@ -60,7 +66,7 @@ export default function PhotoUpload() {
 
   return (
     <div className="det-stack">
-      {/* Campo conteo esperado */}
+      {/* Campo conteo esperado total */}
       <div className="det-expected-field">
         <span className="det-expected-field__label">¿Cuántas cajas hay? <em style={{ fontStyle: 'normal', opacity: 0.6 }}>(opcional)</em></span>
         <input
@@ -70,9 +76,33 @@ export default function PhotoUpload() {
           onChange={e => {
             const v = parseInt(e.target.value)
             setExpectedCount(isNaN(v) || v < 1 ? null : v)
+            setCaajasSinLeer(null)
+            setLockedExpected(null)
           }}
           placeholder="—"
           className="det-expected-field__input"
+          disabled={lockedExpected != null}
+        />
+        <span className="det-expected-field__unit">cajas</span>
+      </div>
+
+      {/* Campo cajas sin leer */}
+      <div className="det-expected-field">
+        <span className="det-expected-field__label">Cajas sin leer <em style={{ fontStyle: 'normal', opacity: 0.6 }}>(opcional)</em></span>
+        <input
+          type="number"
+          min={0}
+          value={caajasSinLeer ?? ''}
+          onChange={e => {
+            const v = parseInt(e.target.value)
+            const val = isNaN(v) || v < 0 ? null : v
+            setCaajasSinLeer(val)
+            setLockedExpected(val != null ? accumulated.length + val : null)
+            if (val != null) setExpectedCount(null)
+          }}
+          placeholder="—"
+          className="det-expected-field__input"
+          disabled={expectedCount != null}
         />
         <span className="det-expected-field__unit">cajas</span>
       </div>
@@ -102,8 +132,8 @@ export default function PhotoUpload() {
         )}
       </div>
 
-      {/* Banner de convergencia (solo sin expectedCount) */}
-      {newInBatch !== null && !expectedCount && hasResults && (
+      {/* Banner de convergencia (solo sin effectiveExpected) */}
+      {newInBatch !== null && !effectiveExpected && hasResults && (
         <div className="det-convergence-banner">
           {newInBatch === 0
             ? 'Sin tags nuevos en la última carga — posiblemente completo'
@@ -149,7 +179,7 @@ export default function PhotoUpload() {
           <p className="det-section-title">Resumen acumulado</p>
           <DetectionResults
             detections={accumulated}
-            expectedCount={expectedCount}
+            expectedCount={effectiveExpected}
             onClear={handleNewSession}
           />
         </>
