@@ -48,3 +48,9 @@ export function startVideoDetection(file) {
 export function getVideoStatus(jobId) {
   return get(`/api/v1/detect/video/${jobId}`)
 }
+
+export function detectCajasPhoto(file) {
+  const fd = new FormData()
+  fd.append('file', file)
+  return post('/api/v1/cajas/photo', fd)
+}

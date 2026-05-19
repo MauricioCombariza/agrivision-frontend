@@ -1790,3 +1790,145 @@ ul, ol { list-style: none; }
   white-space: nowrap;
 }
 .det-btn-session:active { background: var(--forest-700); }
+
+/* ─── Conteo Cajas ───────────────────────────────────────── */
+.cajas-card {
+  background: var(--forest-850);
+  border: 1px solid var(--forest-700);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.cajas-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.875rem;
+  background: var(--forest-800);
+  border-bottom: 1px solid var(--forest-700);
+}
+.cajas-card__title { font-size: 0.82rem; font-weight: 600; color: var(--mist-faint); }
+.cajas-card__badges { display: flex; align-items: center; gap: 0.5rem; }
+.cajas-badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+}
+.cajas-badge--blue { background: rgba(59,130,246,0.15); color: #93c5fd; border: 1px solid rgba(59,130,246,0.3); }
+.cajas-badge--warn { background: rgba(245,158,11,0.12); color: var(--amber-300); border: 1px solid rgba(245,158,11,0.3); }
+.cajas-card__remove {
+  background: none;
+  border: none;
+  color: var(--mist);
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 0.1rem;
+}
+.cajas-card__remove:hover { color: #f87171; }
+.cajas-card__controls {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.75rem 0.875rem 0;
+}
+.cajas-adj { flex: 1; display: flex; flex-direction: column; gap: 0.3rem; }
+.cajas-adj__label { font-size: 0.72rem; color: var(--mist-light); }
+.cajas-stepper {
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  border: 1.5px solid var(--forest-600);
+  background: var(--forest-900);
+  overflow: hidden;
+}
+.cajas-stepper--green { border-color: rgba(52,211,153,0.45); }
+.cajas-stepper--red   { border-color: rgba(248,113,113,0.45); }
+.cajas-stepper__btn {
+  flex: 0 0 2.6rem;
+  height: 2.8rem;
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--mist-light);
+  transition: background 0.15s, color 0.15s;
+  line-height: 1;
+}
+.cajas-stepper--green .cajas-stepper__btn:active { background: rgba(52,211,153,0.15); color: #6ee7b7; }
+.cajas-stepper--red   .cajas-stepper__btn:active { background: rgba(248,113,113,0.15); color: #fca5a5; }
+.cajas-stepper__val {
+  flex: 1;
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+  pointer-events: none;
+}
+.cajas-stepper--green .cajas-stepper__val { color: #6ee7b7; }
+.cajas-stepper--red   .cajas-stepper__val { color: #fca5a5; }
+.cajas-card__subtotal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 0.875rem 0.75rem;
+  margin-top: 0.5rem;
+  border-top: 1px solid var(--forest-700);
+  font-size: 0.82rem;
+  color: var(--mist-light);
+}
+.cajas-card__subtotal-val { font-size: 1.6rem; font-weight: 700; color: var(--cream); }
+.cajas-summary {
+  background: var(--forest-850);
+  border: 1px solid var(--forest-700);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.cajas-summary__header {
+  padding: 0.6rem 0.875rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--mist-faint);
+  background: var(--forest-800);
+  border-bottom: 1px solid var(--forest-700);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.cajas-summary__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  display: table;
+}
+.cajas-summary__table th, .cajas-summary__table td {
+  padding: 0.35rem 0.875rem;
+  text-align: center;
+  color: var(--mist-faint);
+  border-bottom: 1px solid var(--forest-800);
+}
+.cajas-summary__table th { font-size: 0.72rem; color: var(--mist); text-transform: uppercase; letter-spacing: 0.05em; }
+.cajas-summary__table td:first-child, .cajas-summary__table th:first-child { text-align: left; }
+.cajas-summary__table td:last-child,  .cajas-summary__table th:last-child  { text-align: right; }
+.cajas-col-green { color: #6ee7b7 !important; }
+.cajas-col-red   { color: #fca5a5 !important; }
+.cajas-summary__total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.875rem;
+  background: var(--forest-950);
+  font-size: 0.9rem;
+  color: var(--mist-light);
+}
+.cajas-summary__total-val { font-size: 2.5rem; font-weight: 700; color: var(--amber-400); line-height: 1; }
+.cajas-reset-btn {
+  width: 100%;
+  background: none;
+  border: none;
+  border-top: 1px solid var(--forest-700);
+  padding: 0.7rem;
+  font-size: 0.82rem;
+  color: var(--mist);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.cajas-reset-btn:hover { background: var(--forest-800); color: #f87171; }
