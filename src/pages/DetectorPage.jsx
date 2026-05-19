@@ -2,9 +2,11 @@ import { useState } from 'react'
 import CameraCapture from '../components/detector/CameraCapture'
 import VideoUpload from '../components/detector/VideoUpload'
 import PhotoUpload from '../components/detector/PhotoUpload'
+import CajasCapture from '../components/detector/CajasCapture'
 
 const TABS = [
   { id: 'camera', label: 'Cámara', icon: '📷' },
+  { id: 'cajas',  label: 'Cajas',  icon: '📦' },
   { id: 'video',  label: 'Video',  icon: '🎬' },
   { id: 'photos', label: 'Fotos',  icon: '🖼️' },
 ]
@@ -55,6 +57,7 @@ export default function DetectorPage() {
         )}
         {tab === 'video'  && <VideoUpload />}
         {tab === 'photos' && <PhotoUpload />}
+        {tab === 'cajas'  && <CajasCapture />}
       </main>
 
       <nav className="det-tabs">
