@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "skills": {
+    "blueprint": {
+      "source": "affaan-m/everything-claude-code",
+      "sourceType": "github",
+      "computedHash": "b662737f0ae3e589b59f141d219d8cf837f68cdd078c0e860bd82f62392ba12d"
+    },
+    "business-model-canvas": {
+      "source": "scientiacapital/skills",
+      "sourceType": "github",
+      "computedHash": "4050ea4b310103e9039269820ba092a8e325499c375cd1389c7229cf901f14cf"
+    },
+    "data-storytelling": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/business-analytics/skills/data-storytelling/SKILL.md",
+      "computedHash": "eca30a8c6e0931beb9688484381eae2864358158edf6bfed1072927d2b2ff582"
+    },
+    "elevator-pitch-techniques": {
+      "source": "mike-coulbourn/claude-vibes",
+      "sourceType": "github",
+      "computedHash": "1911a50e441f1f89d24635d8b567fd07b929567e3445ff2cc66cd29c17a5074e"
+    },
+    "lean-canvas": {
+      "source": "phuryn/pm-skills",
+      "sourceType": "github",
+      "computedHash": "4e470bd694c6535c9c316c17f5ab877299d11aea3967f2fe8b92d1511eeaff93"
+    },
+    "markdown-to-pdf": {
+      "source": "duc01226/easyplatform",
+      "sourceType": "github",
+      "computedHash": "811c15488232eb0dc003191a5c9416e205996433601e9b519b85a6e23cd6b015"
+    },
+    "market-sizing-analysis": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/startup-business-analyst/skills/market-sizing-analysis/SKILL.md",
+      "computedHash": "06da5bf568d0af6a8c493e8091edff291eb11de7b0a906b02a182c93dfcf5681"
+    },
+    "one-page-marketing": {
+      "source": "wondelai/skills",
+      "sourceType": "github",
+      "computedHash": "ed78a23d5fa521f3ec1760f8be816db053fd5b5945a16669e9806fe23241056b"
+    },
+    "product-strategy-session": {
+      "source": "deanpeters/product-manager-skills",
+      "sourceType": "github",
+      "computedHash": "7dbe56d6ec799595edf916cc8fbcca87694ef4e832fac5a90382d543e3dfbcab"
+    }
+  }
+}
