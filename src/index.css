@@ -398,6 +398,27 @@ ul, ol { list-style: none; }
 .hero__btn-primary:hover { background: var(--amber-400); transform: translateY(-2px); }
 .hero__btn-primary svg { transition: transform 0.2s; }
 .hero__btn-primary:hover svg { transform: translateX(4px); }
+.hero__btn-pitch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--amber-500);
+  padding: 0.85rem 1.6rem;
+  border: 1px solid rgba(212, 144, 10, 0.4);
+  border-radius: 3px;
+  text-decoration: none;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+.hero__btn-pitch:hover {
+  background: rgba(212, 144, 10, 0.08);
+  border-color: var(--amber-500);
+  transform: translateY(-1px);
+}
+.hero__btn-pitch svg { transition: transform 0.2s; }
+.hero__btn-pitch:hover svg { transform: translateX(3px); }
 .hero__cta-sub {
   font-family: var(--font-mono);
   font-size: 0.7rem;

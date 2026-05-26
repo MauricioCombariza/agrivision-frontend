@@ -35,7 +35,7 @@ export default function Navbar({ onLoginClick }) {
             <span className="navbar__wordmark">AgriVision</span>
           </a>
           <div className="navbar__actions">
-            <a href="/pitch.html" className="navbar__lang" style={{ textDecoration: 'none' }}>
+            <a href="/combariza/pitch.html" className="navbar__lang" style={{ textDecoration: 'none' }} target="_blank" rel="noopener">
               Pitch
             </a>
             <button className="navbar__lang" onClick={toggleLang} aria-label="Switch language">

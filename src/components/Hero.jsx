@@ -62,6 +62,12 @@ export default function Hero({ onDemoClick }) {
                     <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </button>
+                <a href="/combariza/pitch.html" className="hero__btn-pitch" target="_blank" rel="noopener">
+                  Ver Pitch
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </a>
                 <span className="hero__cta-sub">{h.ctaSub}</span>
               </div>
             </div>
