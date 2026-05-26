@@ -1,0 +1,1736 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgriVision — Pitch v2 · CEIS · APRUEBA · Piqueras</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── Brand tokens ─────────────────────────────────── */
+    :root {
+      --verde:      #0f2519;
+      --verde-deep: #080e0a;
+      --verde-mid:  #1a3d28;
+      --dorado:     #d4900a;
+      --dorado-dim: rgba(212,144,10,0.18);
+      --crema:      #f5f0e8;
+      --crema-dim:  rgba(245,240,232,0.55);
+    }
+
+    /* ── Reveal overrides ─────────────────────────────── */
+    .reveal-viewport         { background: var(--verde); }
+    .reveal                  { font-family: 'DM Sans', 'Helvetica Neue', Arial, sans-serif; color: var(--crema); }
+    .reveal h1,
+    .reveal h2,
+    .reveal h3               { font-family: 'Cormorant Garamond', Georgia, serif; color: var(--crema); text-transform: none; text-shadow: none; letter-spacing: 0.02em; line-height: 1.15; }
+    .reveal .slides section  { text-align: left; padding: 44px 72px; box-sizing: border-box; }
+    .reveal .slides > section,
+    .reveal .slides > section > section { height: 100%; }
+    .reveal .progress        { display: none !important; }
+    .reveal .slide-number,
+    .reveal aside.controls   { display: none !important; }
+
+    /* ── Timer / progress / auto ──────────────────────── */
+    #pitch-timer {
+      display: none;
+      position: fixed; top: 18px; right: 22px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem; letter-spacing: 0.12em;
+      color: var(--dorado); opacity: 0.55; z-index: 9999;
+    }
+    #auto-indicator {
+      position: fixed; bottom: 18px; left: 22px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem; letter-spacing: 0.2em;
+      color: var(--dorado); opacity: 0; z-index: 9999;
+      transition: opacity 0.3s; pointer-events: none;
+    }
+    #slide-progress {
+      position: fixed; top: 0; left: 0;
+      height: 2px; width: 100%;
+      background: var(--dorado); opacity: 0;
+      transform-origin: left; z-index: 9999; pointer-events: none;
+    }
+
+    /* ── Reusable components ──────────────────────────── */
+    .gold-bar { width: 44px; height: 3px; background: var(--dorado); margin-bottom: 16px; opacity: 0.85; }
+    .label {
+      font-family: 'DM Sans', sans-serif; font-size: 0.65em; font-weight: 400;
+      letter-spacing: 0.22em; text-transform: uppercase; color: var(--dorado); margin: 0 0 12px;
+    }
+    .big-stat { font-family: 'Cormorant Garamond', serif; font-weight: 700; color: var(--dorado); line-height: 1; }
+    .stat-label {
+      font-family: 'DM Sans', sans-serif; font-size: 0.68em;
+      text-transform: uppercase; letter-spacing: 0.1em; color: var(--crema); opacity: 0.55; margin-top: 6px;
+    }
+    .quote {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.5em;
+      font-style: italic; font-weight: 400; line-height: 1.4; color: var(--crema); max-width: 820px;
+    }
+    .logo-inline { display: block; }
+    .center-slide { text-align: center !important; display: flex !important; flex-direction: column; align-items: center; justify-content: center; }
+    .section-tag {
+      font-family: 'DM Mono', monospace; font-size: 0.5em;
+      letter-spacing: 0.3em; color: var(--dorado); opacity: 0.4; margin-bottom: 6px;
+    }
+
+    /* ── THUNDER EFFECT ───────────────────────────────── */
+
+    /* El wrapper fragment siempre visible — la palabra interna controla la animación */
+    .reveal .slides section .fragment.thunder-trigger {
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    /* Estado inicial de la palabra interna — oculta */
+    .thunder-inner {
+      display: block;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      line-height: 1.05;
+      padding: 4px 0;
+      opacity: 0;
+      will-change: transform, opacity, filter;
+    }
+
+    /* ── Entrada: thunder-fall ──────────────────────── */
+    @keyframes thunder-fall {
+      0%   { opacity: 0; transform: translateY(-280px) scaleY(0.25); filter: brightness(3) blur(18px); }
+      35%  { filter: brightness(1.8) blur(6px); }
+      72%  { transform: translateY(12px) scaleY(1.03); opacity: 1; }
+      88%  { transform: translateY(-6px) scaleY(0.98); }
+      100% { transform: translateY(0) scaleY(1); filter: brightness(1) blur(0); opacity: 1; }
+    }
+    .thunder-inner.is-active {
+      animation: thunder-fall 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    /* Las SALIDAS se controlan 100% desde JavaScript con CSS transitions */
+
+    /* ── S10 — Horizon cards (replace each other) ── */
+    .reveal .slides section .fragment.horizon-trigger {
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+    .horizon-inner {
+      opacity: 0;
+      will-change: transform, opacity;
+    }
+    @keyframes horizon-enter {
+      0%   { opacity: 0; transform: translateX(64px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+    .horizon-inner.h-active {
+      animation: horizon-enter 0.52s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    /* Flash overlay */
+    @keyframes screen-flash {
+      0%   { opacity: 0.65; }
+      100% { opacity: 0; }
+    }
+    .flash-overlay {
+      position: fixed; inset: 0; pointer-events: none; z-index: 9997;
+      background: radial-gradient(ellipse at 50% 30%,
+        rgba(255,255,255,0.85) 0%, rgba(212,144,10,0.5) 45%, transparent 80%);
+      animation: screen-flash 0.38s ease-out forwards;
+    }
+
+    /* ── S06 — Excel strike-through ───────────────────── */
+    @keyframes do-strike {
+      0%   { text-decoration-color: transparent; }
+      100% { text-decoration-color: rgba(192,57,43,0.9); }
+    }
+    .number-struck {
+      text-decoration: line-through;
+      text-decoration-thickness: 4px;
+      animation: do-strike 0.35s ease-out forwards;
+      opacity: 0.35 !important;
+      color: var(--crema-dim) !important;
+      transition: opacity 0.3s, color 0.3s;
+    }
+
+    /* ── S09 — Process flow ───────────────────────────── */
+    .process-flow {
+      display: flex; gap: 0; align-items: center; margin-top: 32px;
+    }
+    .proc-node {
+      flex: 1; padding: 0 24px 0 0;
+    }
+    .proc-icon { font-size: 2.2em; margin-bottom: 12px; }
+    .proc-title {
+      font-family: 'DM Mono', monospace; font-size: 0.58em;
+      letter-spacing: 0.18em; color: var(--dorado); text-transform: uppercase; margin-bottom: 8px;
+    }
+    .proc-text {
+      font-family: 'DM Sans', sans-serif; font-size: 0.78em;
+      color: var(--crema); opacity: 0.7; line-height: 1.45;
+    }
+    .proc-arrow {
+      font-family: 'DM Mono', monospace; font-size: 1.4em;
+      color: var(--dorado); opacity: 0.4; flex-shrink: 0; padding: 0 8px;
+    }
+
+    /* ── S10 — Horizontes timeline ────────────────────── */
+    .horizons {
+      display: flex; gap: 0; margin-top: 36px;
+    }
+    .h-node {
+      flex: 1; padding-right: 20px;
+    }
+    .h-node:not(:last-child) { border-right: 1px solid rgba(212,144,10,0.22); margin-right: 20px; }
+    .h-time {
+      font-family: 'DM Mono', monospace; font-size: 0.62em;
+      color: var(--dorado); letter-spacing: 0.12em; margin-bottom: 10px;
+    }
+    .h-time.accent { font-size: 0.78em; color: var(--dorado); }
+    .h-use {
+      font-family: 'DM Sans', sans-serif; font-size: 0.72em;
+      color: var(--crema); opacity: 0.6; line-height: 1.45;
+    }
+
+    /* ── S11 — Benefits ───────────────────────────────── */
+    .benefit-row {
+      display: flex; align-items: flex-start; gap: 22px;
+      padding: 14px 0; border-bottom: 1px solid rgba(212,144,10,0.1);
+    }
+    .benefit-icon { font-size: 1.4em; flex-shrink: 0; margin-top: 2px; width: 36px; }
+    .benefit-text { font-family: 'DM Sans', sans-serif; font-size: 0.9em; color: var(--crema); line-height: 1.4; }
+    .benefit-text strong { color: var(--dorado); font-weight: 500; }
+
+    /* ── S13 — CTA capabilities ──────────────────────── */
+    .cap-row {
+      display: flex; align-items: center; gap: 16px;
+      padding: 10px 0;
+    }
+    .cap-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--dorado); opacity: 0.6; flex-shrink: 0;
+    }
+    .cap-text {
+      font-family: 'DM Sans', sans-serif; font-size: 0.88em;
+      color: var(--crema); opacity: 0.8;
+    }
+
+    /* ── Vertical gold separator ──────────────────────── */
+    .vsep {
+      width: 1px; background: rgba(212,144,10,0.3);
+      align-self: stretch; margin: 0 48px; flex-shrink: 0;
+    }
+
+    /* ── Section label badge (top-right) ─────────────── */
+    .badge {
+      position: absolute; top: 20px; right: 28px;
+      font-family: 'DM Mono', monospace; font-size: 0.5em;
+      letter-spacing: 0.3em; color: var(--dorado); opacity: 0.25;
+    }
+
+    /* ── 4a · Toast de atajos de teclado ─────────────── */
+    #key-hint {
+      position: fixed; bottom: 28px; right: 28px;
+      font-family: 'DM Mono', monospace; font-size: 0.52rem;
+      letter-spacing: 0.14em; color: var(--dorado); opacity: 0;
+      background: rgba(8,14,10,0.88); border: 1px solid rgba(212,144,10,0.25);
+      border-radius: 4px; padding: 9px 16px; z-index: 9999;
+      pointer-events: none;
+      animation: toast-appear 0.6s ease-out 0.8s both, toast-fade-out 1.2s ease-in 5.5s both;
+    }
+    @keyframes toast-appear {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 0.72; transform: translateY(0); }
+    }
+    @keyframes toast-fade-out {
+      from { opacity: 0.72; }
+      to   { opacity: 0; }
+    }
+
+    /* ── 4d · Pulso del ask ($10M) ───────────────────── */
+    @keyframes ask-pulse {
+      0%, 100% { transform: scale(1); }
+      50%      { transform: scale(1.016); }
+    }
+    .ask-number {
+      display: inline-block;
+      animation: ask-pulse 2.5s ease-in-out infinite;
+    }
+
+    /* ── 4e · Línea de respiración (S01) ─────────────── */
+    @keyframes breathe-line {
+      0%, 100% { opacity: 0.15; }
+      50%      { opacity: 0.5; }
+    }
+    .breathe-sep {
+      animation: breathe-line 3s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body>
+
+<div id="pitch-timer">0:00</div>
+<div id="auto-indicator">AUTO ▶</div>
+<div id="slide-progress"></div>
+<div id="key-hint">→ navegar &nbsp;·&nbsp; A auto &nbsp;·&nbsp; T timer &nbsp;·&nbsp; ESC vista general</div>
+
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ════════════════════════════════════════════════
+         S01 · PORTADA
+         Manual — esperar silencio antes de comenzar
+    ════════════════════════════════════════════════ -->
+    <section class="center-slide" data-background-color="#080e0a">
+      <svg class="logo-inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 56" fill="none" style="width:300px; margin-bottom:40px;">
+        <rect width="300" height="56" rx="9" fill="#0f2519"/>
+        <rect x="0" y="52" width="300" height="4" rx="0" fill="#d4900a" opacity="0.6"/>
+        <rect x="0" y="47" width="300" height="9" rx="0" fill="#d4900a" opacity="0.15"/>
+        <g transform="translate(10,9) scale(1.357)">
+          <path d="M14 3C14 3 6 9.5 6 17C6 21.4 9.6 25 14 25C18.4 25 22 21.4 22 17C22 9.5 14 3 14 3Z" fill="#d4900a" opacity="0.9"/>
+          <path d="M14 8L14 25" stroke="#0f2519" stroke-width="1.4" stroke-linecap="round"/>
+          <path d="M14 14C14 14 10.5 11.5 8.5 13.5" stroke="#0f2519" stroke-width="1.4" stroke-linecap="round"/>
+          <path d="M14 18.5C14 18.5 17.5 16 19.5 18" stroke="#0f2519" stroke-width="1.4" stroke-linecap="round"/>
+        </g>
+        <line x1="62" y1="10" x2="62" y2="46" stroke="#d4900a" stroke-width="0.8" opacity="0.4"/>
+        <text x="72" y="31" font-family="'DM Sans','Helvetica Neue',Arial,sans-serif" font-size="22" font-weight="600" fill="#f5f0e8" letter-spacing="0.6">AgriVision</text>
+        <text x="72" y="45" font-family="'DM Sans','Helvetica Neue',Arial,sans-serif" font-size="9" font-weight="400" fill="#d4900a" letter-spacing="1.1">DATOS DEL CAMPO. DECISIONES ACERTADAS.</text>
+      </svg>
+      <div class="breathe-sep" style="width:1px; height:40px; background:rgba(212,144,10,0.4); margin:0 auto 24px;"></div>
+      <p style="font-family:'DM Mono',monospace; font-size:0.58em; letter-spacing:0.24em; color:var(--dorado); opacity:0.55; margin:0 0 10px;">
+        CEIS · UNIVERSIDAD DE LA SABANA · 2026
+      </p>
+      <p style="font-family:'Cormorant Garamond',serif; font-size:1.1em; font-style:italic; color:var(--crema-dim); margin:0;">
+        Metodología APRUEBA · César Piqueras
+      </p>
+      <aside class="notes">Pantalla en silencio. Espera a que el jurado esté quieto. Presiona T para activar el timer.</aside>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════
+         S02 · EL NÚMERO QUE LO DICE TODO
+         A — Afirmación · 0:00 → 0:07
+    ════════════════════════════════════════════════ -->
+    <section class="center-slide" data-background-color="#080e0a">
+      <div class="badge">A</div>
+      <p class="label" style="text-align:center; margin-bottom:20px;">Colombia · San Valentín</p>
+      <div class="big-stat fragment fade-up" style="font-size:10vw; text-align:center; line-height:1;">
+        900.000.000
+      </div>
+      <p style="font-family:'Cormorant Garamond',serif; font-size:2em; font-style:italic; color:var(--crema-dim); text-align:center; margin:16px 0 8px;" class="fragment fade-in">
+        tallos · San Valentín · 21 días
+      </p>
+      <p class="label fragment fade-in" style="text-align:center; font-size:0.7em; margin-top:12px;">
+        el 18% de los ingresos del año · en tres semanas
+      </p>
+      <aside class="notes">0:00 — "Colombia envía novecientos millones de tallos de flores a Miami en tres semanas de San Valentín." Tono calmo, periodístico. Dejar que el número aterrice.</aside>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════
+         S03 · EL TRUENO
+         A — Los problemas del estimado incorrecto
+         0:07 → 0:25 · 5 fragments manuales
+    ════════════════════════════════════════════════ -->
+    <section id="s03" data-background-color="#080e0a" style="padding: 38px 72px;">
+      <div class="badge">A</div>
+
+      <!-- Frase anclaje — visible desde el inicio -->
+      <p style="font-family:'Cormorant Garamond',serif; font-size:1.25em; font-style:italic;
+                color:var(--crema-dim); line-height:1.5; max-width:780px; margin:0 0 18px;">
+        "Y cada uno de esos tallos se planifica con el estimado del agrónomo,<br/>
+        sin un dato de campo que lo respalde."
+      </p>
+      <div style="width:36px; height:2px; background:rgba(212,144,10,0.4); margin-bottom:18px;"></div>
+
+      <!-- Thunder words — una reemplaza a la anterior con diferente salida -->
+      <!-- data-autoslide en cada fragment = tiempo que permanece en pantalla en modo auto -->
+      <div style="position:relative; height:120px; margin-top:8px;">
+
+        <!-- 1 · SOBREPRODUCCIÓN — dorado pleno: la alarma financiera -->
+        <div class="fragment thunder-trigger" data-fragment-index="0" data-autoslide="4000"
+             style="position:absolute; left:0; right:0;">
+          <div class="thunder-inner" data-exit="float-up"
+               style="font-size:4.5vw; color:#d4900a; letter-spacing:0.32em;">
+            SOBREPRODUCCIÓN
+          </div>
+        </div>
+
+        <!-- 2 · PEDIDO·PERDIDO — crema pleno: la realidad operativa -->
+        <div class="fragment thunder-trigger" data-fragment-index="1" data-autoslide="4000"
+             style="position:absolute; left:0; right:0;">
+          <div class="thunder-inner" data-exit="crumble"
+               style="font-size:5vw; color:#f5f0e8; letter-spacing:0.22em;">
+            PEDIDO &middot; PERDIDO
+          </div>
+        </div>
+
+        <!-- 3 · TRASNOCHADA — dorado apagado: el desgaste físico -->
+        <div class="fragment thunder-trigger" data-fragment-index="2" data-autoslide="4000"
+             style="position:absolute; left:0; right:0;">
+          <div class="thunder-inner" data-exit="slide-right"
+               style="font-size:5.4vw; color:rgba(212,144,10,0.48); letter-spacing:0.38em;">
+            TRASNOCHADA
+          </div>
+        </div>
+
+        <!-- 4 · CLIENTE·QUE·NO·VUELVE — crema espectral: la relación perdida -->
+        <div class="fragment thunder-trigger" data-fragment-index="3" data-autoslide="4000"
+             style="position:absolute; left:0; right:0;">
+          <div class="thunder-inner" data-exit="burnout"
+               style="font-size:3.6vw; color:rgba(245,240,232,0.32); letter-spacing:0.18em;">
+            CLIENTE &middot; QUE &middot; NO &middot; VUELVE
+          </div>
+        </div>
+
+        <!-- 5 · CERO·DATOS — blanco puro + bold: la causa raíz, cristalina -->
+        <div class="fragment thunder-trigger" data-fragment-index="4" data-autoslide="4000"
+             style="position:absolute; left:0; right:0;">
+          <div class="thunder-inner" data-exit="none"
+               style="font-size:5.5vw; color:#ffffff; font-weight:700; letter-spacing:0.4em;">
+            CERO &middot; DATOS
+          </div>
+        </div>
+
+      </div>
+
+      <aside class="notes">
+        0:07 — "Y cada uno de esos tallos se planifica con el estimado del agrónomo, sin un dato de campo."
+        Presiona para cada trueno. Pausa 2 segundos entre cada palabra. Dejar el silencio actuar.
+      </aside>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════
+         S04 · LA ESCALA ABSURDA
+         A — El número convertido · 0:25 → 0:33
+    ════════════════════════════════════════════════ -->
+    <section data-background-color="#0f2519" style="display:flex; flex-direction:column; justify-content:center; padding:44px 72px;">
+      <div class="badge">A</div>
+      <p class="label" style="margin-bottom:24px;">Con un margen de error del 20%</p>
+      <div style="display:flex; align-items:center; gap:0;">
+
+        <!-- USD $96M -->
+        <div style="flex:1;" class="fragment fade-up" data-fragment-index="0">
+          <div class="big-stat" style="font-size:8vw; line-height:1;">USD $96M</div>
+          <div class="stat-label" style="font-size:0.75em; margin-top:10px;">
+            ~$415.000 millones COP<br/>en riesgo · cada San Valentín
+          </div>
+        </div>
+
+        <!-- Separador -->
+        <div class="vsep" style="height:160px; margin:0 56px;"></div>
+
+        <!-- 22.000 semestres -->
+        <div style="flex:1;" class="fragment fade-in" data-fragment-index="1">
+          <div class="big-stat" style="font-size:4.2vw; color:var(--crema); line-height:1.1;">22.000</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:1.1em; color:var(--crema); opacity:0.7; margin-top:8px;">
+            semestres universitarios
+          </div>
+          <p class="label" style="margin-top:10px; font-size:0.6em;">apostados a la intuición de un técnico con una libreta</p>
+        </div>
+
+      </div>
+      <aside class="notes">
+        0:25 — "Con un margen de error del veinte por ciento, estamos hablando de noventa y seis millones de dólares — veintidós mil semestres universitarios — apostados a la intuición de un técnico con una libreta."
+        Pausa larga. Contacto visual.
+      </aside>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════
+         S05 · CARLOS
+         PR — El problema · 0:33 → 0:41
+    ════════════════════════════════════════════════ -->
+    <section data-background-color="#0f2519" style="display:flex; flex-direction:column; justify-content:center; padding:44px 72px;">
+      <div class="badge">PR</div>
+      <p class="label" style="letter-spacing:0.28em;">Chía &middot; Cundinamarca &middot; 12 años</p>
+      <div class="gold-bar"></div>
+
+      <h2 style="font-size:5vw; font-style:italic; color:var(--crema); margin:0 0 20px;">Carlos.</h2>
+
+      <p style="font-family:'DM Sans',sans-serif; font-size:1em; color:var(--crema); opacity:0.65; margin:0; line-height:1.6;">
+        180 hectáreas &nbsp;·&nbsp; gerente &nbsp;·&nbsp; floricultora de exportación
+      </p>
+      <p style="font-family:'DM Sans',sans-serif; font-size:0.85em; color:var(--crema); opacity:0.4; margin-top:12px;">
+        Todos los años. La misma semana. El mismo Excel.
+      </p>
+
+      <aside class="notes">
+        0:33 — "Carlos lleva doce años gerenciando una finca de 180 hectáreas en Chía."
+        Tono de narrador. Despacio. El jurado va a conocer a Carlos.
+      </aside>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════
+         S06 · EL EXCEL QUE NO CUADRA
+         PR — El momento de quiebre · 0:41 → 0:53
+    ════════════════════════════════════════════════ -->
+    <section id="s06" data-background-color="#080e0a" style="display:flex; flex-direction:column; justify-content:center; padding:44px 72px;">
+      <div class="badge">PR</div>
+      <p class="label" style="margin-bottom:20px;">El estimado del agrónomo &nbsp;vs&nbsp; la realidad del campo</p>
+
+      <div style="display:flex; align-items:center; gap:32px; margin-bottom:28px;">
+
+        <!-- 520.000 — aparece primero, luego se tacha -->
+        <div>
+          <p style="font-family:'DM Sans',sans-serif; font-size:0.65em; color:var(--crema); opacity:0.45; margin:0 0 6px; letter-spacing:0.1em; text-transform:uppercase;">
+            El técnico proyectó
+          </p>
+          <div id="num-520" class="big-stat fragment" data-fragment-index="0"
+               style="font-size:5vw; color:var(--crema-dim); text-decoration: line-through; text-decoration-color:transparent; text-decoration-thickness:3px;">
+            520.000
+          </div>
+          <p style="font-family:'DM Mono',monospace; font-size:0.6em; color:var(--crema); opacity:0.3; margin-top:4px;">tallos</p>
+        </div>
+
+        <!-- Símbolo ≠ -->
+        <div class="fragment fade-in" data-fragment-index="1"
+             style="font-family:'Cormorant Garamond',serif; font-size:5vw; color:rgba(192,57,43,0.7); line-height:1;">
+          ≠
+        </div>
+
+        <!-- 390.000 — aparece cuando el ≠ entra -->
+        <div class="fragment fade-in" data-fragment-index="1">
+          <p style="font-family:'DM Sans',sans-serif; font-size:0.65em; color:var(--crema); opacity:0.45; margin:0 0 6px; letter-spacing:0.1em; text-transform:uppercase;">
+            En el campo hay
+          </p>
+          <div class="big-stat" style="font-size:6.5vw; color:var(--dorado);">390.000</div>
+          <p style="font-family:'DM Mono',monospace; font-size:0.6em; color:var(--dorado); opacity:0.5; margin-top:4px;">tallos</p>
+        </div>
+
+      </div>
+
+      <!-- La consecuencia -->
+      <p class="fragment fade-up" data-fragment-index="2"
+         style="font-family:'Cormorant Garamond',serif; font-size:1.6em; font-style:italic;
+                color:var(--crema); margin:0; border-top:1px solid rgba(212,144,10,0.18); padding-top:20px;">
+        130.000 flores prometidas — que no existen.
+      </p>
+
+      <aside class="notes">
+        0:41 — "Esta vez, como siempre, los números no cuadran. El técnico proyectó 520.000 tallos listos para corte. En el campo hay 390.000. Ciento treinta mil flores que prometió a Miami — y que no existen."
+        Énfasis en "no existen". Pausa.
+      </aside>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════
+         S07 · EL AVIÓN
+         PR — Máxima tensión · 0:53 → 1:01
+         Solo texto. Nada más.
+    ════════════════════════════════════════════════ -->
+    <section class="center-slide" data-background-color="#000000">
+      <div class="badge">PR</div>
+      <p style="font-family:'Cormorant Garamond',serif; font-size:6vw; font-style:italic;
+                color:var(--crema); text-align:center; margin:0; line-height:1.25;
+                letter-spacing:-0.01em; max-width:900px;">
+        El avión sale en seis horas.
+      </p>
+      <aside class="notes">
+        0:53 — "El avión sale en seis horas."
+        Dicho despacio. Sin dramatismo. Mirar al jurado. Silencio de 3 segundos mínimo antes de avanzar.
+      </aside>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════
+         S08 · MAURO — CAMPO Y NÚMEROS
+         U — Presentación · 1:01 → 1:20
+    ════════════════════════════════════════════════ -->
+    <section data-background-color="#1a3d28" style="display:flex; flex-direction:column; justify-content:center; padding:44px 72px;">
+      <div class="badge">U</div>
+
+      <div style="display:flex; gap:40px; align-items:flex-start;">
+        <!-- Barra dorada izquierda -->
+        <div style="width:3px; background:var(--dorado); opacity:0.6; flex-shrink:0; margin-top:4px; align-self:stretch;"></div>
+
+        <div>
+          <p class="label" style="margin-bottom:8px; font-size:0.6em;">fundador</p>
+          <h2 style="font-size:2.8em; color:var(--crema); margin:0 0 12px;">Mauricio Combariza</h2>
+          <p style="font-family:'DM Sans',sans-serif; font-size:0.92em; color:var(--crema); opacity:0.65; margin:0 0 28px; line-height:1.55;">
+            Más de diez años entre invernaderos y hojas de cálculo.<br/>
+            Siempre me gustaron las dos cosas — el campo y los números.
+          </p>
+
+          <!-- La frase filosófica — aparece como fragment final -->
+          <p class="fragment fade-up"
+             style="font-family:'Cormorant Garamond',serif; font-size:1.65em; font-style:italic;
+                    color:var(--dorado); line-height:1.45; margin:0; border-top:1px solid rgba(212,144,10,0.25); padding-top:20px;">
+            "cada tallo que crece es un dato<br/>que todavía no se ha leído"
+          </p>
+        </div>
+      </div>
+
+      <aside class="notes">
+        1:01 — "Soy Mauro Combariza. Llevo más de diez años entre invernaderos y hojas de cálculo — siempre me gustaron las dos cosas. El campo y los números. Mi pasión es que en realidad son lo mismo: cada tallo que crece es un dato que todavía no se ha leído."
+        Tono cálido. Pausa antes de la frase final.
+      </aside>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════
+         S09 · UNA FOTO
+         E — El proceso · 1:20 → 1:40
+    ════════════════════════════════════════════════ -->
+    <section id="s09" data-background-color="#0f2519"
+             style="display:flex; flex-direction:column; justify-content:center; padding:32px 60px;">
+      <div class="badge">E</div>
+      <p class="label" style="margin-bottom:14px;">AgriVision hace lo que Carlos no puede hacer solo</p>
+
+      <div style="display:flex; align-items:center; gap:0;">
+
+        <!-- ── PASO 1: Cámara ─────────────────────── -->
+        <div class="fragment fade-up" data-fragment-index="0"
+             style="flex:0 0 148px; display:flex; flex-direction:column; align-items:center; gap:8px;">
+          <svg viewBox="0 0 56 48" width="68" height="58" style="display:block;">
+            <rect x="2" y="14" width="52" height="32" rx="5" fill="none" stroke="#d4900a" stroke-width="2"/>
+            <circle cx="28" cy="30" r="11" fill="none" stroke="#d4900a" stroke-width="2"/>
+            <circle cx="28" cy="30" r="6" fill="rgba(212,144,10,0.14)"/>
+            <circle cx="28" cy="30" r="2.5" fill="rgba(212,144,10,0.38)"/>
+            <rect x="19" y="6" width="18" height="10" rx="3" fill="none" stroke="#d4900a" stroke-width="2"/>
+            <rect x="44" y="17" width="7" height="4" rx="1.5" fill="#d4900a" opacity="0.5"/>
+            <circle cx="7" cy="18" r="3" fill="rgba(212,144,10,0.32)"/>
+          </svg>
+          <div style="text-align:center;">
+            <div class="proc-title">una foto</div>
+            <div class="proc-text" style="font-size:0.7em; margin-top:3px;">El técnico fotografía<br/>el invernadero</div>
+          </div>
+        </div>
+
+        <div class="proc-arrow fragment fade-in" data-fragment-index="1"
+             style="flex-shrink:0; margin:0 6px;">→</div>
+
+        <!-- ── PASO 2: Flores + Boxes + Conteo ──────── -->
+        <div class="fragment fade-up" data-fragment-index="1" style="flex:1; min-width:0;">
+          <div class="proc-title" style="text-align:center; margin-bottom:5px;">detecta y cuenta</div>
+
+          <svg viewBox="0 0 300 195" style="width:100%; display:block; border-radius:4px;">
+            <!-- Fondo foto -->
+            <rect width="300" height="195" fill="#081008" rx="4"/>
+            <rect x="1" y="1" width="298" height="193" rx="3" fill="none"
+                  stroke="rgba(212,144,10,0.16)" stroke-width="1"/>
+
+            <!-- ══ FLOR 1 · Botón cerrado (x=60) ══ -->
+            <line x1="60" y1="190" x2="60" y2="132" stroke="#1b4422" stroke-width="3.5" stroke-linecap="round"/>
+            <path d="M60,154 C50,144 40,134 46,120 C54,132 59,144 60,154Z" fill="#1b4422" opacity="0.9"/>
+            <path d="M60,87 C52,95 49,108 49,121 C49,129 54,134 60,134 C66,134 71,129 71,121 C71,108 68,95 60,87Z"
+                  fill="#7a1a27" opacity="0.94"/>
+            <path d="M60,94 C57,104 55,114 55,122" stroke="rgba(255,180,180,0.16)"
+                  stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+            <!-- ══ FLOR 2 · Semi-abierta (x=150) ══ -->
+            <line x1="150" y1="190" x2="150" y2="126" stroke="#1b4422" stroke-width="3.5" stroke-linecap="round"/>
+            <path d="M150,158 C163,147 173,135 168,121 C158,133 152,145 150,158Z" fill="#1b4422" opacity="0.9"/>
+            <ellipse cx="150" cy="107" rx="19" ry="11" fill="#7a2855" opacity="0.74" transform="rotate(-35,150,107)"/>
+            <ellipse cx="150" cy="107" rx="19" ry="11" fill="#7a2855" opacity="0.74" transform="rotate(35,150,107)"/>
+            <ellipse cx="150" cy="107" rx="11" ry="19" fill="#7a2855" opacity="0.70"/>
+            <ellipse cx="150" cy="107" rx="10" ry="7"  fill="#a83d70" opacity="0.90"/>
+            <circle  cx="150" cy="107" r="5"            fill="#daa820" opacity="0.94"/>
+
+            <!-- ══ FLOR 3 · Abierta (x=240) ══ -->
+            <line x1="240" y1="190" x2="240" y2="118" stroke="#1b4422" stroke-width="3.5" stroke-linecap="round"/>
+            <path d="M240,156 C228,145 218,132 223,118 C233,131 238,145 240,156Z" fill="#1b4422" opacity="0.9"/>
+            <ellipse cx="240" cy="90" rx="27" ry="9"  fill="#a83d70" opacity="0.75"/>
+            <ellipse cx="240" cy="90" rx="9"  ry="27" fill="#a83d70" opacity="0.75"/>
+            <ellipse cx="240" cy="90" rx="21" ry="11" fill="#a83d70" opacity="0.64" transform="rotate(45,240,90)"/>
+            <ellipse cx="240" cy="90" rx="21" ry="11" fill="#a83d70" opacity="0.64" transform="rotate(-45,240,90)"/>
+            <circle  cx="240" cy="90" r="10"           fill="#7a2855" opacity="0.92"/>
+            <circle  cx="240" cy="90" r="5"            fill="#daa820" opacity="0.96"/>
+
+            <!-- ══ BOUNDING BOXES (fragment 2) ══ -->
+            <g class="fragment fade-in" data-fragment-index="2">
+              <!-- Caja roja: Botón -->
+              <rect x="44" y="83" width="32" height="54"
+                    fill="rgba(231,76,60,0.08)" stroke="#e74c3c" stroke-width="1.5" rx="2"/>
+              <rect x="44" y="83" width="32" height="12"
+                    fill="rgba(231,76,60,0.48)" rx="1.5"/>
+              <text x="60"  y="92.5" text-anchor="middle"
+                    font-family="'DM Mono',monospace" font-size="6.5" fill="white" font-weight="600">BOTÓN</text>
+              <rect x="44" y="139" width="32" height="10" fill="rgba(0,0,0,0.6)" rx="1"/>
+              <text x="60"  y="147" text-anchor="middle"
+                    font-family="'DM Mono',monospace" font-size="6" fill="#e74c3c">conf 0.97</text>
+
+              <!-- Caja amarilla: Medio -->
+              <rect x="127" y="88" width="46" height="44"
+                    fill="rgba(241,196,15,0.08)" stroke="#f1c40f" stroke-width="1.5" rx="2"/>
+              <rect x="127" y="88" width="46" height="12"
+                    fill="rgba(241,196,15,0.48)" rx="1.5"/>
+              <text x="150" y="97.5" text-anchor="middle"
+                    font-family="'DM Mono',monospace" font-size="6.5" fill="white" font-weight="600">MEDIO</text>
+              <rect x="127" y="136" width="46" height="10" fill="rgba(0,0,0,0.6)" rx="1"/>
+              <text x="150" y="144" text-anchor="middle"
+                    font-family="'DM Mono',monospace" font-size="6" fill="#f1c40f">conf 0.94</text>
+
+              <!-- Caja verde: Abierto -->
+              <rect x="212" y="61" width="56" height="60"
+                    fill="rgba(46,204,113,0.08)" stroke="#2ecc71" stroke-width="1.5" rx="2"/>
+              <rect x="212" y="61" width="56" height="12"
+                    fill="rgba(46,204,113,0.48)" rx="1.5"/>
+              <text x="240" y="70.5" text-anchor="middle"
+                    font-family="'DM Mono',monospace" font-size="6.5" fill="white" font-weight="600">ABIERTO</text>
+              <rect x="212" y="127" width="56" height="10" fill="rgba(0,0,0,0.6)" rx="1"/>
+              <text x="240" y="135" text-anchor="middle"
+                    font-family="'DM Mono',monospace" font-size="6" fill="#2ecc71">conf 0.96</text>
+            </g>
+
+            <!-- ══ PANEL DE CONTEO (fragment 3) ══ -->
+            <g class="fragment fade-in" data-fragment-index="3">
+              <rect x="0" y="157" width="300" height="38" fill="rgba(3,10,4,0.90)" rx="0 0 4 4"/>
+              <line x1="100" y1="159" x2="100" y2="193" stroke="rgba(212,144,10,0.22)" stroke-width="0.8"/>
+              <line x1="200" y1="159" x2="200" y2="193" stroke="rgba(212,144,10,0.22)" stroke-width="0.8"/>
+              <!-- Botón -->
+              <text x="50"  y="169" text-anchor="middle"
+                    font-family="'DM Mono',monospace" font-size="6.5" fill="#e74c3c" opacity="0.85">BOTÓN</text>
+              <text x="50"  y="185" text-anchor="middle"
+                    font-family="'DM Mono',monospace" font-size="13" fill="#e74c3c" font-weight="700">847</text>
+              <!-- Medio -->
+              <text x="150" y="169" text-anchor="middle"
+                    font-family="'DM Mono',monospace" font-size="6.5" fill="#f1c40f" opacity="0.85">MEDIO</text>
+              <text x="150" y="185" text-anchor="middle"
+                    font-family="'DM Mono',monospace" font-size="13" fill="#f1c40f" font-weight="700">1.203</text>
+              <!-- Abierto -->
+              <text x="250" y="169" text-anchor="middle"
+                    font-family="'DM Mono',monospace" font-size="6.5" fill="#2ecc71" opacity="0.85">ABIERTO</text>
+              <text x="250" y="185" text-anchor="middle"
+                    font-family="'DM Mono',monospace" font-size="13" fill="#2ecc71" font-weight="700">692</text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="proc-arrow fragment fade-in" data-fragment-index="4"
+             style="flex-shrink:0; margin:0 6px;">→</div>
+
+        <!-- ── PASO 3: Proyección gaussiana ──────────── -->
+        <div class="fragment fade-up" data-fragment-index="4"
+             style="flex:0 0 186px; display:flex; flex-direction:column; align-items:center; gap:6px;">
+          <div class="proc-title" style="text-align:center;">proyección</div>
+
+          <svg id="gauss-svg" viewBox="0 0 200 122" style="width:100%; display:block; border-radius:4px;">
+            <!-- Fondo -->
+            <rect width="200" height="122" fill="#081008" rx="4"/>
+            <rect x="1" y="1" width="198" height="120" rx="3" fill="none"
+                  stroke="rgba(212,144,10,0.16)" stroke-width="1"/>
+            <!-- Eje X -->
+            <line x1="12" y1="104" x2="188" y2="104" stroke="rgba(212,144,10,0.32)" stroke-width="1"/>
+            <!-- Eje Y sutil -->
+            <line x1="12" y1="12" x2="12" y2="104" stroke="rgba(212,144,10,0.14)" stroke-width="0.8"/>
+            <!-- Ticks -->
+            <line x1="12"  y1="102" x2="12"  y2="106" stroke="rgba(212,144,10,0.32)" stroke-width="1"/>
+            <line x1="100" y1="102" x2="100" y2="106" stroke="rgba(212,144,10,0.32)" stroke-width="1"/>
+            <line x1="188" y1="102" x2="188" y2="106" stroke="rgba(212,144,10,0.32)" stroke-width="1"/>
+            <!-- Label eje X -->
+            <text x="100" y="118" text-anchor="middle"
+                  font-family="'DM Mono',monospace" font-size="7"
+                  fill="rgba(245,240,232,0.28)">días a corte</text>
+
+            <!-- Relleno bajo la curva -->
+            <path id="gauss-fill"
+                  d="M 12,104 C 22,104 32,103 48,99 C 64,94 77,84 90,68
+                     C 96,58 98,48 100,20 C 102,48 104,58 110,68
+                     C 123,84 136,94 152,99 C 168,103 178,104 188,104 Z"
+                  fill="rgba(212,144,10,0.12)" opacity="0"/>
+
+            <!-- Curva gaussiana (se dibuja con transition) -->
+            <path id="gauss-curve"
+                  d="M 12,104 C 22,104 32,103 48,99 C 64,94 77,84 90,68
+                     C 96,58 98,48 100,20 C 102,48 104,58 110,68
+                     C 123,84 136,94 152,99 C 168,103 178,104 188,104"
+                  fill="none" stroke="#d4900a" stroke-width="2.2" stroke-linecap="round"
+                  stroke-dasharray="370" stroke-dashoffset="370"/>
+
+            <!-- Línea pico (aparece con 94%) -->
+            <line id="gauss-peak" x1="100" y1="20" x2="100" y2="104"
+                  stroke="rgba(212,144,10,0.26)" stroke-width="1"
+                  stroke-dasharray="3,3" opacity="0"/>
+
+            <!-- 94% label (fragment 5) -->
+            <g class="fragment fade-in" data-fragment-index="5">
+              <text x="100" y="90" text-anchor="middle"
+                    font-family="'DM Mono',monospace" font-size="26"
+                    fill="#d4900a" font-weight="700" opacity="0.92">94%</text>
+              <text x="100" y="13" text-anchor="middle"
+                    font-family="'DM Sans',sans-serif" font-size="7"
+                    fill="#f5f0e8" opacity="0.58">precisión del modelo</text>
+            </g>
+          </svg>
+
+          <div class="proc-text" style="text-align:center; font-size:0.68em; margin-top:2px;">
+            30 seg · algo que antes<br/>no existía
+          </div>
+
+          <!-- Estimados por horizonte (fragment 6) -->
+          <div class="fragment fade-up" data-fragment-index="6"
+               style="width:100%; margin-top:8px;
+                      display:grid; grid-template-columns:repeat(3,1fr); gap:4px;">
+
+            <!-- 7 DÍAS -->
+            <div style="text-align:center; padding:7px 3px;
+                        background:rgba(212,144,10,0.07);
+                        border:1px solid rgba(212,144,10,0.2); border-radius:3px;">
+              <div style="font-family:'DM Mono',monospace; font-size:0.52em;
+                          color:var(--dorado); letter-spacing:0.08em; margin-bottom:3px;">
+                7 DÍAS
+              </div>
+              <div style="font-family:'DM Mono',monospace; font-size:0.95em;
+                          color:var(--crema); font-weight:600; line-height:1;">
+                1.895
+              </div>
+              <div style="font-family:'DM Mono',monospace; font-size:0.44em;
+                          color:var(--crema); opacity:0.38; margin-top:2px;">
+                tallos
+              </div>
+            </div>
+
+            <!-- 14 DÍAS -->
+            <div style="text-align:center; padding:7px 3px;
+                        background:rgba(212,144,10,0.07);
+                        border:1px solid rgba(212,144,10,0.2); border-radius:3px;">
+              <div style="font-family:'DM Mono',monospace; font-size:0.52em;
+                          color:var(--dorado); letter-spacing:0.08em; margin-bottom:3px;">
+                14 DÍAS
+              </div>
+              <div style="font-family:'DM Mono',monospace; font-size:0.95em;
+                          color:var(--crema); font-weight:600; line-height:1;">
+                2.640
+              </div>
+              <div style="font-family:'DM Mono',monospace; font-size:0.44em;
+                          color:var(--crema); opacity:0.38; margin-top:2px;">
+                tallos
+              </div>
+            </div>
+
+            <!-- 28 DÍAS — dorado más intenso: habilita contratos -->
+            <div style="text-align:center; padding:7px 3px;
+                        background:rgba(212,144,10,0.14);
+                        border:1px solid rgba(212,144,10,0.45); border-radius:3px;">
+              <div style="font-family:'DM Mono',monospace; font-size:0.52em;
+                          color:var(--dorado); letter-spacing:0.08em; margin-bottom:3px;">
+                28 DÍAS
+              </div>
+              <div style="font-family:'Cormorant Garamond',serif; font-size:1.05em;
+                          color:var(--dorado); font-weight:700; line-height:1;">
+                3.100
+              </div>
+              <div style="font-family:'DM Mono',monospace; font-size:0.44em;
+                          color:var(--dorado); opacity:0.55; margin-top:2px;">
+                tallos
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <aside class="notes">
+        1:20 — "AgriVision hace lo que Carlos no puede hacer solo. El técnico toma una foto. El sistema detecta el estado de cada tallo — botón, medio o abierto — y los cuenta. En treinta segundos entrega una proyección con noventa y cuatro por ciento de precisión: mil ochocientos noventa y cinco tallos en siete días, dos mil seiscientos cuarenta en catorce, y tres mil cien en veintiocho días."
+      </aside>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════
+         S10 · LOS 4 HORIZONTES
+         E — La predicción · 1:32 → 1:50
+    ════════════════════════════════════════════════ -->
+    <section id="s10" data-background-color="#0f2519" style="display:flex; flex-direction:column; justify-content:center; padding:44px 72px;">
+      <div class="badge">E</div>
+      <p class="label" style="margin-bottom:8px;">cuántos tallos van a estar listos</p>
+      <h2 style="font-size:2.4em; margin:0 0 28px; color:var(--crema);">En tiempo real. Con fecha exacta.</h2>
+
+      <!-- Horizon cards — grid stack, auto-sizes to tallest card, no overflow -->
+      <div style="display:grid; grid-template-columns:1fr; overflow:hidden; margin-bottom:24px;">
+
+        <!-- H0 · MAÑANA -->
+        <div class="fragment horizon-trigger" data-fragment-index="0" style="grid-area:1/1;">
+          <div class="horizon-inner" style="display:flex; align-items:center; gap:36px; padding:14px 24px;
+               background:rgba(212,144,10,0.06); border:1px solid rgba(212,144,10,0.22); border-radius:10px;">
+            <svg width="76" height="76" viewBox="0 0 92 92" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+              <line x1="46" y1="12" x2="46" y2="55" stroke="rgba(245,240,232,0.55)" stroke-width="3" stroke-linecap="round"/>
+              <ellipse cx="40" cy="10" rx="5" ry="8" fill="rgba(212,144,10,0.45)" transform="rotate(-20 40 10)"/>
+              <ellipse cx="52" cy="10" rx="5" ry="8" fill="rgba(212,144,10,0.35)" transform="rotate(20 52 10)"/>
+              <ellipse cx="46" cy="8"  rx="4" ry="7" fill="rgba(212,144,10,0.6)"/>
+              <path d="M16 45 Q30 38 44 47" stroke="#d4900a" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+              <circle cx="12" cy="45" r="9" stroke="#d4900a" stroke-width="2.5" fill="none"/>
+              <path d="M16 58 Q30 65 44 56" stroke="rgba(245,240,232,0.8)" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+              <circle cx="12" cy="58" r="9" stroke="rgba(245,240,232,0.8)" stroke-width="2.5" fill="none"/>
+              <circle cx="42" cy="51" r="4.5" fill="#d4900a"/>
+              <line x1="30" y1="51" x2="72" y2="51" stroke="rgba(192,57,43,0.65)" stroke-width="1.5" stroke-dasharray="5 3" stroke-linecap="round"/>
+            </svg>
+            <div>
+              <div style="font-family:'DM Mono',monospace; font-size:0.55em; letter-spacing:0.2em; color:#d4900a; margin-bottom:3px; text-transform:uppercase;">HORIZONTE 1</div>
+              <div style="font-family:'Cormorant Garamond',serif; font-size:2.4em; font-weight:700; color:var(--crema); line-height:1; margin-bottom:6px;">MAÑANA</div>
+              <div style="font-size:0.8em; color:var(--crema-dim); line-height:1.4;">Coordinación de corte y empaque del día siguiente</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- H1 · 7 DÍAS -->
+        <div class="fragment horizon-trigger" data-fragment-index="1" style="grid-area:1/1;">
+          <div class="horizon-inner" style="display:flex; align-items:center; gap:36px; padding:14px 24px;
+               background:rgba(212,144,10,0.06); border:1px solid rgba(212,144,10,0.22); border-radius:10px;">
+            <svg width="76" height="76" viewBox="0 0 92 92" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+              <circle cx="24" cy="30" r="11" fill="rgba(212,144,10,0.25)" stroke="rgba(212,144,10,0.45)" stroke-width="1.5"/>
+              <path d="M4 78 Q24 55 44 78" fill="rgba(212,144,10,0.15)" stroke="rgba(212,144,10,0.35)" stroke-width="1.5"/>
+              <circle cx="68" cy="30" r="11" fill="rgba(245,240,232,0.15)" stroke="rgba(245,240,232,0.35)" stroke-width="1.5"/>
+              <path d="M48 78 Q68 55 88 78" fill="rgba(245,240,232,0.08)" stroke="rgba(245,240,232,0.28)" stroke-width="1.5"/>
+              <circle cx="46" cy="24" r="14" fill="rgba(212,144,10,0.65)" stroke="#d4900a" stroke-width="2"/>
+              <path d="M18 84 Q46 60 74 84" fill="rgba(212,144,10,0.35)" stroke="#d4900a" stroke-width="2"/>
+            </svg>
+            <div>
+              <div style="font-family:'DM Mono',monospace; font-size:0.55em; letter-spacing:0.2em; color:#d4900a; margin-bottom:3px; text-transform:uppercase;">HORIZONTE 2</div>
+              <div style="font-family:'Cormorant Garamond',serif; font-size:2.4em; font-weight:700; color:var(--crema); line-height:1; margin-bottom:6px;">7 DÍAS</div>
+              <div style="font-size:0.8em; color:var(--crema-dim); line-height:1.4;">Ajuste de personal y logística de la semana</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- H2 · 14 DÍAS -->
+        <div class="fragment horizon-trigger" data-fragment-index="2" style="grid-area:1/1;">
+          <div class="horizon-inner" style="display:flex; align-items:center; gap:36px; padding:14px 24px;
+               background:rgba(212,144,10,0.06); border:1px solid rgba(212,144,10,0.22); border-radius:10px;">
+            <svg width="76" height="76" viewBox="0 0 92 92" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+              <path d="M14 8 L64 8 L78 22 L78 84 L14 84 Z" fill="rgba(245,240,232,0.07)" stroke="rgba(245,240,232,0.45)" stroke-width="2"/>
+              <path d="M64 8 L64 22 L78 22" fill="rgba(212,144,10,0.15)" stroke="rgba(212,144,10,0.55)" stroke-width="1.5"/>
+              <polyline points="22,37 25,42 32,32" stroke="#d4900a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <line x1="38" y1="38" x2="66" y2="38" stroke="rgba(245,240,232,0.3)" stroke-width="2" stroke-linecap="round"/>
+              <polyline points="22,54 25,59 32,49" stroke="#d4900a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <line x1="38" y1="55" x2="66" y2="55" stroke="rgba(245,240,232,0.3)" stroke-width="2" stroke-linecap="round"/>
+              <line x1="38" y1="72" x2="58" y2="72" stroke="rgba(212,144,10,0.5)" stroke-width="2" stroke-linecap="round" stroke-dasharray="4 3"/>
+              <rect x="22" y="66" width="10" height="10" rx="2" stroke="rgba(245,240,232,0.35)" stroke-width="1.5" fill="none"/>
+              <path d="M60 66 L68 60 L72 64 L64 70 Z" fill="rgba(212,144,10,0.7)"/>
+              <path d="M60 66 L57 74 L64 70 Z" fill="rgba(245,240,232,0.45)"/>
+            </svg>
+            <div>
+              <div style="font-family:'DM Mono',monospace; font-size:0.55em; letter-spacing:0.2em; color:#d4900a; margin-bottom:3px; text-transform:uppercase;">HORIZONTE 3</div>
+              <div style="font-family:'Cormorant Garamond',serif; font-size:2.4em; font-weight:700; color:var(--crema); line-height:1; margin-bottom:6px;">14 DÍAS</div>
+              <div style="font-size:0.8em; color:var(--crema-dim); line-height:1.4;">Confirmación de pedidos al cliente</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- H3 · 28 DÍAS — stays visible, no exit -->
+        <div class="fragment horizon-trigger" data-fragment-index="3" data-h-last="true" style="grid-area:1/1;">
+          <div class="horizon-inner" style="display:flex; align-items:center; gap:36px; padding:14px 24px;
+               background:rgba(212,144,10,0.12); border:1px solid rgba(212,144,10,0.45); border-radius:10px;
+               box-shadow: 0 0 32px rgba(212,144,10,0.08);">
+            <svg width="76" height="76" viewBox="0 0 92 92" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+              <line x1="4" y1="36" x2="22" y2="36" stroke="rgba(212,144,10,0.3)" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="4" y1="43" x2="18" y2="43" stroke="rgba(212,144,10,0.2)" stroke-width="1"   stroke-linecap="round"/>
+              <line x1="4" y1="50" x2="22" y2="50" stroke="rgba(212,144,10,0.3)" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M22 36 L68 36 L68 50 L22 50 Z" fill="rgba(212,144,10,0.75)"/>
+              <path d="M68 36 Q88 43 68 50 Z" fill="#d4900a"/>
+              <path d="M38 36 L50 16 L60 16 L52 36 Z" fill="rgba(212,144,10,0.55)" stroke="rgba(212,144,10,0.7)" stroke-width="1"/>
+              <path d="M42 50 L54 70 L64 70 L54 50 Z" fill="rgba(212,144,10,0.38)" stroke="rgba(212,144,10,0.55)" stroke-width="1"/>
+              <path d="M24 36 L27 22 L34 22 L30 36 Z" fill="rgba(245,240,232,0.45)"/>
+              <ellipse cx="72" cy="43" rx="6" ry="4" fill="rgba(26,61,40,0.9)" stroke="rgba(245,240,232,0.35)" stroke-width="1"/>
+            </svg>
+            <div>
+              <div style="font-family:'DM Mono',monospace; font-size:0.55em; letter-spacing:0.2em; color:#d4900a; margin-bottom:3px; text-transform:uppercase;">HORIZONTE 4 · EL QUE CAMBIA TODO</div>
+              <div style="font-family:'Cormorant Garamond',serif; font-size:2.4em; font-weight:700; color:#d4900a; line-height:1; margin-bottom:6px;">28 DÍAS</div>
+              <div style="font-size:0.8em; color:rgba(212,144,10,0.85); line-height:1.4;">Negociación y firma de contratos de exportación</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /horizon cards — grid stack -->
+
+      <!-- Closing quote — horizon-trigger para garantizar que aparece -->
+      <div class="fragment horizon-trigger" data-fragment-index="4">
+        <div class="horizon-inner" style="border-top:1px solid rgba(212,144,10,0.18); padding-top:14px; margin-top:0;">
+          <p style="font-family:'Cormorant Garamond',serif; font-size:1.45em; font-style:italic;
+                    color:var(--crema-dim); margin:0; line-height:1.4;">
+            Con un dato que mejora solo.
+          </p>
+        </div>
+      </div>
+
+      <aside class="notes">
+        1:32 — "Cuántos tallos van a estar listos mañana, en siete días, en catorce, en veintiocho. Y cada día que pasa, el modelo ajusta — aprende del campo real y afina su propia estimación. Sin libreta. Sin Excel. Con un dato que mejora solo."
+        Los cuatro horizontes, despacio. Uno por uno. El último — 28 días — es el que habilita contratos de exportación.
+      </aside>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════
+         S11 · LA VIDA DE CARLOS CAMBIA
+         B — Beneficios · 1:50 → 2:12
+    ════════════════════════════════════════════════ -->
+    <section id="s11" data-background-color="#0f2519" style="display:flex; flex-direction:column; justify-content:center; padding:44px 72px;">
+      <div class="badge">B</div>
+      <p class="label" style="margin-bottom:28px; font-size:0.72em;">Con AgriVision</p>
+
+      <!-- Benefit phrases — grid stack, replace each other one at a time -->
+      <div style="display:grid; grid-template-columns:1fr; overflow:hidden;">
+
+        <!-- Frase 0 · El enunciado principal -->
+        <div class="fragment horizon-trigger" data-fragment-index="0" style="grid-area:1/1;">
+          <div class="horizon-inner" style="padding:22px 0 22px 32px; border-left:3px solid rgba(212,144,10,0.5);">
+            <div style="font-family:'Cormorant Garamond',serif; font-size:2.5em; font-style:italic;
+                        color:var(--crema); line-height:1.25;">
+              Carlos sabe con anticipación<br/>qué va a salir y cuándo.
+            </div>
+          </div>
+        </div>
+
+        <!-- Frase 1 · Calidad de vida -->
+        <div class="fragment horizon-trigger" data-fragment-index="1" style="grid-area:1/1;">
+          <div class="horizon-inner" style="padding:22px 0 22px 32px; border-left:3px solid rgba(212,144,10,0.5);">
+            <div style="font-family:'DM Mono',monospace; font-size:0.55em; letter-spacing:0.22em;
+                        color:rgba(212,144,10,0.65); text-transform:uppercase; margin-bottom:10px;">CALIDAD DE VIDA</div>
+            <div style="font-family:'Cormorant Garamond',serif; font-size:2.5em; font-style:italic;
+                        color:var(--crema); line-height:1.2; margin-bottom:10px;">Duerme.</div>
+            <div style="font-size:0.82em; color:var(--crema-dim); line-height:1.55;">
+              El estrés que no lo dejaba dormir se convierte en un cronograma.
+            </div>
+          </div>
+        </div>
+
+        <!-- Frase 2 · Operaciones -->
+        <div class="fragment horizon-trigger" data-fragment-index="2" style="grid-area:1/1;">
+          <div class="horizon-inner" style="padding:22px 0 22px 32px; border-left:3px solid rgba(212,144,10,0.5);">
+            <div style="font-family:'DM Mono',monospace; font-size:0.55em; letter-spacing:0.22em;
+                        color:rgba(212,144,10,0.65); text-transform:uppercase; margin-bottom:10px;">OPERACIONES</div>
+            <div style="font-family:'Cormorant Garamond',serif; font-size:2.5em; font-style:italic;
+                        color:var(--crema); line-height:1.2; margin-bottom:10px;">Planifica.</div>
+            <div style="font-size:0.82em; color:var(--crema-dim); line-height:1.55;">
+              Cuántas personas, en qué turno — con días de anticipación.
+            </div>
+          </div>
+        </div>
+
+        <!-- Frase 3 · Equipo -->
+        <div class="fragment horizon-trigger" data-fragment-index="3" style="grid-area:1/1;">
+          <div class="horizon-inner" style="padding:22px 0 22px 32px; border-left:3px solid rgba(212,144,10,0.5);">
+            <div style="font-family:'DM Mono',monospace; font-size:0.55em; letter-spacing:0.22em;
+                        color:rgba(212,144,10,0.65); text-transform:uppercase; margin-bottom:10px;">EQUIPO</div>
+            <div style="font-family:'Cormorant Garamond',serif; font-size:2.5em; font-style:italic;
+                        color:var(--crema); line-height:1.2; margin-bottom:10px;">Sin trasnochadas.</div>
+            <div style="font-size:0.82em; color:var(--crema-dim); line-height:1.55;">
+              Mejor clima para todo el equipo. El trabajo nocturno de urgencia desaparece.
+            </div>
+          </div>
+        </div>
+
+        <!-- Frase 4 · Contratos -->
+        <div class="fragment horizon-trigger" data-fragment-index="4" style="grid-area:1/1;">
+          <div class="horizon-inner" style="padding:22px 0 22px 32px; border-left:3px solid rgba(212,144,10,0.5);">
+            <div style="font-family:'DM Mono',monospace; font-size:0.55em; letter-spacing:0.22em;
+                        color:rgba(212,144,10,0.65); text-transform:uppercase; margin-bottom:10px;">CONTRATOS</div>
+            <div style="font-family:'Cormorant Garamond',serif; font-size:2.5em; font-style:italic;
+                        color:var(--crema); line-height:1.2; margin-bottom:10px;">Firma contratos.</div>
+            <div style="font-size:0.82em; color:var(--crema-dim); line-height:1.55;">
+              Los que antes no se atrevía a confirmar — porque ahora tiene el dato.
+            </div>
+          </div>
+        </div>
+
+        <!-- Frase 5 · Precio — última, se queda visible -->
+        <div class="fragment horizon-trigger" data-fragment-index="5" data-h-last="true" style="grid-area:1/1;">
+          <div class="horizon-inner" style="padding:22px 0 22px 32px; border-left:3px solid #d4900a;">
+            <div style="font-family:'DM Mono',monospace; font-size:0.55em; letter-spacing:0.22em;
+                        color:var(--dorado); text-transform:uppercase; margin-bottom:10px;">PRECIO</div>
+            <div style="font-family:'Cormorant Garamond',serif; font-size:2.5em; font-style:italic;
+                        color:var(--dorado); line-height:1.2; margin-bottom:10px;">Negocia. No liquida.</div>
+            <div style="font-size:0.82em; color:rgba(212,144,10,0.8); line-height:1.55;">
+              Vende cuando el tiempo está de su lado — a precio de mercado,<br/>
+              no al precio de quien ofrece lo que ya no puede esperar.
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /benefit phrases — grid stack -->
+
+      <aside class="notes">
+        1:50 — "Con AgriVision, Carlos sabe con anticipación qué va a salir y cuándo. Puede planificar cuántas personas necesita, en qué turno, sin trasnochadas de último minuto. El estrés que no lo dejaba dormir se convierte en un cronograma. Puede firmar contratos que antes no se atrevía a confirmar. Y algo más: como tiene semanas de anticipación, negocia — no liquida. Vende a precio de mercado, no al precio de quien ofrece lo que ya no puede esperar."
+      </aside>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════
+         S12 · UN DATO, NO UNA CORAZONADA
+         B — Cierre del arco narrativo · 2:08 → 2:24
+    ════════════════════════════════════════════════ -->
+    <section id="s12" data-background-color="#080e0a" style="display:flex; flex-direction:column; justify-content:center; padding:44px 72px;">
+      <div class="badge">B</div>
+      <p class="label" style="margin-bottom:28px; font-size:0.72em;">El arco completo</p>
+
+      <!-- Illustrated phrases — grid stack, replace each other -->
+      <div style="display:grid; grid-template-columns:1fr; overflow:hidden;">
+
+        <!-- Frame 0 · ANTES — Excel con interrogantes -->
+        <div class="fragment horizon-trigger" data-fragment-index="0" style="grid-area:1/1;">
+          <div class="horizon-inner" style="display:flex; align-items:center; gap:52px; padding:20px 0;">
+            <!-- Illustration: Excel/notepad con incertidumbre -->
+            <svg width="115" height="115" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+              <!-- Grid encabezado -->
+              <rect x="8" y="8" width="86" height="16" rx="2" fill="rgba(245,240,232,0.08)" stroke="rgba(245,240,232,0.35)" stroke-width="1.2"/>
+              <line x1="38" y1="8" x2="38" y2="24" stroke="rgba(245,240,232,0.25)" stroke-width="1"/>
+              <line x1="68" y1="8" x2="68" y2="24" stroke="rgba(245,240,232,0.25)" stroke-width="1"/>
+              <text x="12" y="19" font-family="monospace" font-size="7" fill="rgba(245,240,232,0.45)">SEMANA</text>
+              <text x="42" y="19" font-family="monospace" font-size="7" fill="rgba(245,240,232,0.45)">TALLOS</text>
+              <text x="72" y="19" font-family="monospace" font-size="7" fill="rgba(245,240,232,0.45)">OK?</text>
+              <!-- Fila 1 -->
+              <rect x="8" y="24" width="86" height="14" fill="none" stroke="rgba(245,240,232,0.18)" stroke-width="1"/>
+              <line x1="38" y1="24" x2="38" y2="38" stroke="rgba(245,240,232,0.18)" stroke-width="1"/>
+              <line x1="68" y1="24" x2="68" y2="38" stroke="rgba(245,240,232,0.18)" stroke-width="1"/>
+              <text x="12" y="34" font-family="monospace" font-size="6.5" fill="rgba(245,240,232,0.35)">Feb W1</text>
+              <text x="42" y="34" font-family="monospace" font-size="7" fill="rgba(212,144,10,0.75)">~520k</text>
+              <text x="75" y="35" font-family="serif" font-size="12" fill="rgba(192,57,43,0.8)">?</text>
+              <!-- Fila 2 -->
+              <rect x="8" y="38" width="86" height="14" fill="none" stroke="rgba(245,240,232,0.18)" stroke-width="1"/>
+              <line x1="38" y1="38" x2="38" y2="52" stroke="rgba(245,240,232,0.18)" stroke-width="1"/>
+              <line x1="68" y1="38" x2="68" y2="52" stroke="rgba(245,240,232,0.18)" stroke-width="1"/>
+              <text x="12" y="48" font-family="monospace" font-size="6.5" fill="rgba(245,240,232,0.35)">Feb W2</text>
+              <text x="42" y="48" font-family="monospace" font-size="7" fill="rgba(212,144,10,0.75)">~380k</text>
+              <text x="75" y="49" font-family="serif" font-size="12" fill="rgba(192,57,43,0.8)">?</text>
+              <!-- Fila 3 -->
+              <rect x="8" y="52" width="86" height="14" fill="none" stroke="rgba(245,240,232,0.18)" stroke-width="1"/>
+              <line x1="38" y1="52" x2="38" y2="66" stroke="rgba(245,240,232,0.18)" stroke-width="1"/>
+              <line x1="68" y1="52" x2="68" y2="66" stroke="rgba(245,240,232,0.18)" stroke-width="1"/>
+              <text x="12" y="62" font-family="monospace" font-size="6.5" fill="rgba(245,240,232,0.35)">Feb W3</text>
+              <text x="42" y="62" font-family="monospace" font-size="7" fill="rgba(212,144,10,0.75)">~290k</text>
+              <text x="75" y="63" font-family="serif" font-size="12" fill="rgba(192,57,43,0.8)">?</text>
+              <!-- Anotación a mano -->
+              <path d="M8 82 Q28 76 48 80" fill="none" stroke="rgba(245,240,232,0.2)" stroke-width="1.2" stroke-linecap="round"/>
+              <text x="10" y="90" font-family="serif" font-style="italic" font-size="8" fill="rgba(245,240,232,0.3)">estimado…</text>
+              <text x="10" y="102" font-family="serif" font-style="italic" font-size="7" fill="rgba(245,240,232,0.2)">sin verificar</text>
+              <!-- Gran signo de pregunta al fondo -->
+              <text x="70" y="100" font-family="serif" font-size="40" fill="rgba(192,57,43,0.12)" font-style="italic">?</text>
+            </svg>
+            <div>
+              <div style="font-family:'DM Mono',monospace; font-size:0.55em; letter-spacing:0.22em; color:rgba(192,57,43,0.7); text-transform:uppercase; margin-bottom:10px;">ANTES</div>
+              <div style="font-family:'Cormorant Garamond',serif; font-size:2.5em; font-style:italic; color:var(--crema); line-height:1.15; margin-bottom:12px;">Un estimado.<br/>Una apuesta.</div>
+              <div style="font-size:0.82em; color:var(--crema-dim); line-height:1.6;">El agrónomo caminaba los lotes y calculaba<br/>de memoria. El error lo absorbía la finca.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Frame 1 · AHORA — Camera → modelo → número exacto -->
+        <div class="fragment horizon-trigger" data-fragment-index="1" style="grid-area:1/1;">
+          <div class="horizon-inner" style="display:flex; align-items:center; gap:52px; padding:20px 0;">
+            <!-- Illustration: pipeline de datos -->
+            <svg width="115" height="115" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+              <!-- Cámara (parte superior) -->
+              <rect x="6" y="8" width="34" height="26" rx="4" fill="rgba(212,144,10,0.12)" stroke="rgba(212,144,10,0.55)" stroke-width="1.5"/>
+              <circle cx="23" cy="21" r="8" fill="none" stroke="rgba(212,144,10,0.7)" stroke-width="2"/>
+              <circle cx="23" cy="21" r="3.5" fill="rgba(212,144,10,0.45)"/>
+              <rect x="13" y="4" width="8" height="5" rx="1.5" fill="rgba(212,144,10,0.5)"/>
+              <!-- Flecha hacia abajo al modelo -->
+              <line x1="23" y1="36" x2="23" y2="50" stroke="rgba(212,144,10,0.5)" stroke-width="1.5" stroke-linecap="round"/>
+              <polyline points="20,47 23,51 26,47" fill="none" stroke="rgba(212,144,10,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- Caja del modelo ML (centro) -->
+              <rect x="8" y="52" width="30" height="20" rx="3" fill="rgba(26,61,40,0.7)" stroke="rgba(212,144,10,0.55)" stroke-width="1.5"/>
+              <text x="23" y="65" text-anchor="middle" font-family="monospace" font-size="8" fill="rgba(212,144,10,0.85)" letter-spacing="1">ML</text>
+              <!-- Flecha hacia output -->
+              <line x1="40" y1="62" x2="56" y2="62" stroke="rgba(212,144,10,0.5)" stroke-width="1.5" stroke-linecap="round"/>
+              <polyline points="53,59 57,62 53,65" fill="none" stroke="rgba(212,144,10,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- Output — número exacto con confianza -->
+              <rect x="58" y="42" width="46" height="38" rx="5" fill="rgba(212,144,10,0.1)" stroke="rgba(212,144,10,0.7)" stroke-width="1.8"/>
+              <text x="81" y="60" text-anchor="middle" font-family="monospace" font-size="9.5" fill="rgba(212,144,10,0.95)" letter-spacing="0.5">847.293</text>
+              <text x="81" y="72" text-anchor="middle" font-family="monospace" font-size="6" fill="rgba(212,144,10,0.6)">tallos · conf. 94%</text>
+              <!-- Barra de precisión -->
+              <rect x="62" y="80" width="42" height="4" rx="2" fill="rgba(245,240,232,0.08)" stroke="rgba(212,144,10,0.2)" stroke-width="1"/>
+              <rect x="62" y="80" width="39.5" height="4" rx="2" fill="rgba(212,144,10,0.55)"/>
+              <!-- Puntos decorativos -->
+              <circle cx="10" cy="90" r="2" fill="rgba(212,144,10,0.3)"/>
+              <circle cx="4" cy="100" r="1.5" fill="rgba(212,144,10,0.2)"/>
+              <circle cx="20" cy="96" r="1" fill="rgba(212,144,10,0.15)"/>
+            </svg>
+            <div>
+              <div style="font-family:'DM Mono',monospace; font-size:0.55em; letter-spacing:0.22em; color:rgba(212,144,10,0.7); text-transform:uppercase; margin-bottom:10px;">AHORA</div>
+              <div style="font-family:'Cormorant Garamond',serif; font-size:2.5em; font-style:italic; color:var(--crema); line-height:1.15; margin-bottom:12px;">El campo cuenta<br/>sus propios tallos.</div>
+              <div style="font-size:0.82em; color:var(--crema-dim); line-height:1.6;">Una foto. Un modelo. Un número real —<br/>antes de que la flor llegue al corte.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Frame 2 · EL RESULTADO — Balanza datos vs intuición — stays -->
+        <div class="fragment horizon-trigger" data-fragment-index="2" data-h-last="true" style="grid-area:1/1;">
+          <div class="horizon-inner" style="display:flex; align-items:center; gap:52px; padding:20px 0;">
+            <!-- Illustration: balanza inclinada hacia los datos -->
+            <svg width="115" height="115" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+              <!-- Poste central -->
+              <line x1="55" y1="12" x2="55" y2="88" stroke="rgba(245,240,232,0.4)" stroke-width="2" stroke-linecap="round"/>
+              <!-- Base -->
+              <path d="M36 90 L55 87 L74 90 Z" fill="rgba(245,240,232,0.15)" stroke="rgba(245,240,232,0.4)" stroke-width="1"/>
+              <rect x="30" y="90" width="50" height="4" rx="2" fill="rgba(245,240,232,0.1)" stroke="rgba(245,240,232,0.3)" stroke-width="1"/>
+              <!-- Viga inclinada — lado datos más bajo (pesado) -->
+              <line x1="12" y1="34" x2="98" y2="26" stroke="rgba(245,240,232,0.65)" stroke-width="2.2" stroke-linecap="round"/>
+              <!-- Pivote -->
+              <circle cx="55" cy="30" r="3.5" fill="rgba(245,240,232,0.5)"/>
+              <!-- IZQUIERDA: cadena + platillo corazonada (más alto) -->
+              <line x1="15" y1="35" x2="15" y2="52" stroke="rgba(245,240,232,0.25)" stroke-width="1" stroke-dasharray="2 2"/>
+              <rect x="4" y="52" width="22" height="20" rx="3" fill="rgba(245,240,232,0.05)" stroke="rgba(245,240,232,0.25)" stroke-width="1"/>
+              <!-- Corazón en platillo izquierdo -->
+              <path d="M15 62 Q11 57 11 61 Q11 66 15 71 Q19 66 19 61 Q19 57 15 62Z" fill="none" stroke="rgba(245,240,232,0.3)" stroke-width="1.5"/>
+              <text x="15" y="80" text-anchor="middle" font-family="monospace" font-size="5" fill="rgba(245,240,232,0.3)">intuición</text>
+              <!-- DERECHA: cadena + platillo datos (más bajo, pesado) -->
+              <line x1="95" y1="27" x2="95" y2="54" stroke="rgba(212,144,10,0.55)" stroke-width="1.5"/>
+              <rect x="84" y="54" width="22" height="22" rx="3" fill="rgba(212,144,10,0.1)" stroke="rgba(212,144,10,0.65)" stroke-width="1.5"/>
+              <!-- Gráfica de barras en platillo derecho -->
+              <rect x="88" y="66" width="3.5" height="7" rx="1" fill="rgba(212,144,10,0.5)"/>
+              <rect x="93" y="62" width="3.5" height="11" rx="1" fill="rgba(212,144,10,0.7)"/>
+              <rect x="98" y="58" width="3.5" height="15" rx="1" fill="rgba(212,144,10,0.9)"/>
+              <text x="95" y="84" text-anchor="middle" font-family="monospace" font-size="5" fill="rgba(212,144,10,0.7)">datos</text>
+            </svg>
+            <div>
+              <div style="font-family:'DM Mono',monospace; font-size:0.55em; letter-spacing:0.22em; color:var(--dorado); text-transform:uppercase; margin-bottom:10px;">EL RESULTADO</div>
+              <div style="font-family:'Cormorant Garamond',serif; font-size:2.5em; font-style:italic; color:var(--dorado); line-height:1.15; margin-bottom:12px;">Un dato.<br/>No una corazonada.</div>
+              <div style="font-size:0.82em; color:rgba(212,144,10,0.75); line-height:1.6;">La primera vez que una finca exporta<br/>sabiendo exactamente qué va a salir.</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /S12 illustrated phrases -->
+
+      <aside class="notes">
+        2:08 — "Y con ese cronograma en la mano, puede comprometerse con pedidos que antes no se atrevía a confirmar. Antes: un estimado. Una apuesta. Ahora: el campo cuenta sus propios tallos. Un dato. No una corazonada."
+        Énfasis firme en "un dato". Eco de S08. Mirar al jurado.
+      </aside>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════
+         S13 · EL ASK — GPU + $10M COP
+         A-CTA — Acción · 2:31 → 2:57
+    ════════════════════════════════════════════════ -->
+    <section id="s13" data-background-color="#080e0a" style="display:flex; flex-direction:column; justify-content:center; padding:44px 72px;">
+      <div class="badge">A</div>
+      <p class="label" style="margin-bottom:28px; font-size:0.72em; color:var(--dorado);">Acción</p>
+
+      <!-- Illustrated frames — grid stack, each replaces the previous -->
+      <div style="display:grid; grid-template-columns:1fr; overflow:hidden;">
+
+        <!-- Frame 0 · Ya funciona — monitor en producción -->
+        <div class="fragment horizon-trigger" data-fragment-index="0" style="grid-area:1/1;">
+          <div class="horizon-inner" style="display:flex; align-items:center; gap:52px; padding:18px 0;">
+            <svg width="115" height="115" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+              <!-- Monitor casing -->
+              <rect x="6" y="6" width="88" height="64" rx="6" fill="rgba(26,61,40,0.6)" stroke="rgba(212,144,10,0.45)" stroke-width="1.8"/>
+              <!-- Screen area -->
+              <rect x="12" y="12" width="76" height="50" rx="3" fill="rgba(8,14,10,0.9)"/>
+              <!-- Live metric bars on screen -->
+              <text x="18" y="24" font-family="monospace" font-size="6" fill="rgba(212,144,10,0.5)" letter-spacing="1">PRODUCCIÓN</text>
+              <rect x="18" y="28" width="48" height="5" rx="2" fill="rgba(26,61,40,0.8)" stroke="rgba(212,144,10,0.2)" stroke-width="1"/>
+              <rect x="18" y="28" width="44" height="5" rx="2" fill="rgba(212,144,10,0.6)"/>
+              <text x="68" y="33" font-family="monospace" font-size="5.5" fill="rgba(212,144,10,0.7)">91%</text>
+              <rect x="18" y="37" width="48" height="5" rx="2" fill="rgba(26,61,40,0.8)" stroke="rgba(212,144,10,0.2)" stroke-width="1"/>
+              <rect x="18" y="37" width="38" height="5" rx="2" fill="rgba(212,144,10,0.45)"/>
+              <text x="68" y="42" font-family="monospace" font-size="5.5" fill="rgba(212,144,10,0.5)">79%</text>
+              <!-- Status indicator — green dot + "LIVE" -->
+              <circle cx="22" cy="52" r="4" fill="rgba(52,211,80,0.85)"/>
+              <text x="30" y="55" font-family="monospace" font-size="7" fill="rgba(52,211,80,0.8)" letter-spacing="1">LIVE</text>
+              <!-- Large checkmark right -->
+              <circle cx="72" cy="35" r="16" fill="rgba(212,144,10,0.08)" stroke="rgba(212,144,10,0.35)" stroke-width="1.5"/>
+              <polyline points="63,35 69,42 83,25" fill="none" stroke="rgba(212,144,10,0.9)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- Monitor stand -->
+              <rect x="46" y="71" width="18" height="5" rx="1" fill="rgba(245,240,232,0.15)"/>
+              <rect x="36" y="76" width="38" height="3" rx="1" fill="rgba(245,240,232,0.1)"/>
+            </svg>
+            <div>
+              <div style="font-family:'DM Mono',monospace; font-size:0.55em; letter-spacing:0.22em; color:rgba(52,211,80,0.75); text-transform:uppercase; margin-bottom:10px;">EN PRODUCCIÓN</div>
+              <div style="font-family:'Cormorant Garamond',serif; font-size:2.5em; font-style:italic; color:var(--crema); line-height:1.15; margin-bottom:12px;">AgriVision<br/>ya funciona.</div>
+              <div style="font-size:0.82em; color:var(--crema-dim); line-height:1.6;">El modelo corre. La finca piloto genera<br/>estimaciones reales hoy.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Frame 1 · Más fincas en paralelo — red de nodos -->
+        <div class="fragment horizon-trigger" data-fragment-index="1" style="grid-area:1/1;">
+          <div class="horizon-inner" style="display:flex; align-items:center; gap:52px; padding:18px 0;">
+            <svg width="115" height="115" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+              <!-- Hub central -->
+              <circle cx="55" cy="55" r="14" fill="rgba(212,144,10,0.15)" stroke="rgba(212,144,10,0.75)" stroke-width="2"/>
+              <text x="55" y="52" text-anchor="middle" font-family="monospace" font-size="7" fill="rgba(212,144,10,0.9)" letter-spacing="0.5">AV</text>
+              <text x="55" y="63" text-anchor="middle" font-family="monospace" font-size="5" fill="rgba(212,144,10,0.55)">GPU</text>
+              <!-- Nodo 1 — arriba izquierda (activo) -->
+              <circle cx="18" cy="18" r="9" fill="rgba(26,61,40,0.7)" stroke="rgba(245,240,232,0.5)" stroke-width="1.5"/>
+              <line x1="18" y1="24" x2="18" y2="12" stroke="rgba(212,144,10,0.7)" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M18 18 Q13 13 15 11" fill="none" stroke="rgba(212,144,10,0.6)" stroke-width="1.4" stroke-linecap="round"/>
+              <line x1="26" y1="25" x2="43" y2="43" stroke="rgba(212,144,10,0.4)" stroke-width="1.2" stroke-dasharray="3 2"/>
+              <!-- Nodo 2 — arriba derecha (activo) -->
+              <circle cx="92" cy="18" r="9" fill="rgba(26,61,40,0.7)" stroke="rgba(245,240,232,0.5)" stroke-width="1.5"/>
+              <line x1="92" y1="24" x2="92" y2="12" stroke="rgba(212,144,10,0.7)" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M92 18 Q87 13 89 11" fill="none" stroke="rgba(212,144,10,0.6)" stroke-width="1.4" stroke-linecap="round"/>
+              <line x1="84" y1="25" x2="68" y2="43" stroke="rgba(212,144,10,0.4)" stroke-width="1.2" stroke-dasharray="3 2"/>
+              <!-- Nodo 3 — abajo izquierda (activo) -->
+              <circle cx="18" cy="92" r="9" fill="rgba(26,61,40,0.7)" stroke="rgba(245,240,232,0.5)" stroke-width="1.5"/>
+              <line x1="18" y1="98" x2="18" y2="86" stroke="rgba(212,144,10,0.7)" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M18 92 Q13 87 15 85" fill="none" stroke="rgba(212,144,10,0.6)" stroke-width="1.4" stroke-linecap="round"/>
+              <line x1="26" y1="85" x2="43" y2="67" stroke="rgba(212,144,10,0.4)" stroke-width="1.2" stroke-dasharray="3 2"/>
+              <!-- Nodo 4 — abajo derecha (activo) -->
+              <circle cx="92" cy="92" r="9" fill="rgba(26,61,40,0.7)" stroke="rgba(245,240,232,0.5)" stroke-width="1.5"/>
+              <line x1="92" y1="98" x2="92" y2="86" stroke="rgba(212,144,10,0.7)" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M92 92 Q87 87 89 85" fill="none" stroke="rgba(212,144,10,0.6)" stroke-width="1.4" stroke-linecap="round"/>
+              <line x1="84" y1="85" x2="68" y2="67" stroke="rgba(212,144,10,0.4)" stroke-width="1.2" stroke-dasharray="3 2"/>
+              <!-- Nodo 5 — nuevo (punteado, incorporándose) -->
+              <circle cx="55" cy="6" r="7" fill="rgba(26,61,40,0.3)" stroke="rgba(212,144,10,0.3)" stroke-width="1.2" stroke-dasharray="2 2"/>
+              <line x1="55" y1="13" x2="55" y2="41" stroke="rgba(212,144,10,0.2)" stroke-width="1" stroke-dasharray="3 3"/>
+              <text x="55" y="9" text-anchor="middle" font-family="monospace" font-size="5" fill="rgba(212,144,10,0.35)">+</text>
+            </svg>
+            <div>
+              <div style="font-family:'DM Mono',monospace; font-size:0.55em; letter-spacing:0.22em; color:rgba(212,144,10,0.7); text-transform:uppercase; margin-bottom:10px;">ESCALA</div>
+              <div style="font-family:'Cormorant Garamond',serif; font-size:2.5em; font-style:italic; color:var(--crema); line-height:1.15; margin-bottom:12px;">Más fincas.<br/>En paralelo.</div>
+              <div style="font-size:0.82em; color:var(--crema-dim); line-height:1.6;">Un solo modelo sirve a múltiples fincas<br/>sin duplicar infraestructura.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Frame 2 · Aprende de cada cosecha — barras de precisión creciente -->
+        <div class="fragment horizon-trigger" data-fragment-index="2" style="grid-area:1/1;">
+          <div class="horizon-inner" style="display:flex; align-items:center; gap:52px; padding:18px 0;">
+            <svg width="115" height="115" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+              <!-- Cosecha 1 — 68% -->
+              <text x="8" y="18" font-family="monospace" font-size="7" fill="rgba(245,240,232,0.35)" letter-spacing="0.5">COSECHA 1</text>
+              <rect x="8" y="22" width="86" height="14" rx="3" fill="rgba(26,61,40,0.5)" stroke="rgba(245,240,232,0.15)" stroke-width="1"/>
+              <rect x="8" y="22" width="59" height="14" rx="3" fill="rgba(192,57,43,0.4)"/>
+              <text x="72" y="32" font-family="monospace" font-size="8" fill="rgba(245,240,232,0.5)">68%</text>
+              <!-- Cosecha 2 — 82% -->
+              <text x="8" y="52" font-family="monospace" font-size="7" fill="rgba(245,240,232,0.35)" letter-spacing="0.5">COSECHA 2</text>
+              <rect x="8" y="56" width="86" height="14" rx="3" fill="rgba(26,61,40,0.5)" stroke="rgba(245,240,232,0.15)" stroke-width="1"/>
+              <rect x="8" y="56" width="71" height="14" rx="3" fill="rgba(212,144,10,0.5)"/>
+              <text x="82" y="66" font-family="monospace" font-size="8" fill="rgba(245,240,232,0.65)">82%</text>
+              <!-- Cosecha N — 94% -->
+              <text x="8" y="86" font-family="monospace" font-size="7" fill="rgba(212,144,10,0.55)" letter-spacing="0.5">COSECHA N</text>
+              <rect x="8" y="90" width="86" height="14" rx="3" fill="rgba(26,61,40,0.5)" stroke="rgba(212,144,10,0.4)" stroke-width="1.2"/>
+              <rect x="8" y="90" width="81" height="14" rx="3" fill="rgba(212,144,10,0.8)"/>
+              <text x="92" y="100" font-family="monospace" font-size="8" fill="rgba(212,144,10,1)">94%</text>
+            </svg>
+            <div>
+              <div style="font-family:'DM Mono',monospace; font-size:0.55em; letter-spacing:0.22em; color:rgba(212,144,10,0.7); text-transform:uppercase; margin-bottom:10px;">APRENDIZAJE CONTINUO</div>
+              <div style="font-family:'Cormorant Garamond',serif; font-size:2.5em; font-style:italic; color:var(--crema); line-height:1.15; margin-bottom:12px;">Aprende de<br/>cada cosecha.</div>
+              <div style="font-size:0.82em; color:var(--crema-dim); line-height:1.6;">Cada temporada alimenta el modelo.<br/>La precisión sube sola.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Frame 3 · Respuesta en tiempo real — rayo campo → sistema -->
+        <div class="fragment horizon-trigger" data-fragment-index="3" style="grid-area:1/1;">
+          <div class="horizon-inner" style="display:flex; align-items:center; gap:52px; padding:18px 0;">
+            <svg width="115" height="115" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+              <!-- Caja CAMPO (izquierda) -->
+              <rect x="4" y="28" width="36" height="52" rx="5" fill="rgba(26,61,40,0.6)" stroke="rgba(245,240,232,0.3)" stroke-width="1.5"/>
+              <text x="22" y="40" text-anchor="middle" font-family="monospace" font-size="6" fill="rgba(245,240,232,0.4)" letter-spacing="0.5">CAMPO</text>
+              <!-- Flor estilizada -->
+              <line x1="22" y1="74" x2="22" y2="50" stroke="rgba(212,144,10,0.65)" stroke-width="2" stroke-linecap="round"/>
+              <path d="M22 58 Q16 52 18 48" fill="none" stroke="rgba(212,144,10,0.55)" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M22 63 Q28 57 26 53" fill="none" stroke="rgba(212,144,10,0.55)" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="22" cy="46" r="6" fill="rgba(212,144,10,0.35)" stroke="rgba(212,144,10,0.7)" stroke-width="1.5"/>
+              <!-- Exclamación — evento nuevo -->
+              <text x="34" y="36" font-family="serif" font-size="16" fill="rgba(192,57,43,0.85)" font-weight="bold">!</text>
+              <!-- Rayo central -->
+              <path d="M47 48 L57 36 L53 50 L65 36 L54 58 L61 58 L47 76 L53 60 L45 60 Z"
+                    fill="rgba(212,144,10,0.75)" stroke="rgba(212,144,10,1)" stroke-width="0.8" stroke-linejoin="round"/>
+              <!-- Caja RESPUESTA (derecha) -->
+              <rect x="70" y="28" width="36" height="52" rx="5" fill="rgba(212,144,10,0.1)" stroke="rgba(212,144,10,0.65)" stroke-width="1.8"/>
+              <text x="88" y="40" text-anchor="middle" font-family="monospace" font-size="5.5" fill="rgba(212,144,10,0.7)" letter-spacing="0.5">NUEVO</text>
+              <text x="88" y="50" text-anchor="middle" font-family="monospace" font-size="5.5" fill="rgba(212,144,10,0.7)">MODELO</text>
+              <!-- Checkmark en caja derecha -->
+              <circle cx="88" cy="64" r="9" fill="rgba(212,144,10,0.12)" stroke="rgba(212,144,10,0.5)" stroke-width="1.2"/>
+              <polyline points="82,64 86,69 94,57" fill="none" stroke="rgba(212,144,10,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- "tiempo real" etiqueta -->
+              <text x="55" y="96" text-anchor="middle" font-family="monospace" font-size="6" fill="rgba(245,240,232,0.25)" letter-spacing="0.5">tiempo real</text>
+            </svg>
+            <div>
+              <div style="font-family:'DM Mono',monospace; font-size:0.55em; letter-spacing:0.22em; color:rgba(212,144,10,0.7); text-transform:uppercase; margin-bottom:10px;">TIEMPO REAL</div>
+              <div style="font-family:'Cormorant Garamond',serif; font-size:2.5em; font-style:italic; color:var(--crema); line-height:1.15; margin-bottom:12px;">Responde cuando<br/>el campo cambia.</div>
+              <div style="font-size:0.82em; color:var(--crema-dim); line-height:1.6;">Lluvia, plaga, anomalía. El sistema<br/>actualiza la estimación sin esperar.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Frame 4 · El ask — $10M + servidor GPU — stays -->
+        <div class="fragment horizon-trigger" data-fragment-index="4" data-h-last="true" style="grid-area:1/1;">
+          <div class="horizon-inner" style="display:flex; align-items:center; gap:52px; padding:18px 0;">
+            <!-- Illustration: servidor GPU con candado abierto -->
+            <svg width="115" height="115" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+              <!-- Rack del servidor -->
+              <rect x="6" y="8" width="52" height="92" rx="5" fill="rgba(26,61,40,0.55)" stroke="rgba(212,144,10,0.45)" stroke-width="1.8"/>
+              <!-- Blade 1 -->
+              <rect x="12" y="16" width="40" height="12" rx="2" fill="rgba(212,144,10,0.15)" stroke="rgba(212,144,10,0.35)" stroke-width="1"/>
+              <circle cx="46" cy="22" r="3.5" fill="rgba(52,211,80,0.7)"/>
+              <rect x="14" y="19" width="24" height="2" rx="1" fill="rgba(212,144,10,0.25)"/>
+              <!-- Blade 2 -->
+              <rect x="12" y="32" width="40" height="12" rx="2" fill="rgba(212,144,10,0.15)" stroke="rgba(212,144,10,0.35)" stroke-width="1"/>
+              <circle cx="46" cy="38" r="3.5" fill="rgba(52,211,80,0.7)"/>
+              <rect x="14" y="35" width="20" height="2" rx="1" fill="rgba(212,144,10,0.25)"/>
+              <!-- Blade 3 -->
+              <rect x="12" y="48" width="40" height="12" rx="2" fill="rgba(212,144,10,0.15)" stroke="rgba(212,144,10,0.35)" stroke-width="1"/>
+              <circle cx="46" cy="54" r="3.5" fill="rgba(52,211,80,0.7)"/>
+              <rect x="14" y="51" width="28" height="2" rx="1" fill="rgba(212,144,10,0.25)"/>
+              <!-- GPU blade — especial -->
+              <rect x="12" y="64" width="40" height="14" rx="2" fill="rgba(212,144,10,0.22)" stroke="rgba(212,144,10,0.6)" stroke-width="1.5"/>
+              <circle cx="46" cy="71" r="4" fill="rgba(212,144,10,0.85)"/>
+              <text x="28" y="73" text-anchor="middle" font-family="monospace" font-size="7" fill="rgba(212,144,10,0.85)" letter-spacing="1">GPU</text>
+              <!-- Label -->
+              <text x="32" y="94" text-anchor="middle" font-family="monospace" font-size="6" fill="rgba(212,144,10,0.4)" letter-spacing="0.5">SERVIDOR</text>
+              <!-- Candado abierto (el freno quitado) -->
+              <rect x="70" y="55" width="32" height="30" rx="5" fill="rgba(212,144,10,0.12)" stroke="rgba(212,144,10,0.65)" stroke-width="1.8"/>
+              <!-- Arco del candado abierto (arco salido a la derecha) -->
+              <path d="M78 55 Q78 42 86 42 Q94 42 94 55" fill="none" stroke="rgba(245,240,232,0.3)" stroke-width="2.2" stroke-linecap="round"/>
+              <!-- Ojo de la cerradura -->
+              <circle cx="86" cy="68" r="5" fill="rgba(212,144,10,0.5)"/>
+              <rect x="84" y="70" width="4" height="8" rx="1" fill="rgba(212,144,10,0.5)"/>
+              <!-- Flecha quitando el candado -->
+              <path d="M100 42 L108 35" stroke="rgba(212,144,10,0.55)" stroke-width="1.8" stroke-linecap="round"/>
+              <polyline points="104,31 108,35 104,39" fill="none" stroke="rgba(212,144,10,0.55)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <text x="86" y="96" text-anchor="middle" font-family="monospace" font-size="5.5" fill="rgba(212,144,10,0.45)" letter-spacing="0.3">freno quitado</text>
+            </svg>
+            <!-- El ask -->
+            <div>
+              <div style="font-family:'DM Mono',monospace; font-size:0.55em; letter-spacing:0.22em; color:var(--dorado); text-transform:uppercase; margin-bottom:10px;">EL PEDIDO</div>
+              <div class="ask-number" style="font-family:'Cormorant Garamond',serif; font-size:3.6em; font-weight:700; color:var(--dorado); line-height:1; margin-bottom:10px; text-shadow: 0 0 48px rgba(212,144,10,0.45), 0 0 96px rgba(212,144,10,0.15);">$10.000.000</div>
+              <div style="font-family:'DM Mono',monospace; font-size:0.6em; color:rgba(212,144,10,0.6); letter-spacing:0.12em; margin-bottom:10px;">COP &nbsp;·&nbsp; servidor GPU</div>
+              <div style="font-size:0.8em; color:var(--crema-dim); line-height:1.55;">Para quitar ese freno — y convertir<br/>un piloto que ya existe en un producto que escala.</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /S13 illustrated frames -->
+
+      <aside class="notes">
+        2:31 — "AgriVision ya funciona. El límite hoy no es el modelo — es el músculo computacional para escalarlo. Con un servidor GPU: más fincas en paralelo, aprendizaje que mejora con cada cosecha, respuesta en tiempo real cuando el campo cambia. Le pido al CEIS diez millones de pesos para quitar ese freno — y convertir un piloto que ya existe en un producto que escala."
+        "diez millones de pesos" → sin dudar. Dejar aterrizar. Sostener el silencio.
+      </aside>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════
+         S14 · CIERRE
+         Manual — silencio final
+    ════════════════════════════════════════════════ -->
+    <section class="center-slide" data-background-color="#080e0a">
+      <svg class="logo-inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 56" fill="none" style="width:260px; margin-bottom:28px; opacity:0.92;">
+        <rect width="300" height="56" rx="9" fill="#0f2519"/>
+        <rect x="0" y="52" width="300" height="4" rx="0" fill="#d4900a" opacity="0.6"/>
+        <rect x="0" y="47" width="300" height="9" rx="0" fill="#d4900a" opacity="0.15"/>
+        <g transform="translate(10,9) scale(1.357)">
+          <path d="M14 3C14 3 6 9.5 6 17C6 21.4 9.6 25 14 25C18.4 25 22 21.4 22 17C22 9.5 14 3 14 3Z" fill="#d4900a" opacity="0.9"/>
+          <path d="M14 8L14 25" stroke="#0f2519" stroke-width="1.4" stroke-linecap="round"/>
+          <path d="M14 14C14 14 10.5 11.5 8.5 13.5" stroke="#0f2519" stroke-width="1.4" stroke-linecap="round"/>
+          <path d="M14 18.5C14 18.5 17.5 16 19.5 18" stroke="#0f2519" stroke-width="1.4" stroke-linecap="round"/>
+        </g>
+        <line x1="62" y1="10" x2="62" y2="46" stroke="#d4900a" stroke-width="0.8" opacity="0.4"/>
+        <text x="72" y="31" font-family="'DM Sans','Helvetica Neue',Arial,sans-serif" font-size="22" font-weight="600" fill="#f5f0e8" letter-spacing="0.6">AgriVision</text>
+        <text x="72" y="45" font-family="'DM Sans','Helvetica Neue',Arial,sans-serif" font-size="9" font-weight="400" fill="#d4900a" letter-spacing="1.1">DATOS DEL CAMPO. DECISIONES ACERTADAS.</text>
+      </svg>
+      <div style="width:1px; height:24px; background:rgba(212,144,10,0.2); margin:0 auto 20px;"></div>
+      <p style="font-family:'DM Mono',monospace; font-size:0.6em; letter-spacing:0.16em; color:var(--dorado); opacity:0.5; margin:0 0 6px;">
+        Mauricio Combariza &nbsp;·&nbsp; mcombarizav@gmail.com
+      </p>
+      <p style="font-family:'Cormorant Garamond',serif; font-size:1.15em; font-style:italic; color:var(--crema-dim); margin:16px 0 0; line-height:1.5;">
+        "Cada tallo que crece es un dato<br/>que todavía no se ha leído."
+      </p>
+      <aside class="notes">Cierre absoluto. Silencio. No llenar.</aside>
+    </section>
+
+  </div>
+</div>
+
+<!-- ── Scripts ────────────────────────────────────── -->
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+
+  // ── Timings por slide en ms ─────────────────────
+  // IMPORTANTE: Reveal.js usa este valor como INTERVALO entre cada paso
+  // (estado inicial → frag 0 → frag 1 → ... → siguiente slide).
+  // Tiempo real del slide = TIMINGS[i] × (N_fragments + 1)
+  // Para S03: intervalo inicial; cada word usa su propio data-autoslide=4000ms.
+  //
+  // Slide  Steps  TIMING   Total    Acumulado
+  // S02    4      2000ms   8s       0:08
+  // S03    –      2000ms   22s      0:30  (2s + 5 words × 4s)
+  // S04    2      4000ms   8s       0:38
+  // S05    1      8000ms   8s       0:50
+  // S06    4      3500ms   14s      1:04
+  // S07    1      8000ms   8s       1:12
+  // S08    2      8000ms   16s      1:28
+  // S09    8      2500ms   20s      1:48
+  // S10    6      3000ms   18s      2:06
+  // S11    7      3000ms   21s      2:27
+  // S12    4      4000ms   16s      2:43
+  // S13    6      3500ms   21s      3:04
+  // Total auto = 184s = ~3:04 min
+  const TIMINGS = [
+    0,      // S01 Portada              — manual
+    2000,   // S02 El número            — 4 pasos × 2000ms = 8s
+    2000,   // S03 El Trueno            — pausa inicial; words usan data-autoslide=4000ms → 22s
+    4000,   // S04 Escala absurda       — 3 pasos × 4000ms = 12s  (ahora $96M también es fragment)
+    8000,   // S05 Carlos               — 1 paso  × 8000ms = 8s
+    3500,   // S06 El Excel             — 4 pasos × 3500ms = 14s
+    8000,   // S07 El avión             — 1 paso  × 8000ms = 8s
+    8000,   // S08 Mauricio             — 2 pasos × 8000ms = 16s
+    2500,   // S09 Una foto             — 8 pasos × 2500ms = 20s
+    3000,   // S10 4 Horizontes         — 6 pasos × 3000ms = 18s
+    3000,   // S11 Beneficios           — 7 pasos × 3000ms = 21s
+    4000,   // S12 Un dato              — 4 pasos × 4000ms = 16s
+    3500,   // S13 El ask               — 6 pasos × 3500ms = 21s
+    0,      // S14 Cierre               — manual
+  ];
+
+  // Tiempo total de cada slide en ms — para la barra de progreso
+  const SLIDE_TOTAL_MS = [
+    0, 8000, 22000, 12000, 8000, 14000, 8000, 16000, 20000, 18000, 21000, 16000, 21000, 0
+  ];
+
+  Reveal.initialize({
+    hash: true,
+    controls: false,
+    progress: false,
+    slideNumber: false,
+    overview: true,
+    center: false,
+    transition: 'fade',
+    transitionSpeed: 'slow',
+    backgroundTransition: 'fade',
+    width: 1280,
+    height: 720,
+    margin: 0,
+    autoSlide: 0,
+    autoSlideStoppable: true,
+    plugins: []
+  });
+
+  // ── Asignar timings a cada slide ────────────────
+  Reveal.on('ready', () => {
+    document.querySelectorAll('.reveal .slides > section').forEach((s, i) => {
+      s.dataset.autoslide = TIMINGS[i] ?? 0;
+    });
+  });
+
+  // ── Efectos de salida por palabra (JS transition) ──
+  const THUNDER_EXITS = {
+    'float-up':    { transform: 'translateY(-120px) scaleY(0.4)', filter: 'blur(12px)',                      ms: 500 },
+    'crumble':     { transform: 'scale(0.03) skew(6deg,3deg)',     filter: 'blur(7px)',                       ms: 560 },
+    'slide-right': { transform: 'translateX(90vw) skewX(-12deg)', filter: 'blur(5px)',                       ms: 400 },
+    'burnout':     { transform: 'scale(1.25)',                     filter: 'brightness(0.1) blur(16px)',      ms: 580 },
+  };
+
+  function exitThunder(el) {
+    const fx = THUNDER_EXITS[el.dataset.exit];
+    if (!fx) return;
+    // 1. Congela el estado actual como inline style para evitar que el fill
+    //    de la animación thunder-fall interfiera con la transición de salida
+    el.style.opacity   = '1';
+    el.style.transform = 'translateY(0) scaleY(1)';
+    el.style.filter    = 'brightness(1) blur(0)';
+    el.classList.remove('is-active');   // detiene el fill de thunder-fall
+    void el.offsetHeight;               // fuerza reflow para registrar estado
+    // 2. Aplica transición hacia el estado final de salida
+    el.style.transition = `opacity ${fx.ms}ms ease-in,
+                            transform ${fx.ms}ms ease-in,
+                            filter ${fx.ms}ms ease-in`;
+    el.style.opacity    = '0';
+    el.style.transform  = fx.transform;
+    el.style.filter     = fx.filter;
+    // 3. Oculta completamente al terminar
+    setTimeout(() => { el.style.display = 'none'; }, fx.ms + 60);
+  }
+
+  // ── Horizon: salida con slide-left + fade ───────
+  function exitHorizon(el) {
+    el.style.opacity   = '1';
+    el.style.transform = 'translateX(0)';
+    el.classList.remove('h-active');
+    void el.offsetHeight;                // reflow para registrar estado
+    el.style.transition = 'opacity 360ms ease-in, transform 360ms ease-in';
+    el.style.opacity    = '0';
+    el.style.transform  = 'translateX(-80px)';
+    setTimeout(() => { el.style.display = 'none'; }, 430);
+  }
+
+  // ── Thunder: entrada + salida de la anterior ────
+  Reveal.on('fragmentshown', (e) => {
+    const frag = e.fragment;
+
+    if (frag.classList.contains('thunder-trigger')) {
+      const idx     = parseInt(frag.dataset.fragmentIndex);
+      const inner   = frag.querySelector('.thunder-inner');
+      const section = frag.closest('section');
+
+      // Flash de pantalla en cada impacto
+      const flash = document.createElement('div');
+      flash.className = 'flash-overlay';
+      document.body.appendChild(flash);
+      setTimeout(() => flash.remove(), 400);
+
+      // Ocultar TODAS las palabras anteriores para robustez en auto-mode
+      // (auto-mode puede disparar fragmentshown múltiples veces casi simultáneamente)
+      for (let i = 0; i < idx; i++) {
+        const oldInner = section.querySelector(
+          `.thunder-trigger[data-fragment-index="${i}"] .thunder-inner`
+        );
+        if (!oldInner) continue;
+        if (!autoOn && i === idx - 1) {
+          // Modo manual: animación de salida elegante para la palabra anterior inmediata
+          exitThunder(oldInner);
+        } else {
+          // Modo auto O palabras más antiguas: ocultar de forma inmediata y sincrónica
+          oldInner.style.transition = 'none';
+          oldInner.style.animation  = 'none';
+          oldInner.style.opacity    = '0';
+          oldInner.style.display    = 'none';
+          oldInner.classList.remove('is-active');
+        }
+      }
+
+      // Entrada: limpiar propiedades residuales y animar la palabra actual
+      inner.style.removeProperty('opacity');
+      inner.style.removeProperty('transform');
+      inner.style.removeProperty('filter');
+      inner.style.removeProperty('transition');
+      inner.style.removeProperty('display');
+      inner.style.removeProperty('animation');
+      inner.classList.add('is-active');
+    }
+
+    // S10: horizon cards — replace each other
+    if (frag.classList.contains('horizon-trigger')) {
+      const idx    = parseInt(frag.dataset.fragmentIndex);
+      const inner  = frag.querySelector('.horizon-inner');
+      // Restore properties cleaned by previous exit
+      inner.style.removeProperty('opacity');
+      inner.style.removeProperty('transform');
+      inner.style.removeProperty('transition');
+      inner.style.removeProperty('display');
+      inner.classList.add('h-active');
+
+      // Exit the previous card (unless this is the first one)
+      if (idx > 0) {
+        const section  = frag.closest('section');
+        const prevCard = section.querySelector(
+          `.horizon-trigger[data-fragment-index="${idx - 1}"] .horizon-inner`
+        );
+        // Don't exit the last horizon card (28 días stays visible when quote arrives)
+        const prevTrigger = section.querySelector(
+          `.horizon-trigger[data-fragment-index="${idx - 1}"]`
+        );
+        if (prevCard && !(prevTrigger && prevTrigger.dataset.hLast === 'true')) {
+          exitHorizon(prevCard);
+        }
+      }
+    }
+
+    // S06: tachar 520.000 cuando aparece el ≠ + 390.000
+    const sec = e.fragment.closest('section');
+    if (sec && sec.id === 's06' && e.fragment.dataset.fragmentIndex === '1') {
+      const n520 = document.getElementById('num-520');
+      if (n520) n520.classList.add('number-struck');
+    }
+
+    // S09: arrancar curva gaussiana cuando aparece el paso de proyección
+    if (sec && sec.id === 's09') {
+      const idx09 = parseInt(e.fragment.dataset.fragmentIndex);
+
+      if (idx09 === 4) {
+        // Dibuja la curva con CSS transition sobre stroke-dashoffset
+        const curve = document.getElementById('gauss-curve');
+        const fill  = document.getElementById('gauss-fill');
+        if (curve) {
+          curve.style.transition = 'stroke-dashoffset 2s ease-in-out';
+          curve.style.strokeDashoffset = '0';
+        }
+        if (fill) {
+          fill.style.transition = 'opacity 2.2s ease-in-out 0.6s';
+          fill.style.opacity = '1';
+        }
+      }
+
+      if (idx09 === 5) {
+        // Muestra la línea vertical del pico
+        const peak = document.getElementById('gauss-peak');
+        if (peak) {
+          peak.style.transition = 'opacity 0.4s ease-in';
+          peak.style.opacity = '1';
+        }
+      }
+    }
+  });
+
+  // ── Barra de progreso por slide ─────────────────
+  const progressBar = document.getElementById('slide-progress');
+
+  function startProgress(ms) {
+    progressBar.style.transition = 'none';
+    progressBar.style.width = '100%';
+    progressBar.style.opacity = ms > 0 ? '0.45' : '0';
+    if (ms <= 0) return;
+    progressBar.getBoundingClientRect();
+    progressBar.style.transition = `width ${ms}ms linear`;
+    progressBar.style.width = '0%';
+  }
+
+  function stopProgress() {
+    progressBar.style.transition = 'opacity 0.3s';
+    progressBar.style.opacity = '0';
+  }
+
+  Reveal.on('slidechanged', e => {
+    if (autoOn) startProgress(SLIDE_TOTAL_MS[e.indexh] ?? 0);
+
+    // Resetear palabras de trueno en la diapositiva que se acaba de salir.
+    // Garantiza que si se regresa a S03, todas las palabras empiecen ocultas y limpias.
+    if (e.previousSlide) {
+      e.previousSlide.querySelectorAll('.thunder-inner').forEach(el => {
+        el.style.transition = 'none';
+        el.style.animation  = 'none';
+        el.style.opacity    = '0';
+        el.style.display    = 'block';   // restaurar display para la próxima visita
+        el.classList.remove('is-active');
+      });
+    }
+  });
+
+  // ── Auto-slide toggle ───────────────────────────
+  let autoOn = false;
+  const autoEl = document.getElementById('auto-indicator');
+
+  function toggleAuto() {
+    autoOn = !autoOn;
+    Reveal.configure({ autoSlide: autoOn ? 1 : 0 });
+    autoEl.style.opacity = autoOn ? '0.65' : '0';
+    if (autoOn) {
+      startProgress(SLIDE_TOTAL_MS[Reveal.getState().indexh] ?? 0);
+    } else {
+      stopProgress();
+    }
+  }
+
+  // ── Timer de pitch ──────────────────────────────
+  const timerEl = document.getElementById('pitch-timer');
+  let timerStart = null, timerInterval = null;
+
+  function toggleTimer() {
+    if (!timerStart) {
+      timerStart = Date.now();
+      timerEl.style.display = 'block';
+      timerInterval = setInterval(() => {
+        const elapsed = Math.floor((Date.now() - timerStart) / 1000);
+        const m = Math.floor(elapsed / 60);
+        const s = elapsed % 60;
+        timerEl.textContent = `${m}:${s.toString().padStart(2, '0')}`;
+        timerEl.style.color = elapsed > 180 ? '#c0392b' : '#d4900a';
+      }, 500);
+    } else {
+      clearInterval(timerInterval);
+      timerStart = null;
+      timerEl.style.display = 'none';
+    }
+  }
+
+  // ── Teclado ─────────────────────────────────────
+  // A → toggle auto · T → toggle timer
+  document.addEventListener('keydown', e => {
+    if (e.key === 'a' || e.key === 'A') toggleAuto();
+    if (e.key === 't' || e.key === 'T') toggleTimer();
+  });
+
+</script>
+</body>
+</html>
