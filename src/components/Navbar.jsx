@@ -35,6 +35,9 @@ export default function Navbar({ onLoginClick }) {
             <span className="navbar__wordmark">AgriVision</span>
           </a>
           <div className="navbar__actions">
+            <a href="https://combariza.com/detector" className="navbar__lang" style={{ textDecoration: 'none' }} target="_blank" rel="noopener">
+              Detector
+            </a>
             <a href="/combariza/pitch.html" className="navbar__lang" style={{ textDecoration: 'none' }} target="_blank" rel="noopener">
               Pitch
             </a>
