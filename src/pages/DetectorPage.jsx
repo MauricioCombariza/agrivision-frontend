@@ -22,9 +22,15 @@ function Logo() {
   )
 }
 
+const FAMILIES = [
+  { value: 'tagStandard52h13', label: 'Standard52h13 — 48,714 IDs' },
+  { value: 'tag36h11',         label: 'tag36h11 — 587 IDs (clásica)' },
+]
+
 export default function DetectorPage() {
   const [tab, setTab] = useState('camera')
   const [accumulated, setAccumulated] = useState([])
+  const [selectedFamily, setSelectedFamily] = useState('tagStandard52h13')
 
   function handleAccumulate(newResults) {
     setAccumulated(prev => {
@@ -43,20 +49,36 @@ export default function DetectorPage() {
         <Logo />
         <div className="det-header__text">
           <h1>Lector AprilTags</h1>
-          <p>tag36h11 · AgriVision</p>
+          <p>AgriVision</p>
         </div>
       </header>
 
       <main className="det-main">
+        {tab !== 'cajas' && (
+          <div className="det-family-selector">
+            <label className="det-family-selector__label">Familia de etiqueta</label>
+            <select
+              className="det-family-selector__select"
+              value={selectedFamily}
+              onChange={e => { setSelectedFamily(e.target.value); setAccumulated([]) }}
+            >
+              {FAMILIES.map(f => (
+                <option key={f.value} value={f.value}>{f.label}</option>
+              ))}
+            </select>
+          </div>
+        )}
+
         {tab === 'camera' && (
           <CameraCapture
             accumulated={accumulated}
             onAccumulate={handleAccumulate}
             onClear={() => setAccumulated([])}
+            family={selectedFamily}
           />
         )}
-        {tab === 'video'  && <VideoUpload />}
-        {tab === 'photos' && <PhotoUpload />}
+        {tab === 'video'  && <VideoUpload family={selectedFamily} />}
+        {tab === 'photos' && <PhotoUpload family={selectedFamily} />}
         {tab === 'cajas'  && <CajasCapture />}
       </main>
 
