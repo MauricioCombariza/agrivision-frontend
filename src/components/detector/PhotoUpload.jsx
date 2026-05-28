@@ -3,7 +3,7 @@ import { detectPhoto } from '../../api/detector'
 import { compressImage, annotateImage } from '../../utils/imageUtils'
 import DetectionResults from './DetectionResults'
 
-export default function PhotoUpload() {
+export default function PhotoUpload({ family = 'tagStandard52h13' }) {
   const inputRef = useRef(null)
   const [loading, setLoading] = useState(false)
   const [results, setResults] = useState([])
@@ -39,7 +39,7 @@ export default function PhotoUpload() {
       let result
       try {
         const compressed = await compressImage(file)
-        const res = await detectPhoto(compressed, effectiveExpected, accMap.size)
+        const res = await detectPhoto(compressed, effectiveExpected, accMap.size, family)
         const annotatedUrl = await annotateImage(compressed, res.detections)
         for (const d of res.detections) {
           const ex = accMap.get(d.tag_id)

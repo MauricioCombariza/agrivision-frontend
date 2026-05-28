@@ -15,34 +15,35 @@ async function get(path) {
   return res.json()
 }
 
-export function detectPhoto(file, expectedTags = null, foundCount = null) {
+export function detectPhoto(file, expectedTags = null, foundCount = null, family = 'tagStandard52h13') {
   const fd = new FormData()
   fd.append('file', file)
   const params = new URLSearchParams()
   if (expectedTags != null) params.set('expected_tags', expectedTags)
   if (foundCount != null) params.set('found_count', foundCount)
-  const qs = params.size ? `?${params}` : ''
-  return post(`/api/v1/detect/photo${qs}`, fd)
+  params.set('tag_family', family)
+  return post(`/api/v1/detect/photo?${params}`, fd)
 }
 
-export function detectPhotoQuick(file, expectedTags = null, foundCount = null) {
+export function detectPhotoQuick(file, expectedTags = null, foundCount = null, family = 'tagStandard52h13') {
   const fd = new FormData()
   fd.append('file', file)
   const params = new URLSearchParams()
   if (expectedTags != null) params.set('expected_tags', expectedTags)
   if (foundCount != null) params.set('found_count', foundCount)
-  const qs = params.size ? `?${params}` : ''
-  return post(`/api/v1/detect/photo/quick${qs}`, fd)
+  params.set('tag_family', family)
+  return post(`/api/v1/detect/photo/quick?${params}`, fd)
 }
 
 export function getPhotoJobStatus(jobId) {
   return get(`/api/v1/detect/photo/job/${jobId}`)
 }
 
-export function startVideoDetection(file) {
+export function startVideoDetection(file, family = 'tagStandard52h13') {
   const fd = new FormData()
   fd.append('file', file)
-  return post('/api/v1/detect/video', fd)
+  const params = new URLSearchParams({ tag_family: family })
+  return post(`/api/v1/detect/video?${params}`, fd)
 }
 
 export function getVideoStatus(jobId) {
