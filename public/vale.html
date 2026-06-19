@@ -136,6 +136,7 @@
   <!-- Audios por slide -->
   <audio id="audio-sabri" preload="auto" src="https://res.cloudinary.com/combariza/video/upload/v1781885971/Vale/Sabri.ogg"></audio>
   <audio id="audio-cata"  preload="auto" src="https://res.cloudinary.com/combariza/video/upload/v1781885971/Vale/Cata.ogg"></audio>
+  <audio id="audio-mauro" preload="auto" src="https://res.cloudinary.com/combariza/video/upload/v1781889151/Vale/Mauro.mp4"></audio>
 
   <!-- ══════════════════════════════════════
        PRESENTACIÓN
@@ -338,35 +339,74 @@
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.js"></script>
 
   <script>
-    /* ══════════════════════════════════════════════════════
-       AUDIOS POR SLIDE
-         índice 3 → "Cada ensayo, cada paso..."  → Sabri
-         índice 6 → "Valeria brillaba cada vez..." → Cata
+    /* ══════════════════════════════════════════════════════════
+       AUDIOS POR SLIDE (índice 0 = apertura)
+         3  → Sabri  — "Cada ensayo, cada paso..."
+         6  → Cata   — "Valeria brillaba cada vez..."
+         11 → Mauro  — "Porque los sueños..."
 
-       DURACIONES DE SLIDES SIN AUDIO (ms)
-         null = se calcula automáticamente desde el audio
-       ══════════════════════════════════════════════════════ */
+       Los slides con audio duran exactamente lo que dura el audio.
+       Los slides sin audio reciben el tiempo sobrante hasta 3 min,
+       repartido según los pesos relativos de PESOS_NO_AUDIO.
+       ══════════════════════════════════════════════════════════ */
+    var META_MS    = 180000; // 3 minutos
+    var MARGEN_MS  = 800;    // margen extra al final de cada audio
+
     var AUDIO_MAP = {
-      3: document.getElementById('audio-sabri'),
-      6: document.getElementById('audio-cata'),
+      3:  document.getElementById('audio-sabri'),
+      6:  document.getElementById('audio-cata'),
+      11: document.getElementById('audio-mauro'),
     };
 
-    /* Duración base de cada slide (null = la pone el audio) */
-    var DURACIONES = [
-      4000,   // 0  Apertura
-      12000,  // 1  Infancia 1
-      12000,  // 2  Infancia 2
-      null,   // 3  Infancia 3  ← Sabri (auto)
-      10000,  // 4  Crecimiento 1
-      10000,  // 5  Crecimiento 2
-      null,   // 6  Crecimiento 3 ← Cata (auto)
-      15000,  // 7  El diagnóstico
-      10000,  // 8  La lucha 1
-      12000,  // 9  La lucha 2
-      12000,  // 10 El triunfo 1
-      12000,  // 11 El triunfo 2
-      6000,   // 12 Cierre
+    /* Peso relativo de cada slide SIN audio para repartir el tiempo sobrante */
+    var PESOS_NO_AUDIO = [
+      [0,  0.5],   // Apertura
+      [1,  1.2],   // Infancia 1
+      [2,  1.2],   // Infancia 2
+      [4,  1.0],   // Crecimiento 1
+      [5,  1.0],   // Crecimiento 2
+      [7,  1.6],   // El diagnóstico (más tiempo para el impacto)
+      [8,  1.0],   // La lucha 1
+      [9,  1.0],   // La lucha 2
+      [10, 1.2],   // El triunfo 1
+      [12, 0.5],   // Cierre
     ];
+
+    /* ── Lógica de distribución ─────────────────────────────── */
+    var audiosListos   = 0;
+    var totalAudiosMs  = 0;
+    var totalAudios    = Object.keys(AUDIO_MAP).length;
+
+    function onAudioListo(duracionSeg, indiceSlide) {
+      var ms = Math.ceil(duracionSeg * 1000) + MARGEN_MS;
+      totalAudiosMs += ms;
+      audiosListos++;
+
+      /* Asignar duración al slide de audio */
+      var slides = document.querySelectorAll('.reveal .slides > section');
+      if (slides[indiceSlide]) {
+        slides[indiceSlide].dataset.autoslide = ms;
+      }
+
+      /* Cuando todos los audios cargaron, distribuir el tiempo restante */
+      if (audiosListos === totalAudios) {
+        var restante    = Math.max(META_MS - totalAudiosMs, 20000);
+        var pesoTotal   = PESOS_NO_AUDIO.reduce(function (s, p) { return s + p[1]; }, 0);
+        PESOS_NO_AUDIO.forEach(function (p) {
+          var idx = p[0], peso = p[1];
+          if (slides[idx]) {
+            var dur = Math.round((peso / pesoTotal) * restante);
+            slides[idx].dataset.autoslide = Math.max(dur, 3000);
+          }
+        });
+      }
+    }
+
+    function registrarAudio(audioEl, indiceSlide) {
+      function aplicar() { onAudioListo(audioEl.duration, indiceSlide); }
+      if (audioEl.readyState >= 1) { aplicar(); }
+      else { audioEl.addEventListener('loadedmetadata', aplicar, { once: true }); }
+    }
 
     function detenerTodo() {
       Object.keys(AUDIO_MAP).forEach(function (k) {
@@ -376,20 +416,7 @@
       });
     }
 
-    /* Asignar duración de audio a su slide en cuanto carguen los metadatos */
-    function asignarDuracionAudio(audioEl, indiceSlide) {
-      function aplicar() {
-        var slides = document.querySelectorAll('.reveal .slides > section');
-        if (slides[indiceSlide]) {
-          /* +800ms de margen para que el audio termine antes de avanzar */
-          slides[indiceSlide].dataset.autoslide = Math.ceil(audioEl.duration * 1000) + 800;
-        }
-      }
-      if (audioEl.readyState >= 1) { aplicar(); }
-      else { audioEl.addEventListener('loadedmetadata', aplicar, { once: true }); }
-    }
-
-    /* Inicializar Reveal.js — empieza pausado */
+    /* ── Reveal.js ──────────────────────────────────────────── */
     Reveal.initialize({
       hash:               false,
       controls:           false,
@@ -402,9 +429,6 @@
       backgroundTransition:'fade',
       autoSlide:          0,
       autoSlideStoppable: false,
-      /* Usar el viewport real — sin escalar el contenido.
-         Así los tamaños de fuente en vw/rem funcionan igual
-         en desktop y móvil sin que Reveal encoja todo. */
       width:    '100%',
       height:   '100%',
       margin:   0,
@@ -412,17 +436,11 @@
       maxScale: 1,
     });
 
-    /* Cuando Reveal está listo, aplicar las duraciones base a todos los slides */
+    /* Cuando Reveal está listo, leer metadatos de los tres audios */
     Reveal.on('ready', function () {
-      var slides = document.querySelectorAll('.reveal .slides > section');
-      DURACIONES.forEach(function (d, i) {
-        if (d !== null && slides[i]) {
-          slides[i].dataset.autoslide = d;
-        }
-      });
-      /* Duraciones de audio (se leerán cuando el browser cargue los metadatos) */
-      asignarDuracionAudio(AUDIO_MAP[3], 3);
-      asignarDuracionAudio(AUDIO_MAP[6], 6);
+      registrarAudio(AUDIO_MAP[3],  3);
+      registrarAudio(AUDIO_MAP[6],  6);
+      registrarAudio(AUDIO_MAP[11], 11);
     });
 
     /* Botón inicio: desbloquea audio en iOS/Android y arranca la presentación.
