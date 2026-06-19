@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Valeria — Su Historia · Escuela Petipa</title>
+
+  <!-- Reveal.js CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.css" />
+
+  <!-- Google Fonts: Montserrat + Poppins + Hurricane (escuelapetipa.com) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;800&family=Poppins:ital,wght@0,300;0,400;1,300&family=Hurricane&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ═══ PALETA escuelapetipa.com ═══ */
+    :root {
+      --dark:  #110620;
+      --vivid: #6C0087;
+      --gold:  #D4B576;
+      --goldd: #9F8244;
+      --plum:  #240E42;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: var(--dark); }
+
+    /* ═══ REVEAL.JS BASE ═══ */
+    .reveal { font-family: 'Poppins', sans-serif; background: var(--dark); }
+    .reveal .slides > section { padding: 0; height: 100%; }
+    .reveal .progress { color: var(--gold); height: 3px; }
+
+    /* ═══ LAYOUT COMÚN ═══ */
+    .slide-center {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 3rem;
+    }
+
+    /* ═══ FOTOS — CAPTION ═══ */
+    .caption-band {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 6rem 4rem 3rem;
+      background: linear-gradient(to top, rgba(17,6,32,.97) 0%, rgba(17,6,32,.6) 50%, transparent 100%);
+      text-align: center;
+    }
+    .caption-band-top {
+      position: absolute; top: 0; left: 0; right: 0;
+      padding: 3rem 4rem 6rem;
+      background: linear-gradient(to bottom, rgba(17,6,32,.97) 0%, rgba(17,6,32,.6) 50%, transparent 100%);
+      text-align: center;
+    }
+    .caption-text {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 300; font-style: italic;
+      color: #fff;
+      font-size: clamp(1rem, 2.4vw, 1.45rem);
+      letter-spacing: .06em; line-height: 1.6; margin: 0;
+      text-shadow: 0 2px 10px rgba(0,0,0,.7);
+    }
+
+    /* ═══ TIPOGRAFÍA ═══ */
+    .f-hurricane { font-family: 'Hurricane', cursive; color: #fff; line-height: 1; margin: 0; }
+    .f-label {
+      font-family: 'Montserrat', sans-serif; font-weight: 400;
+      letter-spacing: .35em; text-transform: uppercase;
+      color: var(--gold); font-size: clamp(.6rem, 1.4vw, .85rem); margin: 0;
+    }
+    .f-h2 {
+      font-family: 'Montserrat', sans-serif; font-weight: 800; color: #fff;
+      font-size: clamp(1.7rem, 4.2vw, 3.1rem); line-height: 1.2; max-width: 680px; margin: 0;
+    }
+    .f-body {
+      font-family: 'Poppins', sans-serif; font-weight: 300;
+      color: rgba(255,255,255,.7);
+      font-size: clamp(.85rem, 1.7vw, 1.15rem);
+      line-height: 2; max-width: 520px; margin: 0;
+    }
+    .gold-line {
+      width: 52px; height: 2px; flex-shrink: 0;
+      background: linear-gradient(90deg, var(--goldd), var(--gold));
+      margin: 1.5rem 0;
+    }
+
+    /* ═══ HINT CONTROLES ═══ */
+    .hint {
+      position: fixed; bottom: .85rem; right: 1.4rem; z-index: 9999;
+      font-family: 'Poppins', sans-serif; font-size: .65rem;
+      letter-spacing: .13em; text-transform: uppercase;
+      color: rgba(212,181,118,.3); pointer-events: none; user-select: none;
+    }
+
+    /* ═══ PANTALLA DE INICIO ═══ */
+    #start-screen {
+      position: fixed; inset: 0; z-index: 99999;
+      background: linear-gradient(138deg, #110620 45%, #6C0087 100%);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      transition: opacity .7s ease;
+    }
+    #start-screen.oculto { opacity: 0; pointer-events: none; }
+    #start-btn {
+      margin-top: 2.5rem;
+      padding: .85rem 3rem;
+      background: linear-gradient(104deg, #CFB173 0%, #9F8244 100%);
+      border: none; border-radius: 0;
+      font-family: 'Montserrat', sans-serif; font-weight: 700;
+      font-size: clamp(.75rem, 1.5vw, .9rem);
+      letter-spacing: .25em; text-transform: uppercase;
+      color: #110620; cursor: pointer;
+      transition: opacity .2s;
+    }
+    #start-btn:hover { opacity: .85; }
+  </style>
+</head>
+<body>
+
+  <!-- Pantalla de inicio — el click desbloquea el audio en el browser -->
+  <div id="start-screen">
+    <p class="f-label">Escuela Petipa · Una historia</p>
+    <h1 class="f-hurricane" style="font-size:clamp(5rem,14vw,13rem);margin:.5rem 0">Valeria</h1>
+    <div class="gold-line" style="margin:1.2rem auto"></div>
+    <button id="start-btn">▶&nbsp;&nbsp;Comenzar</button>
+  </div>
+
+  <!-- Audios por slide -->
+  <audio id="audio-sabri" preload="auto" src="https://res.cloudinary.com/combariza/video/upload/v1781885971/Vale/Sabri.ogg"></audio>
+  <audio id="audio-cata"  preload="auto" src="https://res.cloudinary.com/combariza/video/upload/v1781885971/Vale/Cata.ogg"></audio>
+
+  <!-- ══════════════════════════════════════
+       PRESENTACIÓN
+       ══════════════════════════════════════ -->
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- ── APERTURA ─────────────────────────────────── -->
+      <section
+        data-autoslide="5000"
+        data-transition="fade"
+        data-background-gradient="linear-gradient(138deg, #110620 45%, #6C0087 100%)"
+      >
+        <div class="slide-center">
+          <p class="f-label" style="margin-bottom:1.2rem">Escuela Petipa · Una historia</p>
+          <h1 class="f-hurricane" style="font-size:clamp(5rem,14vw,13rem)">Valeria</h1>
+          <div class="gold-line"></div>
+          <p class="f-label">su historia · su regreso</p>
+        </div>
+      </section>
+
+      <!-- ── INFANCIA 1 ──────────────────────────────── -->
+      <section
+        data-autoslide="15000"
+        data-transition="fade"
+        data-background-image="https://res.cloudinary.com/combariza/image/upload/v1781876078/Vale/IMG-20260616-WA0010_wkot1l.jpg"
+        data-background-size="cover"
+        data-background-position="center top"
+        data-background-color="#110620"
+      >
+        <div class="caption-band">
+          <p class="caption-text">Desde que dio sus primeros pasos, supo que quería bailar</p>
+        </div>
+      </section>
+
+      <!-- ── INFANCIA 2 ──────────────────────────────── -->
+      <section
+        data-autoslide="15000"
+        data-transition="fade"
+        data-background-image="https://res.cloudinary.com/combariza/image/upload/v1781876079/Vale/IMG-20260616-WA0013_fv8ujd.jpg"
+        data-background-size="cover"
+        data-background-position="center"
+        data-background-color="#110620"
+      >
+        <div class="caption-band">
+          <p class="caption-text">El baile no era solo un pasatiempo — era su mundo</p>
+        </div>
+      </section>
+
+      <!-- ── INFANCIA 3 ──────────────────────────────── -->
+      <section
+        data-autoslide="12000"
+        data-transition="fade"
+        data-background-image="https://res.cloudinary.com/combariza/image/upload/v1781876078/Vale/IMG-20260616-WA0014_kx9grx.jpg"
+        data-background-size="cover"
+        data-background-position="center"
+        data-background-color="#110620"
+      >
+        <div class="caption-band">
+          <p class="caption-text">Cada ensayo, cada paso, la acercaba más a su sueño</p>
+        </div>
+      </section>
+
+      <!-- ── CRECIMIENTO 1 ───────────────────────────── -->
+      <section
+        data-autoslide="15000"
+        data-transition="fade"
+        data-background-image="https://res.cloudinary.com/combariza/image/upload/v1781876079/Vale/IMG-20260616-WA0038_yuby2v.jpg"
+        data-background-size="cover"
+        data-background-position="center"
+        data-background-color="#110620"
+      >
+        <div class="caption-band">
+          <p class="caption-text">Creció en el escenario y el escenario creció con ella</p>
+        </div>
+      </section>
+
+      <!-- ── CRECIMIENTO 2 ───────────────────────────── -->
+      <section
+        data-autoslide="12000"
+        data-transition="fade"
+        data-background-image="https://res.cloudinary.com/combariza/image/upload/v1781876079/Vale/IMG-20260616-WA0039_xjyk5f.jpg"
+        data-background-size="cover"
+        data-background-position="center"
+        data-background-color="#110620"
+      >
+        <div class="caption-band">
+          <p class="caption-text">El arte en su cuerpo, la música en su alma</p>
+        </div>
+      </section>
+
+      <!-- ── CRECIMIENTO 3 ───────────────────────────── -->
+      <section
+        data-autoslide="12000"
+        data-transition="fade"
+        data-background-image="https://res.cloudinary.com/combariza/image/upload/v1781876080/Vale/IMG-20260616-WA0040_qvees1.jpg"
+        data-background-size="cover"
+        data-background-position="center top"
+        data-background-color="#110620"
+      >
+        <div class="caption-band">
+          <p class="caption-text">Valeria brillaba cada vez que pisaba el escenario</p>
+        </div>
+      </section>
+
+      <!-- ── EL DIAGNÓSTICO ─────────────────────────── -->
+      <section
+        data-autoslide="20000"
+        data-transition="fade"
+        data-background-gradient="linear-gradient(138deg, #110620 55%, #240E42 100%)"
+      >
+        <div class="slide-center">
+          <p class="f-label" style="margin-bottom:2rem">Hace un año...</p>
+          <h2 class="f-h2">Le dijeron que nunca<br>volvería a bailar</h2>
+          <div class="gold-line"></div>
+          <p class="f-body">
+            Una lesión. Un diagnóstico.<br>
+            El mundo que construyó con su esfuerzo,<br>
+            amenazado de derrumbarse.
+          </p>
+        </div>
+      </section>
+
+      <!-- ── LA LUCHA 1 ──────────────────────────────── -->
+      <section
+        data-autoslide="12000"
+        data-transition="fade"
+        data-background-image="https://res.cloudinary.com/combariza/image/upload/v1781876078/Vale/IMG-20260616-WA0048_ubcpnj.jpg"
+        data-background-size="cover"
+        data-background-position="center"
+        data-background-color="#110620"
+      >
+        <div class="caption-band">
+          <p class="caption-text">Pero Valeria no conoce la rendición</p>
+        </div>
+      </section>
+
+      <!-- ── LA LUCHA 2 ──────────────────────────────── -->
+      <section
+        data-autoslide="15000"
+        data-transition="fade"
+        data-background-image="https://res.cloudinary.com/combariza/image/upload/v1781876078/Vale/IMG-20260616-WA0049_a1jk4d.jpg"
+        data-background-size="cover"
+        data-background-position="center"
+        data-background-color="#110620"
+      >
+        <div class="caption-band">
+          <p class="caption-text">Un paso a la vez, volvió a encontrar su camino</p>
+        </div>
+      </section>
+
+      <!-- ── EL TRIUNFO 1 ────────────────────────────── -->
+      <section
+        data-autoslide="15000"
+        data-transition="fade"
+        data-background-image="https://res.cloudinary.com/combariza/image/upload/v1781876079/Vale/motion_photo_7116161504689351270_bjidvv.jpg"
+        data-background-size="cover"
+        data-background-position="center"
+        data-background-color="#110620"
+      >
+        <div class="caption-band">
+          <p class="caption-text">Hoy, regresa al escenario que siempre fue suyo</p>
+        </div>
+      </section>
+
+      <!-- ── EL TRIUNFO 2 ────────────────────────────── -->
+      <section
+        data-autoslide="15000"
+        data-transition="fade"
+        data-background-image="https://res.cloudinary.com/combariza/image/upload/v1781876080/Vale/IMG-20260616-WA0051_w5xifs.jpg"
+        data-background-size="cover"
+        data-background-position="center top"
+        data-background-color="#110620"
+      >
+        <div class="caption-band-top">
+          <p class="caption-text">Porque los sueños que se luchan no se olvidan — se viven</p>
+        </div>
+      </section>
+
+      <!-- ── CIERRE ──────────────────────────────────── -->
+      <section
+        data-autoslide="8000"
+        data-transition="fade"
+        data-background-gradient="linear-gradient(138deg, #110620 45%, #6C0087 100%)"
+      >
+        <div class="slide-center">
+          <h2 class="f-hurricane" style="font-size:clamp(4rem,11vw,10rem)">Hoy baila</h2>
+          <div class="gold-line"></div>
+          <p class="f-label" style="margin-bottom:3rem">con más fuerza que nunca</p>
+          <p class="f-label" style="position:absolute;bottom:2rem;opacity:.4;letter-spacing:.3em">
+            Escuela Petipa · Bogotá
+          </p>
+        </div>
+      </section>
+
+    </div><!-- /slides -->
+  </div><!-- /reveal -->
+
+  <!-- Reveal.js -->
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.js"></script>
+
+  <script>
+    /* ══════════════════════════════════════════════════════
+       AUDIOS POR SLIDE
+         índice 3 → "Cada ensayo, cada paso..."  → Sabri
+         índice 6 → "Valeria brillaba cada vez..." → Cata
+
+       DURACIONES DE SLIDES SIN AUDIO (ms)
+         null = se calcula automáticamente desde el audio
+       ══════════════════════════════════════════════════════ */
+    var AUDIO_MAP = {
+      3: document.getElementById('audio-sabri'),
+      6: document.getElementById('audio-cata'),
+    };
+
+    /* Duración base de cada slide (null = la pone el audio) */
+    var DURACIONES = [
+      4000,   // 0  Apertura
+      12000,  // 1  Infancia 1
+      12000,  // 2  Infancia 2
+      null,   // 3  Infancia 3  ← Sabri (auto)
+      10000,  // 4  Crecimiento 1
+      10000,  // 5  Crecimiento 2
+      null,   // 6  Crecimiento 3 ← Cata (auto)
+      15000,  // 7  El diagnóstico
+      10000,  // 8  La lucha 1
+      12000,  // 9  La lucha 2
+      12000,  // 10 El triunfo 1
+      12000,  // 11 El triunfo 2
+      6000,   // 12 Cierre
+    ];
+
+    function detenerTodo() {
+      Object.keys(AUDIO_MAP).forEach(function (k) {
+        var a = AUDIO_MAP[k];
+        a.pause();
+        a.currentTime = 0;
+      });
+    }
+
+    /* Asignar duración de audio a su slide en cuanto carguen los metadatos */
+    function asignarDuracionAudio(audioEl, indiceSlide) {
+      function aplicar() {
+        var slides = document.querySelectorAll('.reveal .slides > section');
+        if (slides[indiceSlide]) {
+          /* +800ms de margen para que el audio termine antes de avanzar */
+          slides[indiceSlide].dataset.autoslide = Math.ceil(audioEl.duration * 1000) + 800;
+        }
+      }
+      if (audioEl.readyState >= 1) { aplicar(); }
+      else { audioEl.addEventListener('loadedmetadata', aplicar, { once: true }); }
+    }
+
+    /* Inicializar Reveal.js — empieza pausado */
+    Reveal.initialize({
+      hash:               false,
+      controls:           false,
+      progress:           true,
+      keyboard:           true,
+      touch:              true,
+      loop:               false,
+      transition:         'fade',
+      transitionSpeed:    'slow',
+      backgroundTransition:'fade',
+      autoSlide:          0,
+      autoSlideStoppable: false,
+    });
+
+    /* Cuando Reveal está listo, aplicar las duraciones base a todos los slides */
+    Reveal.on('ready', function () {
+      var slides = document.querySelectorAll('.reveal .slides > section');
+      DURACIONES.forEach(function (d, i) {
+        if (d !== null && slides[i]) {
+          slides[i].dataset.autoslide = d;
+        }
+      });
+      /* Duraciones de audio (se leerán cuando el browser cargue los metadatos) */
+      asignarDuracionAudio(AUDIO_MAP[3], 3);
+      asignarDuracionAudio(AUDIO_MAP[6], 6);
+    });
+
+    /* Botón inicio: desbloquea audio y arranca la presentación */
+    document.getElementById('start-btn').addEventListener('click', function () {
+      var screen = document.getElementById('start-screen');
+      screen.classList.add('oculto');
+      setTimeout(function () { screen.remove(); }, 750);
+      Reveal.configure({ autoSlide: 12000 }); // default para cualquier slide sin data-autoslide
+    });
+
+    /* Disparar audio al cambiar de slide */
+    Reveal.on('slidechanged', function (event) {
+      detenerTodo();
+      var audio = AUDIO_MAP[event.indexh];
+      if (audio) { audio.play().catch(function () {}); }
+    });
+  </script>
+
+  <div class="hint">F · pantalla completa &nbsp;·&nbsp; ← → · navegar</div>
+</body>
+</html>

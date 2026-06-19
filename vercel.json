@@ -2,6 +2,7 @@
   "rewrites": [
     { "source": "/combariza/pitch.html", "destination": "/combariza/pitch.html" },
     { "source": "/pitch.html",           "destination": "/pitch.html" },
+    { "source": "/vale.html",            "destination": "/vale.html" },
     { "source": "/(.*)",                 "destination": "/index.html" }
   ]
 }
