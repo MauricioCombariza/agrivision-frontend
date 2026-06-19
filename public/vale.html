@@ -409,12 +409,23 @@
       asignarDuracionAudio(AUDIO_MAP[6], 6);
     });
 
-    /* Botón inicio: desbloquea audio y arranca la presentación */
+    /* Botón inicio: desbloquea audio en iOS/Android y arranca la presentación.
+       El play+pause dentro del handler del tap es el único momento en que
+       los browsers móviles permiten desbloquear elementos de audio. */
     document.getElementById('start-btn').addEventListener('click', function () {
+      /* Desbloquear cada audio con el gesto directo del usuario */
+      Object.keys(AUDIO_MAP).forEach(function (k) {
+        var a = AUDIO_MAP[k];
+        a.play().then(function () {
+          a.pause();
+          a.currentTime = 0;
+        }).catch(function () {});
+      });
+
       var screen = document.getElementById('start-screen');
       screen.classList.add('oculto');
       setTimeout(function () { screen.remove(); }, 750);
-      Reveal.configure({ autoSlide: 12000 }); // default para cualquier slide sin data-autoslide
+      Reveal.configure({ autoSlide: 12000 });
     });
 
     /* Disparar audio al cambiar de slide */
