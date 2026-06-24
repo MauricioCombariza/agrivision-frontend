@@ -3,7 +3,7 @@
 > Duración total: 5 minutos
 > Audiencia: General · Inversores · Jurados · Clientes
 > Versión: 4.0 — Junio 2026
-> Misión: *"La planta habla. Nosotros lo convertimos en datos. El floricultor, en sabiduría."*
+> Misión: *"La planta habla. Nosotros lo convertimos en datos. El agricultor, en sabiduría."*
 > Estado: **COMPLETO** · A ✓ · PR ✓ · U ✓ · E ✓ · B ✓ · A-CTA ✓
 
 ---
@@ -129,7 +129,7 @@
 >
 > *Y entendí que la planta hablaba. Que lo que nos faltaba no era esfuerzo — era el traductor.*
 >
-> *Decidí ser ese traductor: aprendí a enseñarle a una computadora a escuchar lo que el ojo humano no puede anticipar. Para que el floricultor convierta ese dato en sabiduría."*
+> *Decidí ser ese traductor: aprendí a enseñarle a una computadora a escuchar lo que el ojo humano no puede anticipar. Para que el agricultor convierta ese dato en sabiduría."*
 
 ---
 
@@ -139,7 +139,7 @@
 - *"La planta hablaba"* → pausa breve antes. Eco de la sección A. El jurado lo conecta solo.
 - *"Lo que nos faltaba no era esfuerzo"* → énfasis suave en "esfuerzo". El sector trabaja duro — no es eso.
 - *"Decidí ser ese traductor"* → calma total. Sin arrogancia.
-- *"Para que el floricultor convierta ese dato en sabiduría"* → último palabra despacio. Cierra el arco de la misión: planta → datos → sabiduría.
+- *"Para que el agricultor convierta ese dato en sabiduría"* → último palabra despacio. Cierra el arco de la misión: planta → datos → sabiduría.
 - Transición directa a E sin pausa.
 
 ---
@@ -345,7 +345,7 @@
 
 *Y entendí que la planta hablaba. Que lo que nos faltaba no era esfuerzo — era el traductor.*
 
-*Decidí ser ese traductor: aprendí a enseñarle a una computadora a escuchar lo que el ojo humano no puede anticipar. Para que el floricultor convierta ese dato en sabiduría."*
+*Decidí ser ese traductor: aprendí a enseñarle a una computadora a escuchar lo que el ojo humano no puede anticipar. Para que el agricultor convierta ese dato en sabiduría."*
 
 ---
 
@@ -402,4 +402,4 @@
 
 ---
 
-*— Generado con AgriVision Canvas · Junio 2026 · Metodología: APRUEBA (César Piqueras) · Misión: "La planta habla. Nosotros lo convertimos en datos. El floricultor, en sabiduría."*
+*— Generado con AgriVision Canvas · Junio 2026 · Metodología: APRUEBA (César Piqueras) · Misión: "La planta habla. Nosotros lo convertimos en datos. El agricultor, en sabiduría."*

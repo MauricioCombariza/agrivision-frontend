@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgriVision — Pitch v4 · APRUEBA · CEIS 2026</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --verde:      #0f2519;
+      --verde-deep: #080e0a;
+      --dorado:     #d4900a;
+      --crema:      #f5f0e8;
+      --crema-dim:  rgba(245,240,232,0.52);
+      --rojo:       rgba(192,57,43,0.9);
+      --verde-ok:   rgba(46,204,113,0.85);
+    }
+
+    #prog-bar {
+      position: fixed; top: 0; left: 0; z-index: 9999;
+      height: 3px; width: 0%; background: var(--dorado);
+      pointer-events: none; border-radius: 0 2px 2px 0;
+    }
+    #auto-ind {
+      position: fixed; top: 10px; right: 16px; z-index: 9999;
+      font-family: 'DM Mono', monospace; font-size: 10px;
+      letter-spacing: 0.2em; color: var(--dorado); opacity: 0;
+      text-transform: uppercase; pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    #auto-ind.on { opacity: 0.6; }
+
+    .reveal-viewport       { background: var(--verde-deep); }
+    .reveal                { font-family: 'DM Sans', sans-serif; color: var(--crema); font-size: 28px; }
+    .reveal .slides section {
+      text-align: left; padding: 0;
+      box-sizing: border-box; overflow: hidden; height: 100%;
+    }
+    .reveal .slides > section,
+    .reveal .slides > section > section { height: 100%; }
+    .reveal .progress, .reveal .slide-number, .reveal aside.controls { display: none !important; }
+
+    .badge {
+      position: absolute; top: 18px; right: 24px; z-index: 10;
+      font-family: 'DM Mono', monospace; font-size: 0.42em;
+      letter-spacing: 0.35em; color: var(--dorado); opacity: 0.28;
+      text-transform: uppercase; pointer-events: none;
+    }
+    .slide-inner {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: flex-start;
+      height: 100%; padding: 52px 72px; box-sizing: border-box;
+    }
+    .bg-ov { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+    .prt-wrap { position: absolute; inset: 0; z-index: 1; overflow: hidden; pointer-events: none; }
+    .prt {
+      position: absolute; opacity: 0;
+      animation: prt-float var(--dur, 9s) var(--delay, 0s) infinite ease-in-out;
+    }
+    .prt svg { display: block; overflow: visible; }
+    @keyframes prt-float {
+      0%   { opacity: 0;    transform: translateY(0)      translateX(0); }
+      12%  { opacity: 0.6; }
+      88%  { opacity: 0.18; }
+      100% { opacity: 0;    transform: translateY(-200px) translateX(var(--dx, 0px)); }
+    }
+
+    .sq { opacity: 0; will-change: transform, opacity; }
+
+    #ctr9 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 7em; font-weight: 700; line-height: 1;
+      color: var(--crema); display: inline-block;
+    }
+    #ctr9.is-red {
+      color: var(--rojo);
+      text-shadow: 0 0 40px rgba(192,57,43,0.55), 0 0 90px rgba(192,57,43,0.25);
+    }
+
+    .ba-col {
+      flex: 1; padding: 18px 22px; border-radius: 10px;
+      display: flex; flex-direction: column; gap: 11px;
+    }
+    .ba-antes   { background: rgba(192,57,43,0.07); border: 1px solid rgba(192,57,43,0.28); }
+    .ba-despues { background: rgba(46,204,113,0.05); border: 1px solid rgba(46,204,113,0.28); }
+    .ba-label   { font-family: 'DM Mono', monospace; font-size: 0.48em; letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 4px; }
+    .ba-item    { font-family: 'DM Sans', sans-serif; font-size: 0.76em; line-height: 1.4; }
+    .ba-item.red   { color: rgba(192,57,43,0.75); text-decoration: line-through; }
+    .ba-item.green { color: rgba(46,204,113,0.82); }
+  </style>
+</head>
+<body>
+
+<div id="prog-bar"></div>
+<div id="auto-ind">AUTO ▶</div>
+
+<div class="reveal">
+  <div class="slides">
+
+
+    <!-- ═══════════════════════════ S00 · PORTADA ════════════════════════════ -->
+    <section id="s00" data-background-color="#080e0a">
+      <div class="prt-wrap" id="prt0"></div>
+      <div class="slide-inner" style="align-items:center; text-align:center; justify-content:center; gap:0;">
+        <div class="sq" id="s00a" style="font-family:'Cormorant Garamond',serif; font-size:2.6em; font-style:italic; color:var(--crema-dim); line-height:1.3; margin-bottom:6px;">
+          La planta habla.
+        </div>
+        <div class="sq" id="s00b" style="font-family:'Cormorant Garamond',serif; font-size:2.0em; font-style:italic; color:var(--crema-dim); line-height:1.3; margin-bottom:6px;">
+          Nosotros lo convertimos en datos.
+        </div>
+        <div class="sq" id="s00c" style="font-family:'Cormorant Garamond',serif; font-size:2.0em; font-style:italic; color:var(--crema-dim); line-height:1.3;">
+          El agricultor, en sabiduría.
+        </div>
+        <div class="sq" id="s00d" style="margin-top:44px; text-align:center;">
+          <div style="font-family:'DM Mono',monospace; font-size:0.55em; letter-spacing:0.45em; color:var(--dorado); text-transform:uppercase;">AgriVision</div>
+          <div style="width:40px; height:1px; background:rgba(212,144,10,0.4); margin:10px auto;"></div>
+          <div style="font-family:'DM Mono',monospace; font-size:0.38em; letter-spacing:0.28em; color:var(--crema-dim); text-transform:uppercase;">CEIS · Chía · 2026</div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════ S01 · A — APERTURA ═══════════════════════ -->
+    <section id="s01"
+      data-background-image="https://res.cloudinary.com/combariza/image/upload/v1779021426/Sabana_norte_theb1b.jpg"
+      data-background-size="cover"
+      data-background-position="center">
+      <div class="bg-ov" style="background:rgba(8,14,10,0.80);"></div>
+      <div class="prt-wrap" id="prt1"></div>
+      <div class="badge">A · APERTURA</div>
+      <div class="slide-inner">
+        <div class="sq" id="s01a" style="font-family:'Cormorant Garamond',serif; font-size:1.8em; font-style:italic; color:var(--crema-dim); line-height:1.4; max-width:760px;">
+          Hay algo que la ciencia confirmó en 2023 — y que los agricultores intuían desde hace siglos:
+        </div>
+        <div class="sq" id="s01b" style="font-family:'Cormorant Garamond',serif; font-size:5.4em; font-weight:700; color:var(--crema); line-height:1; margin-top:6px;">
+          La planta habla.
+        </div>
+        <div class="sq" id="s01c" style="font-family:'Cormorant Garamond',serif; font-size:1.75em; font-style:italic; color:var(--crema-dim); line-height:1.45; max-width:740px; margin-top:8px;">
+          Cuando está sedienta, habla. Cuando está enferma, habla.<br/>Cuando la cortan, habla.
+        </div>
+        <div class="sq" id="s01d" style="margin-top:14px; line-height:1;">
+          <span style="font-family:'Cormorant Garamond',serif; font-size:4em; font-weight:700; color:var(--dorado); line-height:1;">50</span>
+          <span style="font-family:'DM Mono',monospace; font-size:0.62em; letter-spacing:0.1em; color:var(--crema-dim); margin-left:10px;">señales / hora · 20–150 kHz · inaudibles al humano</span>
+        </div>
+        <div class="sq" id="s01e" style="font-family:'Cormorant Garamond',serif; font-size:2.1em; font-weight:700; color:var(--crema); line-height:1.2; margin-top:16px;">
+          Cuatro mil años de agricultura.<br/>Cuatro mil años de señales perdidas.
+        </div>
+        <div class="sq" id="s01f" style="font-family:'DM Mono',monospace; font-size:0.56em; letter-spacing:0.1em; color:var(--crema-dim); margin-top:20px; line-height:1.7;">
+          Colombia exporta USD $2.400M en flores al año —<br/>tomando decisiones con información incompleta.
+        </div>
+        <div class="sq" id="s01g" style="font-family:'Cormorant Garamond',serif; font-size:2.9em; font-weight:700; color:var(--dorado); line-height:1; margin-top:20px;">
+          Porque necesitábamos un traductor.
+        </div>
+        <div class="sq" id="s01src" style="position:absolute; bottom:30px; right:72px; text-align:right; z-index:3;">
+          <div style="font-family:'DM Mono',monospace; font-size:0.34em; letter-spacing:0.1em; color:var(--crema); opacity:0.22; text-transform:uppercase;">Khait et al. · Cell · 30 Mar 2023</div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════ S02 · PR — PROBLEMA ══════════════════════ -->
+    <section id="s02" data-background-color="#0f2519">
+      <div class="bg-ov" style="background:rgba(8,14,10,0.52);"></div>
+      <div class="badge">PR · PROBLEMA</div>
+      <div class="slide-inner" style="padding:0; position:relative; overflow:hidden;">
+
+        <!-- BLOQUE 1: ESTIMADOS -->
+        <div style="position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; padding:52px 72px; box-sizing:border-box;">
+          <div class="sq" id="s02p1h" style="font-family:'DM Mono',monospace; font-size:0.55em; letter-spacing:0.22em; color:var(--dorado); text-transform:uppercase; margin-bottom:10px;">
+            Problema 1 · Estimados de Cosecha
+          </div>
+          <div class="sq" id="s02p1a" style="font-family:'Cormorant Garamond',serif; font-size:2em; font-style:italic; color:var(--crema); line-height:1.3; max-width:720px; margin-bottom:6px;">
+            Carlos. 180 ha. Chía. San Valentín.
+          </div>
+          <div class="sq" id="s02p1b" style="font-family:'Cormorant Garamond',serif; font-size:1.72em; font-style:italic; color:var(--crema-dim); line-height:1.4; max-width:740px; margin-bottom:12px;">
+            El comprador en Miami pide confirmación con cuatro semanas de anticipación. Carlos dice que sí — basado en la libreta de su agrónomo.
+          </div>
+          <div class="sq" id="s02p1c" style="line-height:1;">
+            <div style="display:flex; align-items:baseline; gap:16px; flex-wrap:wrap;">
+              <span style="font-family:'Cormorant Garamond',serif; font-size:4.8em; font-weight:700; color:var(--rojo); line-height:1;">USD $96M</span>
+              <span style="font-family:'DM Mono',monospace; font-size:0.68em; letter-spacing:0.1em; color:var(--dorado); opacity:0.75;">· 20% de error · San Valentín</span>
+            </div>
+            <div style="font-family:'DM Mono',monospace; font-size:0.42em; letter-spacing:0.14em; color:var(--crema); opacity:0.32; text-transform:uppercase; margin-top:6px;">
+              22.000 semestres universitarios — apostados a la intuición de un técnico con una libreta
+            </div>
+          </div>
+        </div>
+
+        <!-- BLOQUE 2: CAJAS -->
+        <div style="position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; padding:52px 72px; box-sizing:border-box;">
+          <div class="sq" id="s02p2h" style="font-family:'DM Mono',monospace; font-size:0.55em; letter-spacing:0.22em; color:var(--dorado); text-transform:uppercase; margin-bottom:10px;">
+            Problema 2 · Las Cajas
+          </div>
+          <div class="sq" id="s02p2a" style="font-family:'Cormorant Garamond',serif; font-size:2em; font-style:italic; color:var(--crema); line-height:1.3; max-width:720px; margin-bottom:6px;">
+            Poscosecha. Tres personas. Doce horas.
+          </div>
+          <div class="sq" id="s02p2b" style="font-family:'Cormorant Garamond',serif; font-size:1.72em; font-style:italic; color:var(--crema-dim); line-height:1.4; max-width:740px; margin-bottom:12px;">
+            No para agregar valor — para saber qué hay. Caja por caja, bajo presión del avión de carga.
+          </div>
+          <div class="sq" id="s02p2c" style="line-height:1;">
+            <span style="font-family:'Cormorant Garamond',serif; font-size:3.6em; font-weight:700; color:var(--rojo); line-height:1;">caja equivocada → Ecuador</span>
+            <div style="font-family:'DM Mono',monospace; font-size:0.42em; letter-spacing:0.14em; color:var(--crema); opacity:0.32; text-transform:uppercase; margin-top:6px;">
+              Un reclamo · un crédito · y el cliente que la próxima temporada llama primero a Ecuador
+            </div>
+          </div>
+        </div>
+
+        <!-- BLOQUE 3: ESQUEJES (permanece en pantalla) -->
+        <div style="position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; padding:52px 72px; box-sizing:border-box;">
+          <div class="sq" id="s02p3h" style="font-family:'DM Mono',monospace; font-size:0.55em; letter-spacing:0.22em; color:var(--dorado); text-transform:uppercase; margin-bottom:10px;">
+            Problema 3 · Los Esquejes
+          </div>
+          <div class="sq" id="s02p3a" style="font-family:'Cormorant Garamond',serif; font-size:1.9em; font-style:italic; color:var(--crema); line-height:1.3; max-width:720px; margin-bottom:6px;">
+            Carlos siembra 50.000 esquejes por ciclo. Todos iguales a la vista.
+          </div>
+          <div class="sq" id="s02p3b" style="margin:10px 0 2px; line-height:1;">
+            <span id="ctr9">0%</span>
+            <div style="font-family:'DM Mono',monospace; font-size:0.42em; letter-spacing:0.14em; color:var(--crema); opacity:0.32; text-transform:uppercase; margin-top:4px;">
+              de la producción · no cumple estándar de exportación
+            </div>
+          </div>
+          <div class="sq" id="s02p3c" style="font-family:'Cormorant Garamond',serif; font-size:3em; font-weight:700; color:var(--rojo); line-height:1;">
+            USD $74.000.000 al año.
+          </div>
+          <div class="sq" id="s02p3d" style="font-family:'Cormorant Garamond',serif; font-size:1.4em; font-style:italic; color:var(--dorado); line-height:1.3; margin-top:10px; max-width:680px;">
+            Decidido el día que Carlos sembró sin saber qué tenía en la mano.
+          </div>
+          <div class="sq" id="s02close" style="font-family:'Cormorant Garamond',serif; font-size:1.55em; font-style:italic; color:var(--crema-dim); line-height:1.4; margin-top:14px; max-width:780px;">
+            La planta estaba hablando — y Carlos no tenía con qué escucharla.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════ S03 · U — YOU ════════════════════════════ -->
+    <section id="s03" data-background-color="#080e0a">
+      <div class="badge">U · YOU</div>
+      <div class="slide-inner" style="gap:0; justify-content:center;">
+        <div class="sq" id="s03a" style="font-family:'Cormorant Garamond',serif; font-size:4.5em; font-weight:700; color:var(--crema); line-height:1;">
+          Mauricio Combariza.
+        </div>
+        <div class="sq" id="s03b" style="font-family:'DM Mono',monospace; font-size:0.72em; letter-spacing:0.2em; color:var(--dorado); text-transform:uppercase; margin-top:10px;">
+          +10 años entre invernaderos · Sabana Norte
+        </div>
+        <div class="sq" id="s03c" style="font-family:'Cormorant Garamond',serif; font-size:2em; font-style:italic; color:var(--crema-dim); line-height:1.35; max-width:680px; margin-top:22px;">
+          Lo viví. Lo conté. Lo calculé.
+        </div>
+        <div class="sq" id="s03d" style="font-family:'Cormorant Garamond',serif; font-size:1.6em; color:var(--crema); line-height:1.45; max-width:760px; margin-top:18px;">
+          Entendí que la planta hablaba. Que lo que nos faltaba<br/>no era esfuerzo — era el traductor.
+        </div>
+        <div class="sq" id="s03e" style="font-family:'Cormorant Garamond',serif; font-size:1.55em; font-style:italic; color:var(--dorado); line-height:1.3; max-width:720px; margin-top:16px;">
+          Para que el agricultor convierta ese dato en sabiduría.
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════ S04 · E — EXPONER ════════════════════════ -->
+    <section id="s04" data-background-color="#0f2519">
+      <div class="bg-ov" style="background:rgba(8,14,10,0.35);"></div>
+      <div class="badge">E · EXPONER</div>
+      <div class="slide-inner" style="padding:0;position:relative;overflow:hidden;">
+
+        <!-- ── FASE 1: Módulos 1 + 2 (detección + proyección + QR) ── -->
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:stretch;padding:32px 58px 16px;box-sizing:border-box;gap:6px;">
+
+          <div class="sq" id="s04h">
+            <div style="font-family:'DM Mono',monospace;font-size:0.42em;letter-spacing:0.22em;color:var(--dorado);text-transform:uppercase;margin-bottom:4px;">AgriVision · El Traductor · Tres Momentos del Ciclo</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1.55em;font-weight:600;color:var(--crema);line-height:1.15;">AgriVision hace lo que Carlos no puede hacer solo.</div>
+          </div>
+
+          <!-- 3-step flow row -->
+          <div style="display:flex;align-items:flex-start;gap:0;flex:1;min-height:0;">
+
+            <!-- Step 1: Camera -->
+            <div class="sq" id="s04cam" style="flex:0 0 88px;display:flex;flex-direction:column;align-items:center;gap:7px;padding-top:16px;">
+              <svg viewBox="0 0 56 48" width="52" height="45" style="display:block;">
+                <rect x="2" y="14" width="52" height="32" rx="5" fill="none" stroke="#d4900a" stroke-width="2"/>
+                <circle cx="28" cy="30" r="11" fill="none" stroke="#d4900a" stroke-width="2"/>
+                <circle cx="28" cy="30" r="6" fill="rgba(212,144,10,0.14)"/>
+                <circle cx="28" cy="30" r="2.5" fill="rgba(212,144,10,0.38)"/>
+                <rect x="19" y="6" width="18" height="10" rx="3" fill="none" stroke="#d4900a" stroke-width="2"/>
+                <rect x="44" y="17" width="7" height="4" rx="1.5" fill="#d4900a" opacity="0.5"/>
+                <circle cx="7" cy="18" r="3" fill="rgba(212,144,10,0.32)"/>
+              </svg>
+              <div style="text-align:center;">
+                <div style="font-family:'DM Mono',monospace;font-size:0.36em;letter-spacing:0.14em;color:var(--dorado);text-transform:uppercase;margin-bottom:3px;">una foto</div>
+                <div style="font-family:'DM Sans',sans-serif;font-size:0.53em;color:var(--crema);opacity:0.65;line-height:1.3;">El técnico<br>fotografía el<br>invernadero</div>
+              </div>
+            </div>
+
+            <div style="flex-shrink:0;font-family:'DM Mono',monospace;font-size:1.5em;color:var(--dorado);opacity:0.35;padding:0 7px;align-self:center;">→</div>
+
+            <!-- Step 2: Detection -->
+            <div class="sq" id="s04detect" style="flex:1.3;min-width:0;display:flex;flex-direction:column;gap:3px;">
+              <div style="font-family:'DM Mono',monospace;font-size:0.36em;letter-spacing:0.12em;color:var(--dorado);text-transform:uppercase;text-align:center;margin-bottom:2px;">detecta y cuenta · 97.45% mAP50</div>
+              <svg viewBox="0 0 300 155" style="width:100%;display:block;border-radius:4px;">
+                <rect width="300" height="155" fill="#081008" rx="4"/>
+                <rect x="1" y="1" width="298" height="153" rx="3" fill="none" stroke="rgba(212,144,10,0.16)" stroke-width="1"/>
+                <line x1="60" y1="150" x2="60" y2="108" stroke="#1b4422" stroke-width="3.5" stroke-linecap="round"/>
+                <path d="M60,123 C50,113 40,103 46,91 C54,103 59,115 60,123Z" fill="#1b4422" opacity="0.9"/>
+                <path d="M60,64 C52,71 49,81 49,91 C49,98 54,103 60,103 C66,103 71,98 71,91 C71,81 68,71 60,64Z" fill="#7a1a27" opacity="0.94"/>
+                <line x1="150" y1="150" x2="150" y2="100" stroke="#1b4422" stroke-width="3.5" stroke-linecap="round"/>
+                <path d="M150,122 C163,112 173,100 168,87 C158,99 152,111 150,122Z" fill="#1b4422" opacity="0.9"/>
+                <ellipse cx="150" cy="82" rx="19" ry="11" fill="#7a2855" opacity="0.74" transform="rotate(-35,150,82)"/>
+                <ellipse cx="150" cy="82" rx="19" ry="11" fill="#7a2855" opacity="0.74" transform="rotate(35,150,82)"/>
+                <ellipse cx="150" cy="82" rx="11" ry="19" fill="#7a2855" opacity="0.70"/>
+                <circle cx="150" cy="82" r="5" fill="#daa820" opacity="0.94"/>
+                <line x1="240" y1="150" x2="240" y2="102" stroke="#1b4422" stroke-width="3.5" stroke-linecap="round"/>
+                <path d="M240,130 C228,119 218,106 223,92 C233,105 238,119 240,130Z" fill="#1b4422" opacity="0.9"/>
+                <ellipse cx="240" cy="74" rx="27" ry="9" fill="#a83d70" opacity="0.75"/>
+                <ellipse cx="240" cy="74" rx="9" ry="27" fill="#a83d70" opacity="0.75"/>
+                <ellipse cx="240" cy="74" rx="21" ry="11" fill="#a83d70" opacity="0.64" transform="rotate(45,240,74)"/>
+                <ellipse cx="240" cy="74" rx="21" ry="11" fill="#a83d70" opacity="0.64" transform="rotate(-45,240,74)"/>
+                <circle cx="240" cy="74" r="10" fill="#7a2855" opacity="0.92"/>
+                <circle cx="240" cy="74" r="5" fill="#daa820" opacity="0.96"/>
+                <g id="s04-boxes" opacity="0">
+                  <rect x="44" y="59" width="32" height="47" fill="rgba(231,76,60,0.08)" stroke="#e74c3c" stroke-width="1.5" rx="2"/>
+                  <rect x="44" y="59" width="32" height="10" fill="rgba(231,76,60,0.48)" rx="1.5"/>
+                  <text x="60" y="67.5" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6" fill="white" font-weight="600">BOTÓN</text>
+                  <rect x="44" y="108" width="32" height="10" fill="rgba(0,0,0,0.6)" rx="1"/>
+                  <text x="60" y="116" text-anchor="middle" font-family="'DM Mono',monospace" font-size="5.5" fill="#e74c3c">0.97</text>
+                  <rect x="127" y="68" width="46" height="37" fill="rgba(241,196,15,0.08)" stroke="#f1c40f" stroke-width="1.5" rx="2"/>
+                  <rect x="127" y="68" width="46" height="10" fill="rgba(241,196,15,0.48)" rx="1.5"/>
+                  <text x="150" y="76.5" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6" fill="white" font-weight="600">MEDIO</text>
+                  <rect x="127" y="107" width="46" height="10" fill="rgba(0,0,0,0.6)" rx="1"/>
+                  <text x="150" y="115" text-anchor="middle" font-family="'DM Mono',monospace" font-size="5.5" fill="#f1c40f">0.94</text>
+                  <rect x="212" y="46" width="56" height="53" fill="rgba(46,204,113,0.08)" stroke="#2ecc71" stroke-width="1.5" rx="2"/>
+                  <rect x="212" y="46" width="56" height="10" fill="rgba(46,204,113,0.48)" rx="1.5"/>
+                  <text x="240" y="54.5" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6" fill="white" font-weight="600">ABIERTO</text>
+                  <rect x="212" y="101" width="56" height="10" fill="rgba(0,0,0,0.6)" rx="1"/>
+                  <text x="240" y="109" text-anchor="middle" font-family="'DM Mono',monospace" font-size="5.5" fill="#2ecc71">0.96</text>
+                </g>
+                <g id="s04-count" opacity="0">
+                  <rect x="0" y="119" width="300" height="36" fill="rgba(3,10,4,0.90)"/>
+                  <line x1="100" y1="121" x2="100" y2="153" stroke="rgba(212,144,10,0.22)" stroke-width="0.8"/>
+                  <line x1="200" y1="121" x2="200" y2="153" stroke="rgba(212,144,10,0.22)" stroke-width="0.8"/>
+                  <text x="50"  y="131" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6" fill="#e74c3c" opacity="0.85">BOTÓN</text>
+                  <text x="50"  y="148" text-anchor="middle" font-family="'DM Mono',monospace" font-size="13" fill="#e74c3c" font-weight="700">847</text>
+                  <text x="150" y="131" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6" fill="#f1c40f" opacity="0.85">MEDIO</text>
+                  <text x="150" y="148" text-anchor="middle" font-family="'DM Mono',monospace" font-size="13" fill="#f1c40f" font-weight="700">1.203</text>
+                  <text x="250" y="131" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6" fill="#2ecc71" opacity="0.85">ABIERTO</text>
+                  <text x="250" y="148" text-anchor="middle" font-family="'DM Mono',monospace" font-size="13" fill="#2ecc71" font-weight="700">692</text>
+                </g>
+              </svg>
+            </div>
+
+            <div style="flex-shrink:0;font-family:'DM Mono',monospace;font-size:1.5em;color:var(--dorado);opacity:0.35;padding:0 7px;align-self:center;">→</div>
+
+            <!-- Step 3: Gaussian projection -->
+            <div class="sq" id="s04gauss" style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;">
+              <div style="font-family:'DM Mono',monospace;font-size:0.36em;letter-spacing:0.12em;color:var(--dorado);text-transform:uppercase;text-align:center;margin-bottom:2px;">proyección · 94% precisión</div>
+              <svg id="gauss-svg" viewBox="0 0 200 122" style="width:100%;display:block;border-radius:4px;">
+                <rect width="200" height="122" fill="#081008" rx="4"/>
+                <rect x="1" y="1" width="198" height="120" rx="3" fill="none" stroke="rgba(212,144,10,0.16)" stroke-width="1"/>
+                <line x1="12" y1="104" x2="188" y2="104" stroke="rgba(212,144,10,0.32)" stroke-width="1"/>
+                <line x1="12" y1="12"  x2="12"  y2="104" stroke="rgba(212,144,10,0.14)" stroke-width="0.8"/>
+                <line x1="12"  y1="102" x2="12"  y2="106" stroke="rgba(212,144,10,0.32)" stroke-width="1"/>
+                <line x1="100" y1="102" x2="100" y2="106" stroke="rgba(212,144,10,0.32)" stroke-width="1"/>
+                <line x1="188" y1="102" x2="188" y2="106" stroke="rgba(212,144,10,0.32)" stroke-width="1"/>
+                <text x="100" y="118" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7" fill="rgba(245,240,232,0.28)">días a corte</text>
+                <path id="gauss-fill"
+                      d="M 12,104 C 22,104 32,103 48,99 C 64,94 77,84 90,68 C 96,58 98,48 100,20 C 102,48 104,58 110,68 C 123,84 136,94 152,99 C 168,103 178,104 188,104 Z"
+                      fill="rgba(212,144,10,0.12)" opacity="0"/>
+                <path id="gauss-curve"
+                      d="M 12,104 C 22,104 32,103 48,99 C 64,94 77,84 90,68 C 96,58 98,48 100,20 C 102,48 104,58 110,68 C 123,84 136,94 152,99 C 168,103 178,104 188,104"
+                      fill="none" stroke="#d4900a" stroke-width="2.2" stroke-linecap="round"
+                      stroke-dasharray="370" stroke-dashoffset="370"/>
+                <line id="gauss-peak" x1="100" y1="20" x2="100" y2="104"
+                      stroke="rgba(212,144,10,0.26)" stroke-width="1" stroke-dasharray="3,3" opacity="0"/>
+                <text id="gauss-pct"  x="100" y="90" text-anchor="middle" font-family="'DM Mono',monospace" font-size="26" fill="#d4900a" font-weight="700" opacity="0">94%</text>
+                <text id="gauss-prec" x="100" y="13" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7" fill="#f5f0e8" opacity="0">precisión del modelo</text>
+              </svg>
+              <div id="s04-horizons" style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:3px;opacity:0;">
+                <div style="text-align:center;padding:5px 2px;background:rgba(212,144,10,0.07);border:1px solid rgba(212,144,10,0.2);border-radius:3px;">
+                  <div style="font-family:'DM Mono',monospace;font-size:0.34em;color:var(--dorado);letter-spacing:0.08em;margin-bottom:2px;">7 DÍAS</div>
+                  <div style="font-family:'DM Mono',monospace;font-size:0.75em;color:var(--crema);font-weight:600;line-height:1;">1.895</div>
+                  <div style="font-family:'DM Mono',monospace;font-size:0.33em;color:var(--crema);opacity:0.38;margin-top:1px;">tallos</div>
+                </div>
+                <div style="text-align:center;padding:5px 2px;background:rgba(212,144,10,0.07);border:1px solid rgba(212,144,10,0.2);border-radius:3px;">
+                  <div style="font-family:'DM Mono',monospace;font-size:0.34em;color:var(--dorado);letter-spacing:0.08em;margin-bottom:2px;">14 DÍAS</div>
+                  <div style="font-family:'DM Mono',monospace;font-size:0.75em;color:var(--crema);font-weight:600;line-height:1;">2.640</div>
+                  <div style="font-family:'DM Mono',monospace;font-size:0.33em;color:var(--crema);opacity:0.38;margin-top:1px;">tallos</div>
+                </div>
+                <div style="text-align:center;padding:5px 2px;background:rgba(212,144,10,0.14);border:1px solid rgba(212,144,10,0.45);border-radius:3px;">
+                  <div style="font-family:'DM Mono',monospace;font-size:0.34em;color:var(--dorado);letter-spacing:0.08em;margin-bottom:2px;">28 DÍAS</div>
+                  <div style="font-family:'Cormorant Garamond',serif;font-size:0.82em;color:var(--dorado);font-weight:700;line-height:1;">3.100</div>
+                  <div style="font-family:'DM Mono',monospace;font-size:0.33em;color:var(--dorado);opacity:0.55;margin-top:1px;">tallos</div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- end 3-step row -->
+
+          <!-- Módulo 2: QR Poscosecha (compact horizontal) -->
+          <div class="sq" id="s04box" style="display:flex;align-items:center;gap:12px;padding:8px 12px;background:rgba(8,14,10,0.55);border-radius:8px;border-top:2px solid rgba(46,204,113,0.5);">
+            <div style="display:flex;align-items:center;gap:5px;flex-shrink:0;">
+              <span style="width:6px;height:6px;border-radius:50%;background:var(--verde-ok);display:inline-block;"></span>
+              <span style="font-family:'DM Mono',monospace;font-size:0.36em;letter-spacing:0.15em;color:var(--verde-ok);text-transform:uppercase;white-space:nowrap;">QR Poscosecha · LIVE · 97.45% mAP50 · Módulo 2</span>
+            </div>
+            <svg viewBox="0 0 340 58" style="flex:1;min-width:0;display:block;border-radius:3px;">
+              <rect width="340" height="58" fill="#081008" rx="3"/>
+              <rect x="8" y="6" width="52" height="46" rx="2" fill="#2a1808" stroke="rgba(212,144,10,0.28)" stroke-width="0.8"/>
+              <text x="34" y="18" text-anchor="middle" font-family="'DM Mono',monospace" font-size="4.5" fill="rgba(245,240,232,0.72)" font-weight="600">FREEDOM RED</text>
+              <text x="34" y="27" text-anchor="middle" font-family="'DM Mono',monospace" font-size="4" fill="rgba(245,240,232,0.45)">60–70 cm · 20 U/bunch</text>
+              <text x="34" y="35" text-anchor="middle" font-family="'DM Mono',monospace" font-size="4" fill="rgba(245,240,232,0.45)">SABANA NORTE · COL</text>
+              <text x="34" y="43" text-anchor="middle" font-family="'DM Mono',monospace" font-size="4" fill="rgba(245,240,232,0.45)">MIA · FL 33142</text>
+              <g id="b4-scan" opacity="0">
+                <rect x="6" y="4" width="56" height="50" fill="rgba(212,144,10,0.05)" stroke="#d4900a" stroke-width="1.2" rx="2"/>
+                <path d="M6,14 L6,4 L16,4" stroke="#d4900a" stroke-width="1.8" fill="none"/>
+                <path d="M52,4 L62,4 L62,14" stroke="#d4900a" stroke-width="1.8" fill="none"/>
+                <path d="M6,44 L6,54 L16,54" stroke="#d4900a" stroke-width="1.8" fill="none"/>
+                <path d="M52,54 L62,54 L62,44" stroke="#d4900a" stroke-width="1.8" fill="none"/>
+              </g>
+              <g id="b4-chip" opacity="0">
+                <rect x="6" y="4" width="18" height="9" fill="rgba(212,144,10,0.82)" rx="1"/>
+                <text x="15" y="11.5" text-anchor="middle" font-family="'DM Mono',monospace" font-size="5" fill="white" font-weight="600">TAG</text>
+                <rect x="44" y="4" width="18" height="9" fill="rgba(0,0,0,0.6)" rx="1"/>
+                <text x="53" y="11.5" text-anchor="middle" font-family="'DM Mono',monospace" font-size="5" fill="#d4900a">0.98</text>
+              </g>
+              <line x1="70" y1="29" x2="82" y2="29" stroke="rgba(212,144,10,0.35)" stroke-width="1" stroke-dasharray="3,2"/>
+              <g id="b4-data" opacity="0">
+                <text x="86" y="14" font-family="'DM Mono',monospace" font-size="5" fill="rgba(212,144,10,0.78)">DATOS EXTRAÍDOS</text>
+                <text x="86" y="25" font-family="'DM Mono',monospace" font-size="5.5" fill="rgba(245,240,232,0.88)" font-weight="600">FREEDOM RED · 60–70 cm · 20 U/bunch</text>
+                <text x="86" y="36" font-family="'DM Mono',monospace" font-size="5.5" fill="rgba(245,240,232,0.88)">Sabana Norte · COL → MIA · FL 33142</text>
+              </g>
+              <g id="b4-check" opacity="0">
+                <text x="86" y="49" font-family="'DM Mono',monospace" font-size="5.5" fill="#2ecc71" font-weight="600">✓ VERIFICADO</text>
+              </g>
+              <g id="b4-bar" opacity="0">
+                <rect x="236" y="6" width="98" height="46" fill="rgba(3,10,4,0.92)" rx="2"/>
+                <text x="285" y="20" text-anchor="middle" font-family="'DM Mono',monospace" font-size="5.5" fill="#2ecc71">✓ TAG LEÍDO</text>
+                <text x="285" y="32" text-anchor="middle" font-family="'DM Mono',monospace" font-size="5.5" fill="#d4900a">1 de 30 cajas</text>
+                <text x="285" y="44" text-anchor="middle" font-family="'DM Mono',monospace" font-size="5.5" fill="rgba(245,240,232,0.45)">0 ERRORES</text>
+              </g>
+            </svg>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:0.88em;font-weight:600;color:var(--dorado);line-height:1.25;flex-shrink:0;max-width:180px;">
+              1 foto · 30 cajas en segundos.
+              <span style="display:block;font-family:'DM Mono',monospace;font-size:0.48em;font-weight:400;color:var(--crema-dim);margin-top:2px;">Sin errores manuales</span>
+            </div>
+          </div>
+
+        </div><!-- end FASE 1 -->
+
+        <!-- ── FASE 2: Módulo 3 – Clasificador Esquejes (central, completo) ── -->
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:36px 58px 28px;box-sizing:border-box;gap:10px;">
+
+          <div class="sq" id="s04esqh" style="width:100%;display:flex;align-items:center;gap:8px;">
+            <span style="width:5px;height:5px;border-radius:50%;background:rgba(212,144,10,0.6);display:inline-block;flex-shrink:0;"></span>
+            <span style="font-family:'DM Mono',monospace;font-size:0.42em;letter-spacing:0.2em;color:var(--dorado);text-transform:uppercase;">Clasificador Esquejes · Roadmap · Módulo 3</span>
+          </div>
+
+          <div class="sq" id="s04esq" style="width:100%;max-width:960px;">
+            <svg id="esq-tray" viewBox="0 0 264 108" style="width:100%;display:block;border-radius:6px;">
+              <rect width="264" height="108" fill="#081008" rx="4"/>
+              <rect x="2" y="12" width="260" height="77" rx="3" fill="none" stroke="rgba(212,144,10,0.22)" stroke-width="1"/>
+              <text x="132" y="9" text-anchor="middle" font-family="'DM Mono',monospace" font-size="5" fill="rgba(212,144,10,0.6)">BANDEJA PROPAGACIÓN · 5×3 = 15 ESQUEJES</text>
+              <g id="cell-0"><circle id="ec-0"  cx="26"  cy="31" r="11" fill="rgba(245,240,232,0.07)" stroke="rgba(245,240,232,0.18)" stroke-width="1.5"/><text id="el-0"  x="26"  y="35" text-anchor="middle" font-family="'DM Mono',monospace" font-size="5.5" fill="#2ecc71" opacity="0">EXP</text></g>
+              <g id="cell-1"><circle id="ec-1"  cx="79"  cy="31" r="11" fill="rgba(245,240,232,0.07)" stroke="rgba(245,240,232,0.18)" stroke-width="1.5"/><text id="el-1"  x="79"  y="35" text-anchor="middle" font-family="'DM Mono',monospace" font-size="5.5" fill="#2ecc71" opacity="0">EXP</text></g>
+              <g id="cell-2"><circle id="ec-2"  cx="132" cy="31" r="11" fill="rgba(245,240,232,0.07)" stroke="rgba(245,240,232,0.18)" stroke-width="1.5"/><text id="el-2"  x="132" y="35" text-anchor="middle" font-family="'DM Mono',monospace" font-size="5.5" fill="#2ecc71" opacity="0">EXP</text></g>
+              <g id="cell-3"><circle id="ec-3"  cx="185" cy="31" r="11" fill="rgba(245,240,232,0.07)" stroke="rgba(245,240,232,0.18)" stroke-width="1.5"/><text id="el-3"  x="185" y="35" text-anchor="middle" font-family="'DM Mono',monospace" font-size="5.5" fill="#2ecc71" opacity="0">EXP</text></g>
+              <g id="cell-4"><circle id="ec-4"  cx="238" cy="31" r="11" fill="rgba(245,240,232,0.07)" stroke="rgba(245,240,232,0.18)" stroke-width="1.5"/><text id="el-4"  x="238" y="35" text-anchor="middle" font-family="'DM Mono',monospace" font-size="5.5" fill="#2ecc71" opacity="0">EXP</text></g>
+              <g id="cell-5"><circle id="ec-5"  cx="26"  cy="53" r="11" fill="rgba(245,240,232,0.07)" stroke="rgba(245,240,232,0.18)" stroke-width="1.5"/><text id="el-5"  x="26"  y="57" text-anchor="middle" font-family="'DM Mono',monospace" font-size="5.5" fill="#2ecc71" opacity="0">EXP</text></g>
+              <g id="cell-6"><circle id="ec-6"  cx="79"  cy="53" r="11" fill="rgba(245,240,232,0.07)" stroke="rgba(245,240,232,0.18)" stroke-width="1.5"/><text id="el-6"  x="79"  y="57" text-anchor="middle" font-family="'DM Mono',monospace" font-size="5.5" fill="#2ecc71" opacity="0">EXP</text></g>
+              <g id="cell-7"><circle id="ec-7"  cx="132" cy="53" r="11" fill="rgba(245,240,232,0.07)" stroke="rgba(245,240,232,0.18)" stroke-width="1.5"/><text id="el-7"  x="132" y="57" text-anchor="middle" font-family="'DM Mono',monospace" font-size="5.5" fill="#2ecc71" opacity="0">EXP</text></g>
+              <g id="cell-8"><circle id="ec-8"  cx="185" cy="53" r="11" fill="rgba(245,240,232,0.07)" stroke="rgba(245,240,232,0.18)" stroke-width="1.5"/><text id="el-8"  x="185" y="57" text-anchor="middle" font-family="'DM Mono',monospace" font-size="5.5" fill="#2ecc71" opacity="0">EXP</text></g>
+              <g id="cell-9"><circle id="ec-9"  cx="238" cy="53" r="11" fill="rgba(245,240,232,0.07)" stroke="rgba(245,240,232,0.18)" stroke-width="1.5"/><text id="el-9"  x="238" y="57" text-anchor="middle" font-family="'DM Mono',monospace" font-size="5.5" fill="#2ecc71" opacity="0">EXP</text></g>
+              <g id="cell-10"><circle id="ec-10" cx="26"  cy="75" r="11" fill="rgba(245,240,232,0.07)" stroke="rgba(245,240,232,0.18)" stroke-width="1.5"/><text id="el-10" x="26"  y="79" text-anchor="middle" font-family="'DM Mono',monospace" font-size="5.5" fill="#f1c40f" opacity="0">MED</text></g>
+              <g id="cell-11"><circle id="ec-11" cx="79"  cy="75" r="11" fill="rgba(245,240,232,0.07)" stroke="rgba(245,240,232,0.18)" stroke-width="1.5"/><text id="el-11" x="79"  y="79" text-anchor="middle" font-family="'DM Mono',monospace" font-size="5.5" fill="#2ecc71" opacity="0">EXP</text></g>
+              <g id="cell-12"><circle id="ec-12" cx="132" cy="75" r="11" fill="rgba(245,240,232,0.07)" stroke="rgba(245,240,232,0.18)" stroke-width="1.5"/><text id="el-12" x="132" y="79" text-anchor="middle" font-family="'DM Mono',monospace" font-size="5.5" fill="#f1c40f" opacity="0">MED</text></g>
+              <g id="cell-13"><circle id="ec-13" cx="185" cy="75" r="11" fill="rgba(245,240,232,0.07)" stroke="rgba(245,240,232,0.18)" stroke-width="1.5"/><text id="el-13" x="185" y="79" text-anchor="middle" font-family="'DM Mono',monospace" font-size="5.5" fill="#2ecc71" opacity="0">EXP</text></g>
+              <g id="cell-14"><circle id="ec-14" cx="238" cy="75" r="11" fill="rgba(245,240,232,0.07)" stroke="rgba(245,240,232,0.18)" stroke-width="1.5"/><text id="el-14" x="238" y="79" text-anchor="middle" font-family="'DM Mono',monospace" font-size="5.5" fill="rgba(192,57,43,0.9)" opacity="0">DSC</text></g>
+              <g id="esq-summary" opacity="0">
+                <rect x="0" y="91" width="264" height="17" fill="rgba(3,10,4,0.92)" rx="0"/>
+                <line x1="88"  y1="91" x2="88"  y2="108" stroke="rgba(212,144,10,0.18)" stroke-width="0.8"/>
+                <line x1="176" y1="91" x2="176" y2="108" stroke="rgba(212,144,10,0.18)" stroke-width="0.8"/>
+                <text x="44"  y="103" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7.5" fill="#2ecc71" font-weight="700">12 EXP</text>
+                <text x="132" y="103" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7.5" fill="#f1c40f" font-weight="700">2 MED</text>
+                <text x="220" y="103" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7.5" fill="rgba(192,57,43,0.9)" font-weight="700">1 DSC</text>
+              </g>
+            </svg>
+          </div>
+
+          <div class="sq" id="s04cta" style="text-align:center;">
+            <span style="font-family:'Cormorant Garamond',serif;font-size:1.85em;font-weight:700;color:var(--dorado);">AgriVision lo va a construir.</span>
+          </div>
+
+        </div><!-- end FASE 2 -->
+
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════ S05 · B — BENEFICIOS ══════════════════════ -->
+    <section id="s05" data-background-color="#080e0a">
+      <div class="badge">B · BENEFICIOS</div>
+      <div class="slide-inner" style="justify-content:center; gap:12px;">
+
+        <div class="sq" id="s05h" style="font-family:'Cormorant Garamond',serif; font-size:1.95em; font-style:italic; color:var(--crema-dim); line-height:1.2; margin-bottom:2px;">
+          Cuando Carlos puede escuchar a la planta, todo cambia.
+        </div>
+
+        <div class="sq" id="s05cols" style="display:flex; gap:16px; width:100%;">
+          <div class="ba-col ba-antes">
+            <div class="ba-label" style="color:var(--rojo);">Antes</div>
+            <div class="ba-item red">"Creo que tengo" — 20% error — $96M San Valentín</div>
+            <div class="ba-item red">3 personas × 12h contando cajas sin valor</div>
+            <div class="ba-item red">9% al compost · $74M sembrado para nada</div>
+            <div class="ba-item red">RGB capta síntomas cuando ya son visibles</div>
+            <div class="ba-item red" style="margin-top:4px;">Carlos no tenía con qué escucharla</div>
+          </div>
+          <div class="ba-col ba-despues">
+            <div class="ba-label" style="color:var(--verde-ok);">Con AgriVision</div>
+            <div class="ba-item green">"Tengo" — dato a 28 días — contrato firmado</div>
+            <div class="ba-item green">1 foto · 30 cajas en segundos · trazabilidad total</div>
+            <div class="ba-item green">Solo siembra lo que va a exportar</div>
+            <div class="ba-item green">NIR + RedEdge detecta estrés 2–3 semanas antes</div>
+            <div class="ba-item green" style="margin-top:4px;">Carlos ahora puede escucharla</div>
+          </div>
+        </div>
+
+        <div class="sq" id="s05mision" style="margin-top:10px; padding:14px 20px; background:rgba(212,144,10,0.06); border-left:3px solid rgba(212,144,10,0.45); border-radius:0 6px 6px 0; max-width:820px;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:1.35em;font-style:italic;color:var(--crema);line-height:1.55;">
+            La planta siempre habló. Carlos ahora puede escucharla.<br/>
+            <span style="color:var(--dorado);">Y lo que antes era pérdida, hoy es sabiduría.</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════ S06 · A — ACCIÓN / CTA ════════════════════ -->
+    <section id="s06"
+      data-background-image="https://images.unsplash.com/photo-1462275646964-a0e3386b89fa?w=1920&q=80&fit=crop"
+      data-background-size="cover"
+      data-background-position="center">
+      <div class="bg-ov" style="background:rgba(8,14,10,0.86);"></div>
+      <div class="prt-wrap" id="prt6"></div>
+      <div class="badge">A · ACCIÓN</div>
+      <div class="slide-inner" style="gap:0; justify-content:center;">
+        <div class="sq" id="s06a" style="font-family:'DM Mono',monospace; font-size:0.72em; letter-spacing:0.2em; color:var(--dorado); text-transform:uppercase;">
+          AgriVision ya traduce. Los módulos funcionan.
+        </div>
+        <div class="sq" id="s06b" style="font-family:'Cormorant Garamond',serif; font-size:3.6em; font-weight:700; color:var(--crema); line-height:1; margin-top:10px;">
+          $10.000.000 COP.
+        </div>
+        <div class="sq" id="s06c" style="font-family:'Cormorant Garamond',serif; font-size:1.4em; font-style:italic; color:var(--crema-dim); line-height:1.5; margin-top:14px;">
+          Una cámara multiespectral. Tres pasos:
+        </div>
+        <div class="sq" id="s06d" style="font-family:'DM Mono',monospace; font-size:0.66em; color:var(--crema-dim); line-height:2.1; margin-top:6px;">
+          → Captura NIR + RedEdge · el espectro que el ojo no ve<br/>
+          → Primer dataset multiespectral de esquejes de rosa en finca real<br/>
+          → Modelo Fase 2 v-cero · vocabulario espectral completo · 6 meses
+        </div>
+        <div class="sq" id="s06e" style="font-family:'Cormorant Garamond',serif; font-size:1.75em; font-style:italic; color:var(--crema-dim); line-height:1.4; margin-top:24px; max-width:720px;">
+          La planta lleva hablando millones de años.
+        </div>
+        <div class="sq" id="s06f" style="font-family:'DM Mono',monospace; font-size:0.54em; letter-spacing:0.1em; color:var(--crema-dim); margin-top:10px; line-height:2.0;">
+          En 2023, la ciencia confirmó que sus señales son reales.<br/>En 2026, AgriVision aprendió a traducirlas.
+        </div>
+        <div class="sq" id="s06g" style="font-family:'Cormorant Garamond',serif; font-size:3.2em; font-weight:700; color:var(--dorado); line-height:1.1; margin-top:28px;">
+          Necesitamos la cámara.
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════ S07 · CIERRE ══════════════════════════════ -->
+    <section id="s07" data-background-color="#080e0a">
+      <div class="prt-wrap" id="prt7"></div>
+      <div class="slide-inner" style="align-items:center; text-align:center; justify-content:center; gap:0;">
+        <div class="sq" id="s07a" style="font-family:'Cormorant Garamond',serif; font-size:2.6em; font-style:italic; color:var(--crema-dim); line-height:1.3; margin-bottom:6px;">
+          La planta habla.
+        </div>
+        <div class="sq" id="s07b" style="font-family:'Cormorant Garamond',serif; font-size:2.0em; font-style:italic; color:var(--crema-dim); line-height:1.3; margin-bottom:6px;">
+          Nosotros lo convertimos en datos.
+        </div>
+        <div class="sq" id="s07c" style="font-family:'Cormorant Garamond',serif; font-size:2.0em; font-style:italic; color:var(--crema-dim); line-height:1.3;">
+          El agricultor, en sabiduría.
+        </div>
+        <div class="sq" id="s07d" style="margin-top:44px; text-align:center;">
+          <div style="font-family:'DM Mono',monospace; font-size:0.55em; letter-spacing:0.45em; color:var(--dorado); text-transform:uppercase;">AgriVision</div>
+          <div style="width:40px; height:1px; background:rgba(212,144,10,0.4); margin:10px auto;"></div>
+          <div style="font-family:'DM Mono',monospace; font-size:0.38em; letter-spacing:0.28em; color:var(--crema-dim); text-transform:uppercase;">Chía · Sabana Norte · 2026</div>
+        </div>
+      </div>
+    </section>
+
+
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+
+/* ── Particles ─────────────────────────────────── */
+function buildParticles(id, count) {
+  var wrap = document.getElementById(id);
+  if (!wrap) return;
+  for (var i = 0; i < count; i++) {
+    var p = document.createElement('div');
+    p.className = 'prt';
+    var sz   = 10 + Math.random() * 14;
+    var rot  = Math.floor(Math.random() * 360);
+    var a    = (0.45 + Math.random() * 0.45).toFixed(2);
+    var pc   = 'rgba(212,144,10,' + a + ')';
+    var alt  = 'rgba(245,215,120,' + (parseFloat(a) * 0.8).toFixed(2) + ')';
+    var petal = (Math.random() > 0.5) ? pc : alt;
+    p.style.cssText = [
+      'width:'   + sz + 'px',
+      'height:'  + sz + 'px',
+      'left:'    + (Math.random() * 100) + '%',
+      'bottom:'  + (Math.random() * 35)  + '%',
+      '--dur:'   + (6 + Math.random() * 9) + 's',
+      '--delay:' + (Math.random() * 12)   + 's',
+      '--dx:'    + ((Math.random() - 0.5) * 70) + 'px'
+    ].join(';');
+    p.innerHTML =
+      '<svg viewBox="0 0 20 20" width="' + sz + '" height="' + sz + '">' +
+        '<ellipse cx="10" cy="4.2" rx="2.4" ry="4.8" fill="' + petal + '" transform="rotate(' + rot       + ' 10 10)"/>' +
+        '<ellipse cx="10" cy="4.2" rx="2.4" ry="4.8" fill="' + petal + '" transform="rotate(' + (rot+72)  + ' 10 10)"/>' +
+        '<ellipse cx="10" cy="4.2" rx="2.4" ry="4.8" fill="' + petal + '" transform="rotate(' + (rot+144) + ' 10 10)"/>' +
+        '<ellipse cx="10" cy="4.2" rx="2.4" ry="4.8" fill="' + petal + '" transform="rotate(' + (rot+216) + ' 10 10)"/>' +
+        '<ellipse cx="10" cy="4.2" rx="2.4" ry="4.8" fill="' + petal + '" transform="rotate(' + (rot+288) + ' 10 10)"/>' +
+        '<circle cx="10" cy="10" r="2.2" fill="rgba(245,240,232,0.82)"/>' +
+      '</svg>';
+    wrap.appendChild(p);
+  }
+}
+buildParticles('prt0', 40);
+buildParticles('prt1', 55);
+buildParticles('prt6', 55);
+buildParticles('prt7', 40);
+
+/* ── Counter ───────────────────────────────────── */
+function runCounter(el, target, ms) {
+  if (!el) return;
+  el.textContent = '0%';
+  el.classList.remove('is-red');
+  var start = performance.now();
+  function tick(now) {
+    var t = Math.min((now - start) / ms, 1);
+    var e = 1 - Math.pow(1 - t, 3);
+    el.textContent = Math.round(e * target) + '%';
+    if (t < 1) { requestAnimationFrame(tick); }
+    else { el.textContent = target + '%'; el.classList.add('is-red'); }
+  }
+  requestAnimationFrame(tick);
+}
+
+/* ── Helpers ───────────────────────────────────── */
+function sq(id) { return document.getElementById(id); }
+
+var ALL_SQ_IDS = [
+  's00a','s00b','s00c','s00d',
+  's01a','s01b','s01c','s01d','s01e','s01f','s01g','s01src',
+  's02p1h','s02p1a','s02p1b','s02p1c',
+  's02p2h','s02p2a','s02p2b','s02p2c',
+  's02p3h','s02p3a','s02p3b','s02p3c','s02p3d','s02close',
+  's03a','s03b','s03c','s03d','s03e',
+  's04h','s04cam','s04detect','s04gauss','s04box','s04esqh','s04esq','s04cta',
+  's05h','s05cols','s05mision',
+  's06a','s06b','s06c','s06d','s06e','s06f','s06g',
+  's07a','s07b','s07c','s07d'
+];
+
+var CARD3D = [];
+
+function resetAll() {
+  ALL_SQ_IDS.forEach(function(id) {
+    var el = sq(id);
+    if (!el) return;
+    gsap.set(el, { opacity:0, y:32, rotationY:0, z:0, scale:1 });
+  });
+  var ctr = document.getElementById('ctr9');
+  if (ctr) { ctr.textContent = '0%'; ctr.classList.remove('is-red'); }
+  var gc = document.getElementById('gauss-curve');
+  if (gc) gsap.set(gc, { strokeDashoffset:370 });
+  ['gauss-fill','gauss-peak','gauss-pct','gauss-prec','s04-horizons'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) gsap.set(el, { opacity:0 });
+  });
+}
+
+/* ── Timelines ─────────────────────────────────── */
+
+function buildTL0() {
+  var tl = gsap.timeline({ paused:true });
+  tl.to(sq('s00a'), { opacity:1, y:0, duration:1.0, ease:'power2.out' })
+    .to(sq('s00b'), { opacity:1, y:0, duration:0.8, ease:'power2.out' }, '+=0.5')
+    .to(sq('s00c'), { opacity:1, y:0, duration:0.8, ease:'power2.out' }, '+=0.4')
+    .to(sq('s00d'), { opacity:1, y:0, duration:0.7, ease:'power2.out' }, '+=0.5');
+  return tl;
+}
+
+function buildTL1() {
+  var tl = gsap.timeline({ paused:true });
+  tl.to(sq('s01a'), { opacity:1, y:0, duration:0.7, ease:'power2.out' })
+    .to(sq('s01a'), { opacity:0, y:-26, duration:0.5, ease:'power2.in' }, '+=3.5')
+    .to(sq('s01b'), { opacity:1, y:0, duration:0.9, ease:'power2.out' })
+    .to(sq('s01b'), { opacity:0, y:-26, duration:0.5, ease:'power2.in' }, '+=4.2')
+    .to(sq('s01c'), { opacity:1, y:0, duration:0.7, ease:'power2.out' })
+    .to(sq('s01d'), { opacity:1, y:0, duration:0.6, ease:'power2.out' }, '+=0.5')
+    .to([sq('s01c'),sq('s01d')], { opacity:0, y:-22, duration:0.45, stagger:0.07, ease:'power2.in' }, '+=4.5')
+    .to(sq('s01e'), { opacity:1, y:0, duration:0.9, ease:'power2.out' })
+    .to(sq('s01e'), { opacity:0, y:-26, duration:0.5, ease:'power2.in' }, '+=4.0')
+    .to(sq('s01f'), { opacity:1, y:0, duration:0.7, ease:'power2.out' })
+    .to(sq('s01f'), { opacity:0, y:-22, duration:0.45, ease:'power2.in' }, '+=3.0')
+    .to(sq('s01g'), { opacity:1, y:0, duration:1.0, ease:'power2.out' })
+    .to(sq('s01src'), { opacity:1, y:0, duration:0.5, ease:'power2.out' }, '<+0.4');
+  return tl;
+}
+
+function buildTL2() {
+  var tl = gsap.timeline({ paused:true });
+  var ctr = document.getElementById('ctr9');
+  tl
+    .to(sq('s02p1h'), { opacity:1, y:0, duration:0.5, ease:'power2.out' })
+    .to(sq('s02p1a'), { opacity:1, y:0, duration:0.6, ease:'power2.out' }, '+=0.3')
+    .to(sq('s02p1b'), { opacity:1, y:0, duration:0.6, ease:'power2.out' }, '+=0.5')
+    .to(sq('s02p1c'), { opacity:1, y:0, duration:0.6, ease:'power2.out' }, '+=0.5')
+    .to([sq('s02p1h'),sq('s02p1a'),sq('s02p1b'),sq('s02p1c')],
+        { opacity:0, y:-18, rotationY:10, z:-130, scale:0.91, transformPerspective:900,
+          duration:0.45, stagger:0.06, ease:'power2.in' }, '+=2.2')
+    .to(sq('s02p2h'), { opacity:1, y:0, duration:0.5, ease:'power2.out' })
+    .to(sq('s02p2a'), { opacity:1, y:0, duration:0.55, ease:'power2.out' }, '+=0.3')
+    .to(sq('s02p2b'), { opacity:1, y:0, duration:0.55, ease:'power2.out' }, '+=0.5')
+    .to(sq('s02p2c'), { opacity:1, y:0, duration:0.55, ease:'power2.out' }, '+=0.5')
+    .to([sq('s02p2h'),sq('s02p2a'),sq('s02p2b'),sq('s02p2c')],
+        { opacity:0, y:-18, rotationY:10, z:-130, scale:0.91, transformPerspective:900,
+          duration:0.45, stagger:0.06, ease:'power2.in' }, '+=2.2')
+    .to(sq('s02p3h'), { opacity:1, y:0, duration:0.5, ease:'power2.out' })
+    .to(sq('s02p3a'), { opacity:1, y:0, duration:0.55, ease:'power2.out' }, '+=0.3')
+    .to(sq('s02p3b'), { opacity:1, y:0, duration:0.5,  ease:'power2.out' }, '+=0.4')
+    .add(function() { runCounter(ctr, 9, 1400); })
+    .to(sq('s02p3c'), { opacity:1, y:0, duration:0.65, ease:'power2.out' }, '+=1.9')
+    .to(sq('s02p3d'), { opacity:1, y:0, duration:0.75, ease:'power2.out' }, '+=0.5')
+    .to(sq('s02close'), { opacity:1, y:0, duration:0.9, ease:'power2.out' }, '+=0.8');
+  return tl;
+}
+
+function buildTL3() {
+  var tl = gsap.timeline({ paused:true });
+  tl.to(sq('s03a'), { opacity:1, y:0, duration:0.8, ease:'power2.out' })
+    .to(sq('s03a'), { opacity:0, y:-24, duration:0.5, ease:'power2.in' }, '+=1.8')
+    .to(sq('s03b'), { opacity:1, y:0, duration:0.6, ease:'power2.out' })
+    .to(sq('s03b'), { opacity:0, y:-22, duration:0.45, ease:'power2.in' }, '+=1.0')
+    .to(sq('s03c'), { opacity:1, y:0, duration:0.7, ease:'power2.out' })
+    .to(sq('s03c'), { opacity:0, y:-22, duration:0.45, ease:'power2.in' }, '+=1.5')
+    .to(sq('s03d'), { opacity:1, y:0, duration:0.8, ease:'power2.out' })
+    .to(sq('s03e'), { opacity:1, y:0, duration:0.8, ease:'power2.out' }, '+=1.2');
+  return tl;
+}
+
+function buildTL4() {
+  var tl = gsap.timeline({ paused:true });
+
+  /* ── Phase 1: detección + proyección + QR ── */
+  tl.to(sq('s04h'),      { opacity:1, y:0, duration:0.5,  ease:'power2.out' })
+    .to(sq('s04cam'),    { opacity:1, y:0, duration:0.55, ease:'power2.out' }, '+=0.2')
+    .to(sq('s04detect'), { opacity:1, y:0, duration:0.55, ease:'power2.out' }, '<+0.12')
+    .to('#s04-boxes',    { opacity:1,       duration:0.4,  ease:'power2.out' }, '+=0.35')
+    .to('#s04-count',    { opacity:1,       duration:0.4,  ease:'power2.out' }, '+=0.25')
+    .to(sq('s04gauss'),  { opacity:1, y:0, duration:0.55, ease:'power2.out' }, '<-0.3')
+    .to('#gauss-curve',  { strokeDashoffset:0, duration:1.4, ease:'power2.inOut' }, '<+0.15')
+    .to('#gauss-fill',   { opacity:1,       duration:0.7,  ease:'power2.out' }, '<+0.5')
+    .to('#gauss-peak',   { opacity:1,       duration:0.5,  ease:'power2.out' }, '<+0.4')
+    .to('#gauss-pct',    { opacity:0.92,    duration:0.45, ease:'power2.out' }, '<+0.3')
+    .to('#gauss-prec',   { opacity:0.58,    duration:0.45, ease:'power2.out' }, '<')
+    .to('#s04-horizons', { opacity:1,       duration:0.5,  ease:'power2.out' }, '+=0.25')
+    .to(sq('s04box'),    { opacity:1, y:0, duration:0.55, ease:'power2.out' }, '+=0.3')
+    .add(function() {
+      var bl = buildBoxLoop();
+      LOOP_TLS.push(bl);
+      bl.play();
+    })
+
+  /* ── Fade out Phase 1, reveal Phase 2 ── */
+    .to([sq('s04h'),sq('s04cam'),sq('s04detect'),sq('s04gauss'),sq('s04box')],
+        { opacity:0, y:-16, stagger:0.05, duration:0.38, ease:'power2.in' }, '+=3.2')
+
+  /* ── Phase 2: esquejes central ── */
+    .to(sq('s04esqh'),   { opacity:1, y:0, duration:0.5,  ease:'power2.out' })
+    .to(sq('s04esq'),    { opacity:1, y:0, duration:0.75, ease:'power2.out' }, '+=0.2')
+    .to(sq('s04cta'),    { opacity:1, y:0, duration:0.7,  ease:'power2.out' }, '+=0.5')
+    .add(function() {
+      var el = buildEsqLoop();
+      LOOP_TLS.push(el);
+      el.play();
+    });
+
+  return tl;
+}
+
+function buildTL5() {
+  var tl = gsap.timeline({ paused:true });
+  tl.to(sq('s05h'),      { opacity:1, y:0, duration:0.7, ease:'power2.out' })
+    .to(sq('s05cols'),   { opacity:1, y:0, duration:0.8, ease:'power2.out' }, '+=0.4')
+    .to(sq('s05mision'), { opacity:1, y:0, duration:1.0, ease:'power2.out' }, '+=1.4');
+  return tl;
+}
+
+function buildTL6() {
+  var tl = gsap.timeline({ paused:true });
+  tl.to(sq('s06a'), { opacity:1, y:0, duration:0.6, ease:'power2.out' })
+    .to(sq('s06a'), { opacity:0, y:-20, duration:0.45, ease:'power2.in' }, '+=2.0')
+    .to(sq('s06b'), { opacity:1, y:0, duration:0.7, ease:'power2.out' })
+    .to(sq('s06c'), { opacity:1, y:0, duration:0.6, ease:'power2.out' }, '+=0.4')
+    .to(sq('s06d'), { opacity:1, y:0, duration:0.7, ease:'power2.out' }, '+=0.3')
+    .to(sq('s06b'), { opacity:0, y:-20, duration:0.4, ease:'power2.in' }, '+=3.5')
+    .to([sq('s06c'),sq('s06d')], { opacity:0, y:-18, duration:0.4, stagger:0.08, ease:'power2.in' }, '<+0.1')
+    .to(sq('s06e'), { opacity:1, y:0, duration:0.8, ease:'power2.out' })
+    .to(sq('s06f'), { opacity:1, y:0, duration:0.7, ease:'power2.out' }, '+=0.5')
+    .to([sq('s06e'),sq('s06f')], { opacity:0, y:-18, duration:0.4, stagger:0.07, ease:'power2.in' }, '+=2.5')
+    .to({}, { duration: 1.2 })
+    .to(sq('s06g'), { opacity:1, y:0, duration:1.1, ease:'power2.out' });
+  return tl;
+}
+
+function buildTL7() {
+  var tl = gsap.timeline({ paused:true });
+  tl.to(sq('s07a'), { opacity:1, y:0, duration:1.0, ease:'power2.out' })
+    .to(sq('s07b'), { opacity:1, y:0, duration:0.8, ease:'power2.out' }, '+=0.5')
+    .to(sq('s07c'), { opacity:1, y:0, duration:0.8, ease:'power2.out' }, '+=0.4')
+    .to(sq('s07d'), { opacity:1, y:0, duration:0.7, ease:'power2.out' }, '+=0.6');
+  return tl;
+}
+
+function buildBoxLoop() {
+  var groups = ['#b4-scan','#b4-chip','#b4-data','#b4-check','#b4-bar'];
+  var tl = gsap.timeline({ repeat:-1, repeatDelay:0.8, paused:true });
+  tl.set(groups, { opacity:0 }, 0);
+  tl.to('#b4-scan',  { opacity:1, duration:0.45, ease:'power2.out' }, 0.1);
+  tl.to('#b4-chip',  { opacity:1, duration:0.35, ease:'power2.out' }, '+=0.22');
+  tl.to('#b4-data',  { opacity:1, duration:0.55, ease:'power2.out' }, '+=0.15');
+  tl.to('#b4-check', { opacity:1, duration:0.4,  ease:'power2.out' }, '+=0.5');
+  tl.to('#b4-bar',   { opacity:1, duration:0.35, ease:'power2.out' }, '+=0.22');
+  tl.to({}, { duration:1.8 });
+  tl.to(groups.slice().reverse(), { opacity:0, stagger:0.08, duration:0.3, ease:'power2.in' });
+  return tl;
+}
+
+function buildEsqLoop() {
+  var GF = ['rgba(46,204,113,0.28)', 'rgba(241,196,15,0.25)', 'rgba(192,57,43,0.28)'];
+  var GS = ['#2ecc71', '#f1c40f', 'rgba(192,57,43,0.9)'];
+  var DF = 'rgba(245,240,232,0.07)';
+  var DS = 'rgba(245,240,232,0.18)';
+  /* row 0 & 1 all EXP; row 2 = MED EXP MED EXP DSC → 12 EXP, 2 MED, 1 DSC */
+  var GRADES = [0,0,0,0,0, 0,0,0,0,0, 1,0,1,0,2];
+  var cells = [];
+  var circs = [];
+  for (var i = 0; i < 15; i++) {
+    cells.push(document.getElementById('cell-' + i));
+    circs.push(document.getElementById('ec-' + i));
+  }
+  var tl = gsap.timeline({ repeat:-1, repeatDelay:0.8, paused:true });
+  tl.set(cells, { opacity:0 }, 0);
+  tl.set(circs, { attr:{ fill:DF, stroke:DS } }, 0);
+  tl.set('#esq-summary', { opacity:0 }, 0);
+  for (var j = 0; j < 15; j++) {
+    var t = 0.1 + j * 0.15;
+    tl.to(circs[j], { attr:{ fill:GF[GRADES[j]], stroke:GS[GRADES[j]] }, duration:0.25, ease:'power2.out' }, t);
+    tl.to(cells[j], { opacity:1, duration:0.28, ease:'power2.out' }, t);
+  }
+  tl.to('#esq-summary', { opacity:1, duration:0.4, ease:'power2.out' }, '+=0.3');
+  tl.to({}, { duration:1.8 });
+  tl.to(cells.slice().reverse(), { opacity:0, stagger:0.05, duration:0.22, ease:'power2.in' });
+  tl.to('#esq-summary', { opacity:0, duration:0.28, ease:'power2.in' }, '<+0.15');
+  tl.set(circs, { attr:{ fill:DF, stroke:DS } });
+  return tl;
+}
+
+/* ── Auto-advance ──────────────────────────────── */
+var AUTOPLAY  = false;
+var autoTimer = null;
+var TIMINGS   = { 1:50000, 2:55000, 3:20000, 4:55000, 5:45000, 6:45000 };
+
+function startAutoSlide(idx) {
+  clearTimeout(autoTimer);
+  var bar = document.getElementById('prog-bar');
+  var dur = TIMINGS[idx];
+  if (bar) {
+    bar.style.transition = 'none';
+    bar.style.width = '0%';
+    bar.offsetHeight;
+    if (dur) {
+      bar.style.transition = 'width ' + (dur / 1000) + 's linear';
+      bar.style.width = '100%';
+    } else {
+      bar.style.width = '0%';
+    }
+  }
+  if (dur) { autoTimer = setTimeout(function() { Reveal.next(); }, dur); }
+}
+
+function stopAuto() {
+  clearTimeout(autoTimer);
+  var bar = document.getElementById('prog-bar');
+  if (bar) { bar.style.transition = 'none'; bar.style.width = '0%'; }
+}
+
+/* ── Init ──────────────────────────────────────── */
+var TL = {};
+var LOOP_TLS = [];
+
+Reveal.initialize({
+  hash: false, controls: false, progress: false,
+  slideNumber: false, overview: true, center: false,
+  transition: 'fade', transitionSpeed: 'slow',
+  backgroundTransition: 'fade',
+  width: 1280, height: 720, margin: 0, plugins: []
+});
+
+Reveal.on('ready', function() {
+  resetAll();
+  TL[0] = buildTL0();
+  TL[1] = buildTL1();
+  TL[2] = buildTL2();
+  TL[3] = buildTL3();
+  TL[4] = buildTL4();
+  TL[5] = buildTL5();
+  TL[6] = buildTL6();
+  TL[7] = buildTL7();
+  setTimeout(function() { TL[0].play(); }, 650);
+});
+
+Reveal.on('slidechanged', function(e) {
+  LOOP_TLS.forEach(function(t) { t.kill(); });
+  LOOP_TLS = [];
+  Object.values(TL).forEach(function(tl) { tl.pause(); tl.time(0); });
+  resetAll();
+  var idx = e.indexh;
+  if (TL[idx]) { setTimeout(function() { TL[idx].play(); }, 380); }
+  if (AUTOPLAY) { startAutoSlide(idx); }
+});
+
+/* ── Keys ──────────────────────────────────────── */
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'a' || e.key === 'A') {
+    AUTOPLAY = !AUTOPLAY;
+    var ind = document.getElementById('auto-ind');
+    if (AUTOPLAY) {
+      if (ind) ind.classList.add('on');
+      startAutoSlide(Reveal.getState().indexh);
+    } else {
+      if (ind) ind.classList.remove('on');
+      stopAuto();
+    }
+  }
+  if (e.key === 'r' || e.key === 'R') {
+    var idx = Reveal.getState().indexh;
+    if (TL[idx]) { TL[idx].restart(); }
+  }
+});
+
+</script>
+</body>
+</html>
