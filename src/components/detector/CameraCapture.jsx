@@ -3,7 +3,7 @@ import { detectPhotoQuick, getPhotoJobStatus } from '../../api/detector'
 import { compressImage, annotateImage } from '../../utils/imageUtils'
 import DetectionResults from './DetectionResults'
 
-export default function CameraCapture({ accumulated, onAccumulate, onClear }) {
+export default function CameraCapture({ accumulated, onAccumulate, onClear, family = 'tagStandard52h13' }) {
   const inputRef = useRef(null)
   const [uploading, setUploading]       = useState(false)
   const [analyzing, setAnalyzing]       = useState(0)   // jobs en background
@@ -56,7 +56,7 @@ export default function CameraCapture({ accumulated, onAccumulate, onClear }) {
     setError(null)
     try {
       const blob = await compressImage(file)
-      const { quick_count, job_id } = await detectPhotoQuick(blob, effectiveExpected, accumulated.length)
+      const { quick_count, job_id } = await detectPhotoQuick(blob, effectiveExpected, accumulated.length, family)
       setQuickCount(quick_count)
       setAnalyzing(n => n + 1)
       pollPhotoJob(job_id, blob) // no await — corre en background

@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 import { startVideoDetection, getVideoStatus } from '../../api/detector'
 import DetectionResults from './DetectionResults'
 
-export default function VideoUpload() {
+export default function VideoUpload({ family = 'tagStandard52h13' }) {
   const inputRef = useRef(null)
   const [status, setStatus] = useState('idle')
   const [progress, setProgress] = useState(0)
@@ -18,7 +18,7 @@ export default function VideoUpload() {
     setDetections([])
     setProgress(0)
     try {
-      const { job_id } = await startVideoDetection(file)
+      const { job_id } = await startVideoDetection(file, family)
       setStatus('processing')
       await pollJob(job_id)
     } catch (err) {
