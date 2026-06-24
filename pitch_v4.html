@@ -94,6 +94,20 @@
     .ba-item    { font-family: 'DM Sans', sans-serif; font-size: 0.76em; line-height: 1.4; }
     .ba-item.red   { color: rgba(192,57,43,0.75); text-decoration: line-through; }
     .ba-item.green { color: rgba(46,204,113,0.82); }
+
+    /* ── Waveform S01b ─────────────────────────────── */
+    #s01-wave { display:flex; align-items:center; gap:3px; height:90px; }
+    #s01-wave .wb {
+      width:5px; flex-shrink:0; border-radius:3px;
+      background: rgba(212,144,10,0.72);
+      transform-origin: center bottom;
+      animation: wbOsc var(--dur,0.6s) ease-in-out infinite alternate;
+      animation-delay: var(--dly,0s);
+    }
+    @keyframes wbOsc {
+      from { height: var(--hlo,6px); opacity:0.55; }
+      to   { height: var(--hhi,70px); opacity:1; }
+    }
   </style>
 </head>
 <body>
@@ -139,8 +153,11 @@
         <div class="sq" id="s01a" style="font-family:'Cormorant Garamond',serif; font-size:1.8em; font-style:italic; color:var(--crema-dim); line-height:1.4; max-width:760px;">
           Hay algo que la ciencia confirmó en 2023 — y que los agricultores intuían desde hace siglos:
         </div>
-        <div class="sq" id="s01b" style="font-family:'Cormorant Garamond',serif; font-size:5.4em; font-weight:700; color:var(--crema); line-height:1; margin-top:6px;">
-          La planta habla.
+        <div class="sq" id="s01b" style="position:relative; margin-top:6px; height:92px; display:flex; align-items:center;">
+          <div id="s01-wave"></div>
+          <div id="s01b-txt" style="position:absolute; left:0; top:0; height:100%; display:flex; align-items:center; font-family:'Cormorant Garamond',serif; font-size:5.4em; font-weight:700; color:var(--dorado); line-height:1; opacity:0; white-space:nowrap; pointer-events:none;">
+            La planta habla.
+          </div>
         </div>
         <div class="sq" id="s01c" style="font-family:'Cormorant Garamond',serif; font-size:1.75em; font-style:italic; color:var(--crema-dim); line-height:1.45; max-width:740px; margin-top:8px;">
           Cuando está sedienta, habla. Cuando está enferma, habla.<br/>Cuando la cortan, habla.
@@ -604,6 +621,28 @@
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
 <script>
 
+/* ── Waveform ──────────────────────────────────── */
+function buildWaveform() {
+  var wave = document.getElementById('s01-wave');
+  if (!wave) return;
+  var N = 56;
+  for (var i = 0; i < N; i++) {
+    var t = i / (N - 1);
+    var h1 = Math.sin(t * Math.PI) * 0.62;
+    var h2 = Math.abs(Math.sin(t * Math.PI * 4.5 + 0.4)) * 0.24;
+    var h3 = Math.abs(Math.sin(t * Math.PI * 10 + 1.2)) * 0.11;
+    var hhi = Math.max(8, Math.round((h1 + h2 + h3) * 76 + 5));
+    var hlo = Math.max(3, Math.round(hhi * 0.16));
+    var dur = (0.36 + Math.random() * 0.52).toFixed(3);
+    var dly = '-' + (Math.random() * 2.5).toFixed(3) + 's';
+    var bar = document.createElement('div');
+    bar.className = 'wb';
+    bar.style.cssText = '--hhi:' + hhi + 'px;--hlo:' + hlo + 'px;--dur:' + dur + 's;--dly:' + dly + ';';
+    wave.appendChild(bar);
+  }
+}
+buildWaveform();
+
 /* ── Particles ─────────────────────────────────── */
 function buildParticles(id, count) {
   var wrap = document.getElementById(id);
@@ -691,6 +730,9 @@ function resetAll() {
     var el = document.getElementById(id);
     if (el) gsap.set(el, { opacity:0 });
   });
+  gsap.set(document.querySelectorAll('#s01-wave .wb'), { scaleY:1, opacity:1 });
+  var wbtxt = document.getElementById('s01b-txt');
+  if (wbtxt) gsap.set(wbtxt, { opacity:0 });
 }
 
 /* ── Timelines ─────────────────────────────────── */
@@ -709,7 +751,13 @@ function buildTL1() {
   tl.to(sq('s01a'), { opacity:1, y:0, duration:0.7, ease:'power2.out' })
     .to(sq('s01a'), { opacity:0, y:-26, duration:0.5, ease:'power2.in' }, '+=3.5')
     .to(sq('s01b'), { opacity:1, y:0, duration:0.9, ease:'power2.out' })
-    .to(sq('s01b'), { opacity:0, y:-26, duration:0.5, ease:'power2.in' }, '+=4.2')
+    .to('#s01-wave .wb', {
+        scaleY: 0.03, opacity: 0, duration: 0.55,
+        stagger: { each: 0.012, from: 'edges' },
+        ease: 'power2.in'
+      }, '+=2.4')
+    .to(sq('s01b-txt'), { opacity:1, duration:0.75, ease:'power2.out' }, '-=0.12')
+    .to(sq('s01b'), { opacity:0, y:-26, duration:0.5, ease:'power2.in' }, '+=3.8')
     .to(sq('s01c'), { opacity:1, y:0, duration:0.7, ease:'power2.out' })
     .to(sq('s01d'), { opacity:1, y:0, duration:0.6, ease:'power2.out' }, '+=0.5')
     .to([sq('s01c'),sq('s01d')], { opacity:0, y:-22, duration:0.45, stagger:0.07, ease:'power2.in' }, '+=4.5')
