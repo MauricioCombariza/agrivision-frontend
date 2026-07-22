@@ -3,6 +3,11 @@ import { cancelarSubida, subirVideo } from '../../api/captura'
 
 const CLAVE_RECORDADOS = 'agrivision_captura_finca'
 
+// El código va fijo en el despliegue para que la finca no tenga que escribirlo.
+// Queda visible en el bundle: sirve para frenar bots y accesos casuales, no como
+// autenticación. Lo que de verdad acota el daño es el tope duro de 6 GB del buzón.
+const CODIGO = import.meta.env.VITE_CAPTURA_CODIGO ?? ''
+
 // Alturas de montaje de captura_video_muestreo.md §7. A 2.00 m la cámara no alcanza a
 // cubrir el ancho de la cama por 4 cm, por eso el recomendado es 2.10 m.
 const ALTURAS = [
@@ -19,7 +24,6 @@ const VACIO = {
   altura_montaje_m: 2.1,
   largo_cama_m: 30.7,
   notas: '',
-  codigo: '',
 }
 
 export default function CapturaVideo() {
@@ -48,10 +52,10 @@ export default function CapturaVideo() {
 
   function recordar(siguiente) {
     try {
-      const { finca, variedad, altura_montaje_m, largo_cama_m, codigo } = siguiente
+      const { finca, variedad, altura_montaje_m, largo_cama_m } = siguiente
       localStorage.setItem(
         CLAVE_RECORDADOS,
-        JSON.stringify({ finca, variedad, altura_montaje_m, largo_cama_m, codigo }),
+        JSON.stringify({ finca, variedad, altura_montaje_m, largo_cama_m }),
       )
     } catch {
       /* localStorage no disponible */
@@ -65,11 +69,10 @@ export default function CapturaVideo() {
     setProgreso(0)
     setEstado('subiendo')
     try {
-      const { codigo, ...ficha } = datos
       const recibido = await subirVideo(
         archivo,
-        { ...ficha, archivo: archivo.name, subido_en: new Date().toISOString() },
-        codigo,
+        { ...datos, archivo: archivo.name, subido_en: new Date().toISOString() },
+        CODIGO,
         setProgreso,
       )
 
@@ -85,7 +88,7 @@ export default function CapturaVideo() {
   }
 
   const ocupado = estado === 'subiendo'
-  const completo = datos.finca.trim() && datos.bloque.trim() && archivo
+  const completo = datos.finca.trim() && datos.bloque.trim() && archivo && CODIGO
 
   return (
     <div className="det-stack">
@@ -161,16 +164,6 @@ export default function CapturaVideo() {
         />
       </Campo>
 
-      <Campo etiqueta="Código de acceso">
-        <input
-          type="password"
-          value={datos.codigo}
-          disabled={ocupado}
-          placeholder="El que te compartió AgriVision"
-          onChange={(e) => fijar('codigo', e.target.value)}
-        />
-      </Campo>
-
       <input
         ref={entrada}
         type="file"
@@ -209,6 +202,13 @@ export default function CapturaVideo() {
           <button className="cap-cancelar" onClick={cancelarSubida}>
             Cancelar
           </button>
+        </div>
+      )}
+
+      {!CODIGO && (
+        <div className="det-error">
+          Este despliegue no tiene configurado el acceso al servidor
+          (falta VITE_CAPTURA_CODIGO). Avisa a AgriVision.
         </div>
       )}
 
