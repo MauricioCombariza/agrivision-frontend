@@ -38,6 +38,11 @@ export default function Navbar({ onLoginClick }) {
             <a href="https://combariza.com/detector" className="navbar__lang" style={{ textDecoration: 'none' }} target="_blank" rel="noopener">
               Detector
             </a>
+            {/* Ruta relativa a proposito: con la absoluta, quien abra esto desde
+                local o desde un preview terminaria en produccion. */}
+            <a href="/videos" className="navbar__lang" style={{ textDecoration: 'none' }}>
+              Videos
+            </a>
             <a href="/combariza/pitch.html" className="navbar__lang" style={{ textDecoration: 'none' }} target="_blank" rel="noopener">
               Pitch
             </a>
