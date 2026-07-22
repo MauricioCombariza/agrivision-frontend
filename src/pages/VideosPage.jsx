@@ -1,0 +1,53 @@
+import { useEffect, useState } from 'react'
+import CapturaVideo from '../components/captura/CapturaVideo'
+import { estadoBuzon } from '../api/captura'
+
+function Logo() {
+  return (
+    <svg className="det-header__logo" viewBox="0 0 28 28" fill="none">
+      <path d="M14 3C14 3 6 9.5 6 17c0 4.4 3.6 8 8 8s8-3.6 8-8c0-7.5-8-14-8-14Z" fill="#d4900a" opacity="0.9"/>
+      <path d="M14 8v17" stroke="#0f2519" strokeWidth="1.4" strokeLinecap="round"/>
+      <path d="M14 14c0 0-3.5-2.5-5.5-.5" stroke="#0f2519" strokeWidth="1.4" strokeLinecap="round"/>
+      <path d="M14 18.5c0 0 3.5-2.5 5.5.5" stroke="#0f2519" strokeWidth="1.4" strokeLinecap="round"/>
+    </svg>
+  )
+}
+
+export default function VideosPage() {
+  const [buzon, setBuzon] = useState(null)
+
+  // Se consulta al entrar para avisar antes de que el operario grabe y suba en vano:
+  // si el buzón está lleno o caído, mejor saberlo ahora que al final de la subida.
+  useEffect(() => {
+    estadoBuzon()
+      .then((e) => setBuzon({ ok: true, ...e }))
+      .catch((e) => setBuzon({ ok: false, mensaje: e.message }))
+  }, [])
+
+  return (
+    <div className="det-page">
+      <header className="det-header">
+        <Logo />
+        <div className="det-header__text">
+          <h1>Captura de video</h1>
+          <p>Alstroemeria · AgriVision</p>
+        </div>
+      </header>
+
+      <main className="det-main">
+        {buzon && !buzon.ok && (
+          <div className="det-error">
+            No se puede recibir videos en este momento: {buzon.mensaje}
+          </div>
+        )}
+        {buzon?.ok && buzon.libre_bytes < 1024 ** 3 && (
+          <div className="cap-aviso">
+            Queda poco espacio en el servidor ({(buzon.libre_bytes / 1024 ** 3).toFixed(1)} GB).
+            Avisa a AgriVision antes de subir más videos.
+          </div>
+        )}
+        <CapturaVideo />
+      </main>
+    </div>
+  )
+}

@@ -1985,3 +1985,106 @@ ul, ol { list-style: none; }
   transition: background 0.15s, color 0.15s;
 }
 .cajas-reset-btn:hover { background: var(--forest-800); color: #f87171; }
+
+/* ═══════════════════════════════════════════════════════════
+   CAPTURA DE VIDEO EN FINCA — subida directa al almacenamiento
+   ═══════════════════════════════════════════════════════════ */
+
+.cap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.75rem;
+}
+
+.cap-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+}
+.cap-campo > span {
+  color: var(--mist);
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.68rem;
+}
+.cap-campo em { color: var(--amber-400); font-style: normal; }
+
+.cap-campo input,
+.cap-campo select {
+  width: 100%;
+  background: var(--forest-900);
+  border: 1px solid var(--forest-600);
+  border-radius: 10px;
+  color: var(--cream-100);
+  padding: 0.65rem 0.75rem;
+  font-size: 0.9rem;
+  font-family: inherit;
+  /* 16px evita que iOS haga zoom al enfocar el campo en el celular del operario */
+  -webkit-appearance: none;
+}
+.cap-campo input:focus,
+.cap-campo select:focus {
+  outline: none;
+  border-color: var(--amber-500, var(--amber-400));
+}
+.cap-campo input:disabled,
+.cap-campo select:disabled { opacity: 0.5; }
+.cap-campo input::placeholder { color: var(--mist); opacity: 0.5; }
+
+@media (max-width: 480px) {
+  .cap-campo input,
+  .cap-campo select { font-size: 16px; }
+}
+
+.cap-meta {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--mist);
+  margin: -0.35rem 0 0;
+}
+
+.cap-cancelar {
+  margin-top: 0.75rem;
+  width: 100%;
+  background: transparent;
+  border: 1px solid var(--forest-600);
+  color: var(--mist-light);
+  border-radius: 10px;
+  padding: 0.5rem;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+.cap-cancelar:active { background: var(--forest-800); }
+
+.cap-ok {
+  background: rgba(60, 150, 90, 0.12);
+  border: 1px solid rgba(60, 150, 90, 0.35);
+  border-radius: 12px;
+  padding: 0.875rem 1rem;
+}
+.cap-ok strong { color: var(--cream-100); font-size: 0.9rem; }
+.cap-ok p {
+  color: var(--mist-light);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  margin: 0.35rem 0 0.5rem;
+}
+.cap-ok code {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--mist);
+  word-break: break-all;
+}
+
+.cap-aviso {
+  background: rgba(212, 144, 10, 0.12);
+  border: 1px solid rgba(212, 144, 10, 0.35);
+  border-radius: 12px;
+  padding: 0.875rem 1rem;
+  font-size: 0.83rem;
+  color: var(--amber-400);
+  margin-bottom: 1rem;
+}
