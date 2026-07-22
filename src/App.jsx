@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import DetectorPage from './pages/DetectorPage'
+import VideosPage from './pages/VideosPage'
 import { translations } from './translations'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
@@ -49,6 +50,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/detector" element={<DetectorPage />} />
+        <Route path="/videos" element={<VideosPage />} />
         <Route path="*" element={home} />
       </Routes>
     </BrowserRouter>

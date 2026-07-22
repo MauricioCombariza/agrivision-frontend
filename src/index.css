@@ -2025,3 +2025,13 @@ ul, ol { list-style: none; }
   color: var(--mist);
   word-break: break-all;
 }
+
+.cap-aviso {
+  background: rgba(212, 144, 10, 0.12);
+  border: 1px solid rgba(212, 144, 10, 0.35);
+  border-radius: 12px;
+  padding: 0.875rem 1rem;
+  font-size: 0.83rem;
+  color: var(--amber-400);
+  margin-bottom: 1rem;
+}
