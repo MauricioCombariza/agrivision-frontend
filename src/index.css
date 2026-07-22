@@ -424,6 +424,11 @@ ul, ol { list-style: none; }
   font-size: 0.7rem;
   letter-spacing: 0.1em;
   color: var(--mist);
+  /* Linea propia: es una nota al pie del grupo de botones, no un boton mas.
+     Sin esto se cuela en la fila cuando los botones envuelven, y se ve pegado
+     al ultimo de ellos tanto en escritorio como en movil. */
+  flex-basis: 100%;
+  margin-top: -0.35rem;
 }
 
 /* Right side: mini metrics bar */
