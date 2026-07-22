@@ -3,12 +3,14 @@ import CameraCapture from '../components/detector/CameraCapture'
 import VideoUpload from '../components/detector/VideoUpload'
 import PhotoUpload from '../components/detector/PhotoUpload'
 import CajasCapture from '../components/detector/CajasCapture'
+import CapturaVideo from '../components/detector/CapturaVideo'
 
 const TABS = [
-  { id: 'camera', label: 'Cámara', icon: '📷' },
-  { id: 'cajas',  label: 'Cajas',  icon: '📦' },
-  { id: 'video',  label: 'Video',  icon: '🎬' },
-  { id: 'photos', label: 'Fotos',  icon: '🖼️' },
+  { id: 'camera',  label: 'Cámara',  icon: '📷' },
+  { id: 'cajas',   label: 'Cajas',   icon: '📦' },
+  { id: 'captura', label: 'Captura', icon: '🌱' },
+  { id: 'video',   label: 'Video',   icon: '🎬' },
+  { id: 'photos',  label: 'Fotos',   icon: '🖼️' },
 ]
 
 function Logo() {
@@ -55,6 +57,7 @@ export default function DetectorPage() {
             onClear={() => setAccumulated([])}
           />
         )}
+        {tab === 'captura' && <CapturaVideo />}
         {tab === 'video'  && <VideoUpload />}
         {tab === 'photos' && <PhotoUpload />}
         {tab === 'cajas'  && <CajasCapture />}
