@@ -1,11 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import {
-  cancelarSubida,
-  extensionDe,
-  pedirUrlDeSubida,
-  subirArchivo,
-  subirMetadatos,
-} from '../../api/captura'
+import { cancelarSubida, subirVideo } from '../../api/captura'
 
 const CLAVE_RECORDADOS = 'agrivision_captura_finca'
 
@@ -31,7 +25,7 @@ const VACIO = {
 export default function CapturaVideo() {
   const [datos, setDatos] = useState(VACIO)
   const [archivo, setArchivo] = useState(null)
-  const [estado, setEstado] = useState('idle') // idle | firmando | subiendo | listo | error
+  const [estado, setEstado] = useState('idle') // idle | subiendo | listo | error
   const [progreso, setProgreso] = useState(0)
   const [error, setError] = useState(null)
   const [enviado, setEnviado] = useState(null)
@@ -69,34 +63,18 @@ export default function CapturaVideo() {
     setError(null)
     setEnviado(null)
     setProgreso(0)
-    setEstado('firmando')
-
+    setEstado('subiendo')
     try {
-      const extension = extensionDe(archivo.name)
-      const firma = await pedirUrlDeSubida({
-        finca: datos.finca,
-        bloque: datos.bloque,
-        extension,
-        bytes: archivo.size,
-        codigo: datos.codigo,
-      })
-
-      setEstado('subiendo')
-      await subirArchivo(firma.url_video, archivo, setProgreso)
-
-      await subirMetadatos(firma.url_meta, {
-        ...datos,
-        codigo: undefined, // el código de acceso no se guarda con la ficha
-        clave: firma.clave,
-        archivo: archivo.name,
-        bytes: archivo.size,
-        extension,
-        subido_en: new Date().toISOString(),
-        agente: navigator.userAgent,
-      })
+      const { codigo, ...ficha } = datos
+      const recibido = await subirVideo(
+        archivo,
+        { ...ficha, archivo: archivo.name, subido_en: new Date().toISOString() },
+        codigo,
+        setProgreso,
+      )
 
       recordar(datos)
-      setEnviado({ clave: firma.clave, bytes: archivo.size })
+      setEnviado({ clave: recibido.id, bytes: recibido.bytes })
       setEstado('listo')
       setArchivo(null)
       if (entrada.current) entrada.current.value = ''
@@ -106,15 +84,15 @@ export default function CapturaVideo() {
     }
   }
 
-  const ocupado = estado === 'firmando' || estado === 'subiendo'
+  const ocupado = estado === 'subiendo'
   const completo = datos.finca.trim() && datos.bloque.trim() && archivo
 
   return (
     <div className="det-stack">
       <p className="det-hint">
         Graba la cama completa con la cámara cenital, caminando parejo de un extremo al
-        otro. El video se sube directo al almacenamiento — no se guarda en esta página —
-        y de él se extraen después las fotos sin traslape para el conteo.
+        otro. El video se envía al servidor de AgriVision, de donde se extraen después
+        las fotos sin traslape para el conteo de flores.
       </p>
 
       <div className="cap-grid">
@@ -212,16 +190,14 @@ export default function CapturaVideo() {
 
       {archivo && (
         <p className="cap-meta">
-          {(archivo.size / 1024 ** 3).toFixed(2)} GB · se sube directo al almacenamiento
+          {(archivo.size / 1024 ** 3).toFixed(2)} GB · se envía al servidor de AgriVision
         </p>
       )}
 
       {ocupado && (
         <div className="det-progress">
           <div className="det-progress__header">
-            <span className="det-progress__label">
-              {estado === 'firmando' ? 'Preparando subida…' : 'Subiendo video…'}
-            </span>
+            <span className="det-progress__label">Subiendo video…</span>
             <span className="det-progress__pct">{Math.round(progreso * 100)}%</span>
           </div>
           <div className="det-progress__track">
@@ -230,11 +206,9 @@ export default function CapturaVideo() {
               style={{ width: `${Math.round(progreso * 100)}%` }}
             />
           </div>
-          {estado === 'subiendo' && (
-            <button className="cap-cancelar" onClick={cancelarSubida}>
-              Cancelar
-            </button>
-          )}
+          <button className="cap-cancelar" onClick={cancelarSubida}>
+            Cancelar
+          </button>
         </div>
       )}
 
