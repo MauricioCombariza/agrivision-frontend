@@ -52,6 +52,48 @@ export async function estadoBuzon() {
 }
 
 /**
+ * Cambia usuario/contraseña por el token admin del buzón. El buzón no guarda
+ * sesiones: de aquí en adelante el token viaja como X-Admin en cada llamada.
+ */
+export async function iniciarSesionAdmin(usuario, contrasena) {
+  const res = await fetch(`${BASE}/api/v1/capturas/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ usuario, contrasena }),
+  })
+  const cuerpo = await res.json().catch(() => ({}))
+  if (!res.ok) throw new Error(detalleDe(JSON.stringify(cuerpo)) || `Error ${res.status}`)
+  return cuerpo.token
+}
+
+export async function listarCapturas(token) {
+  const res = await fetch(`${BASE}/api/v1/capturas`, { headers: { 'X-Admin': token } })
+  const cuerpo = await res.json().catch(() => ([]))
+  if (!res.ok) throw new Error(detalleDe(JSON.stringify(cuerpo)) || `Error ${res.status}`)
+  return cuerpo
+}
+
+/**
+ * Baja el video al navegador del admin. Se hace por fetch (no un <a href>) porque el
+ * token viaja como header X-Admin, y un link normal no puede mandar headers custom.
+ */
+export async function descargarCaptura(token, identificador, nombreArchivo) {
+  const res = await fetch(`${BASE}/api/v1/capturas/${identificador}`, {
+    headers: { 'X-Admin': token },
+  })
+  if (!res.ok) throw new Error(`No se pudo descargar (${res.status})`)
+  const blob = await res.blob()
+  const url = URL.createObjectURL(blob)
+  const enlace = document.createElement('a')
+  enlace.href = url
+  enlace.download = nombreArchivo || identificador
+  document.body.appendChild(enlace)
+  enlace.click()
+  enlace.remove()
+  URL.revokeObjectURL(url)
+}
+
+/**
  * base64url del JSON en UTF-8. `btoa` solo acepta Latin-1, así que un nombre de finca
  * con tilde lo rompería: hay que codificar a bytes primero.
  */

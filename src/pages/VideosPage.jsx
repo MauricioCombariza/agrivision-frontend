@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import CapturaVideo from '../components/captura/CapturaVideo'
+import AdminCapturas from '../components/captura/AdminCapturas'
 import { estadoBuzon } from '../api/captura'
 
 function Logo() {
@@ -47,6 +48,8 @@ export default function VideosPage() {
           </div>
         )}
         <CapturaVideo />
+
+        <AdminCapturas ultimaDescargaGlobal={buzon?.ultima_descarga_en} />
       </main>
     </div>
   )
