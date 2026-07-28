@@ -131,7 +131,7 @@ export default function CapturaVideo() {
           <br />
           2. Al abrir el archivo: si aparece "Windows protegió su PC", haz clic en{' '}
           <strong>"Más información"</strong> y luego en{' '}
-          <strong>"Ejecutar de todas formas"</strong>.
+          <strong>"Instalar de todas formas"</strong>.
         </p>
       </div>
 
