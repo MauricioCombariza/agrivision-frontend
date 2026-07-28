@@ -2093,6 +2093,23 @@ ul, ol { list-style: none; }
   color: var(--amber-400);
   margin-bottom: 1rem;
 }
+.cap-aviso strong { display: block; color: var(--cream-100); font-size: 0.88rem; }
+.cap-aviso p { margin: 0.4rem 0 0.75rem; color: var(--mist-light); line-height: 1.5; }
+.cap-aviso .det-upload-btn { width: auto; padding: 0.6rem 1rem; font-size: 0.82rem; }
+
+.cap-confirmacion {
+  flex-direction: row !important;
+  align-items: flex-start;
+  gap: 0.6rem !important;
+  font-size: 0.8rem !important;
+  color: var(--mist-light);
+  text-transform: none !important;
+}
+.cap-confirmacion input[type='checkbox'] {
+  width: auto;
+  margin-top: 0.15rem;
+  accent-color: var(--amber-500, var(--amber-400));
+}
 
 /* ─── Panel admin: login + lista de videos del buzón ────── */
 .cap-admin-toggle {

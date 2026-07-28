@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { cancelarSubida, subirVideo } from '../../api/captura'
+import { descargarClienteLocal } from '../../utils/clienteLocal'
 
 const CLAVE_RECORDADOS = 'agrivision_captura_finca'
 
@@ -33,6 +34,11 @@ export default function CapturaVideo() {
   const [progreso, setProgreso] = useState(0)
   const [error, setError] = useState(null)
   const [enviado, setEnviado] = useState(null)
+  // Un video de este tamaño no se sube bien por una red rural: hay que confirmar
+  // explícitamente, cada vez, que de verdad no se pudo usar el programa de
+  // escritorio antes de permitir la subida cruda. Se reinicia con cada archivo
+  // nuevo para que no quede "marcado para siempre" tras la primera vez.
+  const [confirmoSubidaCruda, setConfirmoSubidaCruda] = useState(false)
   const entrada = useRef(null)
 
   // La finca sube muchos videos seguidos del mismo sitio: se recuerdan los campos
@@ -80,6 +86,7 @@ export default function CapturaVideo() {
       setEnviado({ clave: recibido.id, bytes: recibido.bytes })
       setEstado('listo')
       setArchivo(null)
+      setConfirmoSubidaCruda(false)
       if (entrada.current) entrada.current.value = ''
     } catch (e) {
       setError(e.message)
@@ -88,7 +95,8 @@ export default function CapturaVideo() {
   }
 
   const ocupado = estado === 'subiendo'
-  const completo = datos.finca.trim() && datos.bloque.trim() && archivo && CODIGO
+  const completo =
+    datos.finca.trim() && datos.bloque.trim() && archivo && CODIGO && confirmoSubidaCruda
 
   return (
     <div className="det-stack">
@@ -97,6 +105,23 @@ export default function CapturaVideo() {
         otro. El video se envía al servidor de AgriVision, de donde se extraen después
         las fotos sin traslape para el conteo de flores.
       </p>
+
+      <div className="cap-aviso">
+        <strong>Usa el programa de escritorio en vez de subir el video aquí.</strong>
+        <p>
+          Un video de este tamaño no se sube bien por una red rural: puede tardar 30
+          minutos y colgarse a mitad de camino. El programa procesa el video en tu propio
+          computador y sube solo las fotos ya extraídas (30-70× más liviano).
+        </p>
+        <button
+          type="button"
+          className="det-upload-btn"
+          onClick={() => descargarClienteLocal()}
+        >
+          <span className="det-upload-btn__icon">💻</span>
+          <span>Descargar programa (Windows)</span>
+        </button>
+      </div>
 
       <div className="cap-grid">
         <Campo etiqueta="Finca" requerido>
@@ -169,7 +194,10 @@ export default function CapturaVideo() {
         type="file"
         accept="video/*"
         style={{ display: 'none' }}
-        onChange={(e) => setArchivo(e.target.files?.[0] ?? null)}
+        onChange={(e) => {
+          setArchivo(e.target.files?.[0] ?? null)
+          setConfirmoSubidaCruda(false)
+        }}
       />
 
       <button
@@ -185,6 +213,21 @@ export default function CapturaVideo() {
         <p className="cap-meta">
           {(archivo.size / 1024 ** 3).toFixed(2)} GB · se envía al servidor de AgriVision
         </p>
+      )}
+
+      {archivo && (
+        <label className="cap-campo cap-confirmacion">
+          <input
+            type="checkbox"
+            checked={confirmoSubidaCruda}
+            disabled={ocupado}
+            onChange={(e) => setConfirmoSubidaCruda(e.target.checked)}
+          />
+          <span>
+            Ya intenté usar el programa de escritorio y aun así necesito subir el video
+            completo por aquí.
+          </span>
+        </label>
       )}
 
       {ocupado && (
