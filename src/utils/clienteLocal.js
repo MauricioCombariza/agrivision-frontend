@@ -15,3 +15,24 @@ export function descargarClienteLocal() {
   enlace.click()
   enlace.remove()
 }
+
+// Solo oculta el panel de "descarga el programa" para no insistirle a quien ya
+// lo tiene instalado — no reemplaza la casilla de confirmación obligatoria
+// antes de subir un video crudo, esa sigue pidiéndose siempre.
+const CLAVE_INSTALADO = 'agrivision_cliente_local_instalado'
+
+export function clienteYaInstalado() {
+  try {
+    return localStorage.getItem(CLAVE_INSTALADO) === '1'
+  } catch {
+    return false
+  }
+}
+
+export function marcarClienteInstalado() {
+  try {
+    localStorage.setItem(CLAVE_INSTALADO, '1')
+  } catch {
+    /* localStorage no disponible */
+  }
+}

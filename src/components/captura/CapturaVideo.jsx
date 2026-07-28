@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { cancelarSubida, subirVideo } from '../../api/captura'
-import { descargarClienteLocal } from '../../utils/clienteLocal'
+import {
+  clienteYaInstalado,
+  descargarClienteLocal,
+  marcarClienteInstalado,
+} from '../../utils/clienteLocal'
 
 const CLAVE_RECORDADOS = 'agrivision_captura_finca'
 
@@ -39,6 +43,9 @@ export default function CapturaVideo() {
   // escritorio antes de permitir la subida cruda. Se reinicia con cada archivo
   // nuevo para que no quede "marcado para siempre" tras la primera vez.
   const [confirmoSubidaCruda, setConfirmoSubidaCruda] = useState(false)
+  // Solo oculta el panel de descarga para no insistirle a quien ya lo instaló;
+  // no afecta la casilla de confirmación de arriba, esa sigue siendo obligatoria.
+  const [clienteInstalado, setClienteInstalado] = useState(() => clienteYaInstalado())
   const entrada = useRef(null)
 
   // La finca sube muchos videos seguidos del mismo sitio: se recuerdan los campos
@@ -106,34 +113,46 @@ export default function CapturaVideo() {
         las fotos sin traslape para el conteo de flores.
       </p>
 
-      <div className="cap-aviso">
-        <strong>Usa el programa de escritorio en vez de subir el video aquí.</strong>
-        <p>
-          Un video de este tamaño no se sube bien por una red rural: puede tardar 30
-          minutos y colgarse a mitad de camino. El programa procesa el video en tu propio
-          computador y sube solo las fotos ya extraídas (30-70× más liviano).
-        </p>
-        <button
-          type="button"
-          className="det-upload-btn"
-          onClick={() => descargarClienteLocal()}
-        >
-          <span className="det-upload-btn__icon">💻</span>
-          <span>Descargar programa (Windows)</span>
-        </button>
-        <p className="cap-aviso__nota">
-          El navegador y Windows van a advertir porque el programa es nuevo — no es un
-          virus, son las dos veces que hay que confirmar:
-          <br />
-          1. Al descargar: si el navegador dice algo como "Este tipo de archivo puede
-          dañar tu dispositivo", elige <strong>"Descargar de todas formas"</strong> (o
-          "Mantener").
-          <br />
-          2. Al abrir el archivo: si aparece "Windows protegió su PC", haz clic en{' '}
-          <strong>"Más información"</strong> y luego en{' '}
-          <strong>"Instalar de todas formas"</strong>.
-        </p>
-      </div>
+      {!clienteInstalado && (
+        <div className="cap-aviso">
+          <strong>Usa el programa de escritorio en vez de subir el video aquí.</strong>
+          <p>
+            Un video de este tamaño no se sube bien por una red rural: puede tardar 30
+            minutos y colgarse a mitad de camino. El programa procesa el video en tu
+            propio computador y sube solo las fotos ya extraídas (30-70× más liviano).
+          </p>
+          <button
+            type="button"
+            className="det-upload-btn"
+            onClick={() => descargarClienteLocal()}
+          >
+            <span className="det-upload-btn__icon">💻</span>
+            <span>Descargar programa (Windows)</span>
+          </button>
+          <p className="cap-aviso__nota">
+            El navegador y Windows van a advertir porque el programa es nuevo — no es
+            un virus, son las dos veces que hay que confirmar:
+            <br />
+            1. Al descargar: si el navegador dice algo como "Este tipo de archivo puede
+            dañar tu dispositivo", elige <strong>"Descargar de todas formas"</strong>{' '}
+            (o "Mantener").
+            <br />
+            2. Al abrir el archivo: si aparece "Windows protegió su PC", haz clic en{' '}
+            <strong>"Más información"</strong> y luego en{' '}
+            <strong>"Instalar de todas formas"</strong>.
+          </p>
+          <button
+            type="button"
+            className="cap-ya-instalado"
+            onClick={() => {
+              marcarClienteInstalado()
+              setClienteInstalado(true)
+            }}
+          >
+            Ya lo tengo instalado, no preguntar más
+          </button>
+        </div>
+      )}
 
       <div className="cap-grid">
         <Campo etiqueta="Finca" requerido>

@@ -2097,6 +2097,19 @@ ul, ol { list-style: none; }
 .cap-aviso p { margin: 0.4rem 0 0.75rem; color: var(--mist-light); line-height: 1.5; }
 .cap-aviso .det-upload-btn { width: auto; padding: 0.6rem 1rem; font-size: 0.82rem; }
 
+.cap-ya-instalado {
+  display: block;
+  margin: 0.75rem auto 0;
+  background: none;
+  border: none;
+  color: var(--mist);
+  font-size: 0.72rem;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+.cap-ya-instalado:hover { color: var(--mist-light); }
+
 .cap-aviso__nota {
   margin: 0.75rem 0 0;
   font-size: 0.74rem;
