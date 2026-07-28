@@ -2097,6 +2097,14 @@ ul, ol { list-style: none; }
 .cap-aviso p { margin: 0.4rem 0 0.75rem; color: var(--mist-light); line-height: 1.5; }
 .cap-aviso .det-upload-btn { width: auto; padding: 0.6rem 1rem; font-size: 0.82rem; }
 
+.cap-aviso__nota {
+  margin: 0.75rem 0 0;
+  font-size: 0.74rem;
+  line-height: 1.6;
+  color: var(--mist);
+}
+.cap-aviso__nota strong { display: inline; color: var(--cream-100); font-size: inherit; }
+
 .cap-confirmacion {
   flex-direction: row !important;
   align-items: flex-start;

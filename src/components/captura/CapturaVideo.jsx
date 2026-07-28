@@ -121,6 +121,18 @@ export default function CapturaVideo() {
           <span className="det-upload-btn__icon">💻</span>
           <span>Descargar programa (Windows)</span>
         </button>
+        <p className="cap-aviso__nota">
+          El navegador y Windows van a advertir porque el programa es nuevo — no es un
+          virus, son las dos veces que hay que confirmar:
+          <br />
+          1. Al descargar: si el navegador dice algo como "Este tipo de archivo puede
+          dañar tu dispositivo", elige <strong>"Descargar de todas formas"</strong> (o
+          "Mantener").
+          <br />
+          2. Al abrir el archivo: si aparece "Windows protegió su PC", haz clic en{' '}
+          <strong>"Más información"</strong> y luego en{' '}
+          <strong>"Ejecutar de todas formas"</strong>.
+        </p>
       </div>
 
       <div className="cap-grid">
