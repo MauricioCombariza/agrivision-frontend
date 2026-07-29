@@ -2192,3 +2192,40 @@ ul, ol { list-style: none; }
   min-width: 0;
 }
 .cap-fila__info strong { font-size: 0.85rem; color: var(--cream-100); }
+
+.cap-fila--columna {
+  flex-direction: column;
+  align-items: stretch;
+}
+.cap-fila__acciones {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 0.6rem;
+}
+.cap-fila__acciones .cap-admin-toggle { margin-top: 0; flex: 1; }
+
+.lote-galeria {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+}
+.lote-galeria figure {
+  margin: 0;
+  background: var(--forest-950);
+  border: 1px solid var(--forest-700);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.lote-galeria img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+.lote-galeria figcaption {
+  padding: 0.3rem 0.4rem;
+  font-size: 0.68rem;
+  color: var(--mist);
+  font-variant-numeric: tabular-nums;
+}

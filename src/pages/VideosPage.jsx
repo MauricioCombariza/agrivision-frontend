@@ -1,7 +1,13 @@
 import { useEffect, useState } from 'react'
 import CapturaVideo from '../components/captura/CapturaVideo'
 import AdminCapturas from '../components/captura/AdminCapturas'
+import GaleriaLotes from '../components/captura/GaleriaLotes'
 import { estadoBuzon } from '../api/captura'
+
+const TABS = [
+  { id: 'subir', label: 'Subir video', icon: '🎬' },
+  { id: 'fotos', label: 'Ver fotos', icon: '🖼️' },
+]
 
 function Logo() {
   return (
@@ -16,6 +22,7 @@ function Logo() {
 
 export default function VideosPage() {
   const [buzon, setBuzon] = useState(null)
+  const [tab, setTab] = useState('subir')
 
   // Se consulta al entrar para avisar antes de que el operario grabe y suba en vano:
   // si el buzón está lleno o caído, mejor saberlo ahora que al final de la subida.
@@ -36,21 +43,40 @@ export default function VideosPage() {
       </header>
 
       <main className="det-main">
-        {buzon && !buzon.ok && (
-          <div className="det-error">
-            No se puede recibir videos en este momento: {buzon.mensaje}
-          </div>
-        )}
-        {buzon?.ok && buzon.libre_bytes < 1024 ** 3 && (
-          <div className="cap-aviso">
-            Queda poco espacio en el servidor ({(buzon.libre_bytes / 1024 ** 3).toFixed(1)} GB).
-            Avisa a AgriVision antes de subir más videos.
-          </div>
-        )}
-        <CapturaVideo />
+        {tab === 'subir' && (
+          <>
+            {buzon && !buzon.ok && (
+              <div className="det-error">
+                No se puede recibir videos en este momento: {buzon.mensaje}
+              </div>
+            )}
+            {buzon?.ok && buzon.libre_bytes < 1024 ** 3 && (
+              <div className="cap-aviso">
+                Queda poco espacio en el servidor ({(buzon.libre_bytes / 1024 ** 3).toFixed(1)} GB).
+                Avisa a AgriVision antes de subir más videos.
+              </div>
+            )}
+            <CapturaVideo />
 
-        <AdminCapturas ultimaDescargaGlobal={buzon?.ultima_descarga_en} />
+            <AdminCapturas ultimaDescargaGlobal={buzon?.ultima_descarga_en} />
+          </>
+        )}
+
+        {tab === 'fotos' && <GaleriaLotes />}
       </main>
+
+      <nav className="det-tabs">
+        {TABS.map((t) => (
+          <button
+            key={t.id}
+            className={`det-tab ${tab === t.id ? 'active' : ''}`}
+            onClick={() => setTab(t.id)}
+          >
+            <span className="det-tab__icon">{t.icon}</span>
+            {t.label}
+          </button>
+        ))}
+      </nav>
     </div>
   )
 }
