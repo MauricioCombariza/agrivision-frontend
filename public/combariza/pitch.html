@@ -196,11 +196,13 @@
         <div class="sq line-italic" id="s1-l1">El negocio se juega a ciegas en un solo punto —</div>
         <div class="sq line-bold" id="s1-l2">entre el invernadero y la llamada a <em>Miami</em> para confirmar el pedido.</div>
 
+        <div class="sq line-bold" id="s1-carlos">Ahí está <em>Carlos</em>, gerente de una finca de 100&nbsp;ha — decide con el ojo del agrónomo, ningún dato duro detrás.</div>
+
         <div class="sq pain-row" id="s1-pain">
           <span class="pain-num">hasta $100M</span>
           <span class="mono-label">COP / evento · 2–3×/año</span>
         </div>
-        <div class="sq mono-label dim" id="s1-pain2">hasta $300M COP/año en una finca de 100 ha — decidido sin dato</div>
+        <div class="sq mono-label dim" id="s1-pain2">hasta $300M COP/año en la finca de Carlos — decidido sin dato</div>
       </div>
       <div class="footer-note">AgriVision · Estimados de Producción</div>
     </section>
@@ -210,10 +212,14 @@
       <div class="bg-grad"></div>
       <div class="prt-wrap" id="prt2"></div>
       <div class="slide-inner">
-        <div class="sq badge" id="s2-badge">02 · Solución y propuesta de valor</div>
+        <div class="sq badge" id="s2-badge">02 · Yo, solución y propuesta de valor</div>
+
+        <div class="sq line-bold" id="s2-u">Soy Mauro: diez años entre invernaderos y datos — por eso propongo esto.</div>
 
         <div class="sq line-italic" id="s2-l1">Censo del estado fisiológico con cámara de celular</div>
         <div class="sq line-bold" id="s2-l2">→ modelo de proyección de corte con <em>margen de confianza</em>.</div>
+
+        <div class="sq line-bold" id="s2-confirma">Carlos confirma pedidos con <em>dato</em>, no con intuición.</div>
 
         <div class="sq stat-block" id="s2-stat1">
           <span class="stat-num from">25%</span>
@@ -248,7 +254,7 @@
         <div class="divider"></div>
 
         <div class="sq line-italic" id="s3-l3">No basta con saber si el modelo acierta —</div>
-        <div class="sq line-bold" id="s3-l4">hay que medir <em>el cambio en el margen</em> de la finca.</div>
+        <div class="sq line-bold" id="s3-l4">hay que medir <em>el cambio en el margen</em> de la finca de Carlos.</div>
 
         <div class="sq cta-box" id="s3-cta">
           <div class="cta-main">Acompañamiento técnico</div>
@@ -306,9 +312,10 @@ function sq(id) { return document.getElementById(id); }
 /* ---------- per-slide GSAP timelines ---------- */
 var TL = {};
 
-/* Diapositiva 1 dura 36s en total — el reveal de titulares se reparte a lo
-   largo de ~31s (dejando ~5s de aire antes del avance automático) para que
-   el ritmo visual acompañe el ritmo de la lectura en vivo, no se adelante. */
+/* Diapositiva 1 dura 36s — beats A→PR. El hero-num (US$2400M) es el ancla
+   visual de toda la diapositiva y no se oculta. Las líneas de apertura
+   (l1/l2, cierre del beat A) aparecen y luego se desvanecen para dar paso
+   a Carlos (beat PR), que entra con las cifras de dolor. */
 function buildTL1() {
   var tl = gsap.timeline({ paused: true });
   tl.to(sq('s1-badge'),      { opacity: 1, y: 0, duration: 0.7 }, 0.0)
@@ -316,34 +323,50 @@ function buildTL1() {
     .call(function(){ runCounter(document.getElementById('s1-counter'), 2400, 1800, true); }, null, 2.1)
     .to(sq('s1-num-label'),  { opacity: 1, y: 0, duration: 0.7 }, 5.5)
     .to(sq('s1-l1'),         { opacity: 1, y: 0, duration: 0.8 }, 11.0)
-    .to(sq('s1-l2'),         { opacity: 1, y: 0, duration: 0.8 }, 17.0)
-    .to(sq('s1-pain'),       { opacity: 1, y: 0, duration: 0.8 }, 24.0)
-    .to(sq('s1-pain2'),      { opacity: 1, y: 0, duration: 0.8 }, 30.0);
+    .to(sq('s1-l2'),         { opacity: 1, y: 0, duration: 0.8 }, 14.0)
+    .to([sq('s1-l1'), sq('s1-l2')], { opacity: 0, y: -10, duration: 0.6 }, 20.0)
+    .to(sq('s1-carlos'),     { opacity: 1, y: 0, duration: 0.8 }, 21.0)
+    .to(sq('s1-pain'),       { opacity: 1, y: 0, duration: 0.8 }, 27.0)
+    .to(sq('s1-pain2'),      { opacity: 1, y: 0, duration: 0.8 }, 31.0);
   return tl;
 }
 
-/* Diapositiva 2 dura 49s — es la de más contenido (120 palabras), se reparte
-   a lo largo de ~43s. */
+/* Diapositiva 2 dura 49s — beats Yo→E→B. El "Yo" es un puente breve que
+   aparece y se desvanece rápido; E (l1/l2) explica el mecanismo y también
+   se desvanece para dar paso al eco "Carlos confirma con dato, no con
+   intuición" (cierre visual del beat E, antes invisible en el deck);
+   dentro de B, el 25%→10% y el 10:1 (cifras de apoyo) se desvanecen para
+   dejar el hero-margin (7%, la cifra ancla de esta diapositiva) como
+   cierre visual junto con la nota y el diferenciador. */
 function buildTL2() {
   var tl = gsap.timeline({ paused: true });
-  tl.to(sq('s2-badge'),  { opacity: 1, y: 0, duration: 0.7 }, 0.0)
-    .to(sq('s2-l1'),     { opacity: 1, y: 0, duration: 0.8 }, 3.0)
-    .to(sq('s2-l2'),     { opacity: 1, y: 0, duration: 0.8 }, 9.0)
-    .to(sq('s2-stat1'),  { opacity: 1, y: 0, duration: 0.8 }, 17.0)
-    .to(sq('s2-roi'),    { opacity: 1, y: 0, duration: 0.8 }, 24.0)
-    .to(sq('s2-hero'),   { opacity: 1, y: 0, duration: 0.9 }, 31.0)
-    .call(function(){ runCounter(document.getElementById('s2-counter'), 7, 1400); }, null, 31.1)
-    .to(sq('s2-note'),   { opacity: 1, y: 0, duration: 0.6 }, 37.0)
-    .to(sq('s2-diff'),   { opacity: 1, y: 0, duration: 0.8 }, 42.0);
+  tl.to(sq('s2-badge'),    { opacity: 1, y: 0, duration: 0.7 }, 0.0)
+    .to(sq('s2-u'),        { opacity: 1, y: 0, duration: 0.8 }, 3.0)
+    .to(sq('s2-u'),        { opacity: 0, y: -10, duration: 0.6 }, 9.0)
+    .to(sq('s2-l1'),       { opacity: 1, y: 0, duration: 0.8 }, 10.5)
+    .to(sq('s2-l2'),       { opacity: 1, y: 0, duration: 0.8 }, 16.5)
+    .to([sq('s2-l1'), sq('s2-l2')], { opacity: 0, y: -10, duration: 0.6 }, 22.5)
+    .to(sq('s2-confirma'), { opacity: 1, y: 0, duration: 0.8 }, 23.5)
+    .to(sq('s2-confirma'), { opacity: 0, y: -10, duration: 0.6 }, 27.5)
+    .to(sq('s2-stat1'),    { opacity: 1, y: 0, duration: 0.8 }, 28.5)
+    .to(sq('s2-roi'),      { opacity: 1, y: 0, duration: 0.8 }, 33.0)
+    .to([sq('s2-stat1'), sq('s2-roi')], { opacity: 0, y: -10, duration: 0.6 }, 36.5)
+    .to(sq('s2-hero'),     { opacity: 1, y: 0, duration: 0.9 }, 37.5)
+    .call(function(){ runCounter(document.getElementById('s2-counter'), 7, 1400); }, null, 37.6)
+    .to(sq('s2-note'),     { opacity: 1, y: 0, duration: 0.6 }, 41.5)
+    .to(sq('s2-diff'),     { opacity: 1, y: 0, duration: 0.8 }, 45.0);
   return tl;
 }
 
-/* Diapositiva 3 dura 35s — se reparte a lo largo de ~27s. */
+/* Diapositiva 3 dura 35s — cierre A-CTA. El estado del piloto (l1/l2) se
+   desvanece para dejar espacio a la reflexión de validación (l3/l4), que
+   se queda en pantalla junto con el CTA — ambas forman el argumento final. */
 function buildTL3() {
   var tl = gsap.timeline({ paused: true });
   tl.to(sq('s3-badge'), { opacity: 1, y: 0, duration: 0.7 }, 0.0)
     .to(sq('s3-l1'),    { opacity: 1, y: 0, duration: 0.8 }, 4.0)
     .to(sq('s3-l2'),    { opacity: 1, y: 0, duration: 0.8 }, 9.0)
+    .to([sq('s3-l1'), sq('s3-l2')], { opacity: 0, y: -10, duration: 0.6 }, 14.0)
     .to(sq('s3-l3'),    { opacity: 1, y: 0, duration: 0.8 }, 15.0)
     .to(sq('s3-l4'),    { opacity: 1, y: 0, duration: 0.8 }, 20.0)
     .to(sq('s3-cta'),   { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out' }, 26.0);
@@ -359,8 +382,8 @@ function initTimelines() {
 
 function resetSlide(idx) {
   var ids = [
-    ['s1-badge','s1-num','s1-num-label','s1-l1','s1-l2','s1-pain','s1-pain2'],
-    ['s2-badge','s2-l1','s2-l2','s2-stat1','s2-roi','s2-hero','s2-note','s2-diff'],
+    ['s1-badge','s1-num','s1-num-label','s1-l1','s1-l2','s1-carlos','s1-pain','s1-pain2'],
+    ['s2-badge','s2-u','s2-l1','s2-l2','s2-confirma','s2-stat1','s2-roi','s2-hero','s2-note','s2-diff'],
     ['s3-badge','s3-l1','s3-l2','s3-l3','s3-l4','s3-cta']
   ][idx];
   if (!ids) return;
