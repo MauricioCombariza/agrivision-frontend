@@ -3,6 +3,7 @@ import {
   SesionInvalidaError,
   construirAuth,
   descargarLoteZip,
+  eliminarLote,
   listarLotes,
   obtenerManifiesto,
   obtenerMiniatura,
@@ -18,6 +19,7 @@ export default function GaleriaLotes() {
   const [cargando, setCargando] = useState(false)
   const [error, setError] = useState(null)
   const [descargando, setDescargando] = useState(null)
+  const [borrando, setBorrando] = useState(null)
   const [expandido, setExpandido] = useState(null)
 
   useEffect(() => {
@@ -82,6 +84,25 @@ export default function GaleriaLotes() {
     }
   }
 
+  async function borrar(lote) {
+    if (!window.confirm(`¿Borrar el lote del ${formatear(lote.creado)}? Esta acción no se puede deshacer.`)) return
+    setBorrando(lote.job_id)
+    setError(null)
+    try {
+      await eliminarLote(auth, lote.job_id)
+      setLotes((actual) => actual.filter((l) => l.job_id !== lote.job_id))
+      setExpandido((actual) => (actual === lote.job_id ? null : actual))
+    } catch (e) {
+      if (e instanceof SesionInvalidaError) {
+        sessionStorage.removeItem(CLAVE_AUTH)
+        setAuth('')
+      }
+      setError(e.message)
+    } finally {
+      setBorrando(null)
+    }
+  }
+
   function alternarExpandido(jobId) {
     setExpandido((actual) => (actual === jobId ? null : jobId))
   }
@@ -91,11 +112,11 @@ export default function GaleriaLotes() {
       <div className="cap-admin">
         <h2>Ver fotos subidas</h2>
         <p className="det-hint">
-          Entra con el mismo usuario y contraseña que usas en el programa de escritorio.
+          Acceso solo para administración — no es el usuario/contraseña de la finca.
         </p>
         <form className="det-stack" onSubmit={entrar}>
           <label className="cap-campo">
-            <span>Usuario (finca)</span>
+            <span>Usuario</span>
             <input
               value={usuario}
               onChange={(e) => setUsuario(e.target.value)}
@@ -166,6 +187,13 @@ export default function GaleriaLotes() {
                     disabled={descargando === lote.job_id}
                   >
                     {descargando === lote.job_id ? 'Bajando…' : 'Descargar ZIP'}
+                  </button>
+                  <button
+                    className="cap-admin-toggle cap-admin-toggle--peligro"
+                    onClick={() => borrar(lote)}
+                    disabled={borrando === lote.job_id}
+                  >
+                    {borrando === lote.job_id ? 'Borrando…' : 'Borrar'}
                   </button>
                 </div>
               )}

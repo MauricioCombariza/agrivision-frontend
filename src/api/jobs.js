@@ -50,6 +50,10 @@ export async function obtenerMiniatura(auth, jobId, indice) {
   return URL.createObjectURL(blob)
 }
 
+export async function eliminarLote(auth, jobId) {
+  await peticionAutenticada(`/api/v1/jobs/${jobId}`, auth, { method: 'DELETE' })
+}
+
 export async function descargarLoteZip(auth, jobId, nombreArchivo) {
   const res = await peticionAutenticada(`/api/v1/jobs/${jobId}/zip`, auth)
   const blob = await res.blob()

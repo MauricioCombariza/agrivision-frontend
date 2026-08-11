@@ -2146,6 +2146,11 @@ ul, ol { list-style: none; }
   align-self: flex-start;
 }
 .cap-admin-toggle:hover { border-color: var(--forest-600); color: var(--mist-light); }
+.cap-admin-toggle--peligro {
+  border-color: rgba(185, 40, 40, 0.35);
+  color: #f87171;
+}
+.cap-admin-toggle--peligro:hover { border-color: rgba(185, 40, 40, 0.6); color: #fca5a5; }
 
 .cap-admin {
   margin-top: 1.5rem;
