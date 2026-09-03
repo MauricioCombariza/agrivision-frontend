@@ -12,14 +12,7 @@ const TABS = [
 ]
 
 function Logo() {
-  return (
-    <svg className="det-header__logo" viewBox="0 0 28 28" fill="none">
-      <path d="M14 3C14 3 6 9.5 6 17c0 4.4 3.6 8 8 8s8-3.6 8-8c0-7.5-8-14-8-14Z" fill="#d4900a" opacity="0.9"/>
-      <path d="M14 8v17" stroke="#0f2519" strokeWidth="1.4" strokeLinecap="round"/>
-      <path d="M14 14c0 0-3.5-2.5-5.5-.5" stroke="#0f2519" strokeWidth="1.4" strokeLinecap="round"/>
-      <path d="M14 18.5c0 0 3.5-2.5 5.5.5" stroke="#0f2519" strokeWidth="1.4" strokeLinecap="round"/>
-    </svg>
-  )
+  return <img className="det-header__logo" src="/brand/isotipo-negativo.svg" alt="" />
 }
 
 const FAMILIES = [
