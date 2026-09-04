@@ -2,36 +2,37 @@
 
 /* ═══════════════════════════════════════════════════════════
    AGRIVISION — Design System
-   Palette: forest green + warm amber + cream parchment
-   Type: Cormorant Garamond (display) + DM Sans (body) + DM Mono (data)
+   Palette y tipografía siguiendo el Manual de Marca oficial:
+   #0f2519 · #1d550e · #558927 · #f2da6e · #fdfdfb
+   Type: Jost (títulos, alternativa a Sansation) + Inter (cuerpo/datos)
    ═══════════════════════════════════════════════════════════ */
 
 :root {
-  /* Forest greens */
-  --forest-950:  #060d08;
+  /* Forest greens — anclados a #0f2519 (950/900), #1d550e (700) y #558927 (500) */
+  --forest-950:  #08180c;
   --forest-900:  #0f2519;
-  --forest-850:  #152d1f;
-  --forest-800:  #1a3d2b;
-  --forest-700:  #24563d;
-  --forest-600:  #2d6a4f;
-  --forest-500:  #3a856a;
-  --forest-400:  #52b788;
-  --forest-300:  #74c69d;
+  --forest-850:  #103019;
+  --forest-800:  #103b15;
+  --forest-700:  #1d550e;
+  --forest-600:  #377119;
+  --forest-500:  #558927;
+  --forest-400:  #759e38;
+  --forest-300:  #95b14c;
 
-  /* Amber accent */
-  --amber-700:   #9a6500;
-  --amber-600:   #b57800;
-  --amber-500:   #d4900a;
-  --amber-400:   #e8a820;
-  --amber-300:   #f0c04a;
-  --amber-200:   #f5d47a;
+  /* Amber/dorado de marca — anclado a #f2da6e */
+  --amber-700:   #b79810;
+  --amber-600:   #ebc723;
+  --amber-500:   #f2da6e;
+  --amber-400:   #f1e197;
+  --amber-300:   #f6eab7;
+  --amber-200:   #f9f2d2;
 
-  /* Cream / parchment */
-  --cream-50:    #fdfaf5;
-  --cream-100:   #f9f4eb;
-  --cream-200:   #f4efe6;
-  --cream-300:   #e8e0d0;
-  --cream-400:   #d8cdb8;
+  /* Cream / parchment — anclado a #fdfdfb */
+  --cream-50:    #fdfdfb;
+  --cream-100:   #f7f7ef;
+  --cream-200:   #f3f3e7;
+  --cream-300:   #eaead6;
+  --cream-400:   #e0e0c1;
 
   /* Text */
   --ink:         #111310;
@@ -41,9 +42,9 @@
   --mist-faint:  #b0bdb3;
 
   /* Typography */
-  --font-display: 'Cormorant Garamond', Georgia, serif;
-  --font-body:    'DM Sans', system-ui, -apple-system, sans-serif;
-  --font-mono:    'DM Mono', 'Courier New', monospace;
+  --font-display: 'Jost', 'Century Gothic', system-ui, sans-serif;
+  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono:    'Inter', system-ui, -apple-system, sans-serif;
 
   /* Spacing rhythm */
   --section-py:   clamp(5rem, 10vw, 8rem);

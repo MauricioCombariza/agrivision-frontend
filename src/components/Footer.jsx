@@ -1,14 +1,7 @@
 import { useLang } from '../App'
 
 function AgriVisionLogo() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M14 3 C14 3 6 9.5 6 17 C6 21.4 9.6 25 14 25 C18.4 25 22 21.4 22 17 C22 9.5 14 3 14 3Z" fill="#d4900a" opacity="0.8"/>
-      <path d="M14 8 L14 25" stroke="#060d08" strokeWidth="1.4" strokeLinecap="round"/>
-      <path d="M14 14 C14 14 10.5 11.5 8.5 13.5" stroke="#060d08" strokeWidth="1.4" strokeLinecap="round"/>
-      <path d="M14 18.5 C14 18.5 17.5 16 19.5 18" stroke="#060d08" strokeWidth="1.4" strokeLinecap="round"/>
-    </svg>
-  )
+  return <img width="24" height="24" src="/brand/isotipo-negativo.svg" alt="" aria-hidden="true" />
 }
 
 export default function Footer({ onLoginClick }) {
