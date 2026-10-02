@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Leads Diagnóstico AgriVision</title>
+<link rel="icon" href="%%FAVICON%%">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sansation:ital,wght@0,700;1,700&family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --forest-950:#081a10; --forest-900:#0f2519; --forest-800:#143520; --forest-600:#1d550e; --forest-300:#558927; --forest-200:#7fa855;
+  --gold-700:#a37f1e; --gold-400:#f2da6e;
+  --cream-50:#fdfdfb; --cream-100:#f8f6ef; --cream-200:#f1eee1; --cream-300:#e5e0cd; --cream-400:#d5ceb3;
+  --ink:#10190d; --mist:#56634c; --mist-light:#86917a;
+  --bg: var(--cream-100); --surface: var(--cream-50); --surface-2: var(--cream-200);
+  --border: var(--cream-300); --border-strong: var(--cream-400);
+  --text: var(--ink); --text-2: var(--mist); --text-3: var(--mist-light);
+  --accent: var(--forest-600); --on-accent: var(--cream-50); --bot: var(--gold-700); --est: var(--forest-600);
+  --error: #a2412a;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: var(--forest-950); --surface: var(--forest-900); --surface-2: var(--forest-800);
+    --border: rgba(253,253,251,.12); --border-strong: rgba(253,253,251,.22);
+    --text: var(--cream-50); --text-2: rgba(253,253,251,.72); --text-3: rgba(253,253,251,.5);
+    --accent: var(--forest-200); --on-accent: var(--forest-950); --bot: var(--gold-400); --est: var(--forest-200);
+    --error: #e58a6f; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: var(--forest-950); --surface: var(--forest-900); --surface-2: var(--forest-800);
+  --border: rgba(253,253,251,.12); --border-strong: rgba(253,253,251,.22);
+  --text: var(--cream-50); --text-2: rgba(253,253,251,.72); --text-3: rgba(253,253,251,.5);
+  --accent: var(--forest-200); --on-accent: var(--forest-950); --bot: var(--gold-400); --est: var(--forest-200);
+  --error: #e58a6f; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 400 15px/1.5 Inter, system-ui, sans-serif; }
+h1, h2 { font-family: Sansation, sans-serif; font-style: italic; margin: 0; }
+[hidden] { display: none !important; }
+.num, .eyebrow { font-family: "DM Mono", monospace; font-variant-numeric: tabular-nums; }
+.eyebrow { font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--text-3); }
+.top { background: var(--forest-900); color: var(--cream-50); }
+.top-in { max-width: 1240px; margin: 0 auto; padding: 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.logo { height: 26px; width: auto; display: block; }
+.top .lv { fill: var(--cream-50); } .top .lc { display: none; }
+.top .eyebrow { color: rgba(253,253,251,.6); }
+.shell { max-width: 1240px; margin: 0 auto; padding: 28px 16px 60px; }
+.btn { appearance: none; border: 0; cursor: pointer; font: 600 .9rem Inter, sans-serif; padding: 10px 18px; border-radius: 999px; background: var(--accent); color: var(--on-accent); }
+.btn.sec { background: transparent; color: var(--text); border: 1px solid var(--border-strong); }
+.login { max-width: 380px; margin: 60px auto; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 28px; display: grid; gap: 14px; }
+input, select { font: 500 .95rem "DM Mono", monospace; } select { font-family: Inter, sans-serif; } input, select { padding: 10px 12px; border-radius: 10px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); width: 100%; }
+.err { color: var(--error); font-size: .85rem; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin: 18px 0 22px; }
+.kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+.kpi .n { font: 500 1.4rem "DM Mono", monospace; margin-top: 4px; }
+.barra-h { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.filtros { display: flex; gap: 10px; flex-wrap: wrap; flex: 1; }
+.filtros input { max-width: 320px; } .filtros select { max-width: 180px; }
+.tabla { overflow-x: auto; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; }
+table { width: 100%; border-collapse: collapse; font-size: .87rem; }
+th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; }
+th { font: 500 .68rem "DM Mono", monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--text-3); cursor: pointer; user-select: none; position: sticky; top: 0; background: var(--surface); }
+td.num { text-align: right; }
+tbody tr { cursor: pointer; } tbody tr:hover { background: var(--surface-2); }
+.dist { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 22px; }
+@media (max-width: 720px) { .dist { grid-template-columns: 1fr; } }
+.dist > div { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+.fila { display: grid; grid-template-columns: 140px 1fr 40px; gap: 10px; align-items: center; font-size: .85rem; padding: 4px 0; }
+.fila .pista { height: 8px; background: var(--surface-2); border-radius: 4px; overflow: hidden; }
+.fila .pista i { display: block; height: 100%; background: var(--accent); border-radius: 4px; }
+dialog { max-width: min(760px, 94vw); width: 100%; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); color: var(--text); padding: 24px; }
+dialog::backdrop { background: rgba(8,26,16,.55); }
+dialog pre { background: var(--surface-2); padding: 12px; border-radius: 8px; overflow: auto; max-height: 50vh; font-size: .78rem; }
+dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; font-size: .9rem; }
+dt { color: var(--text-3); }
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in"><div style="display:flex;gap:14px;align-items:center">%%LOGO%%<span class="eyebrow">Leads · Diagnóstico de valor</span></div><button class="btn sec" id="salir" style="color:var(--cream-50);border-color:rgba(253,253,251,.3)" hidden>Salir</button></div></header>
+<main class="shell">
+  <form class="login" id="login">
+    <h2>Panel interno</h2>
+    <label for="token" class="eyebrow">Token de administrador</label>
+    <input id="token" type="password" autocomplete="current-password" required>
+    <p class="err" id="login-err" hidden></p>
+    <button class="btn" type="submit">Entrar</button>
+  </form>
+
+  <section id="panel" hidden>
+    <h1>Diagnósticos recibidos</h1>
+    <div class="kpis" id="kpis"></div>
+    <div class="dist"><div><div class="eyebrow" style="margin-bottom:8px">Por cultivo</div><div id="d-producto"></div></div><div><div class="eyebrow" style="margin-bottom:8px">Por región</div><div id="d-region"></div></div></div>
+    <div class="barra-h">
+      <div class="filtros">
+        <input id="buscar" type="search" placeholder="Buscar finca, nombre, correo…" aria-label="Buscar">
+        <select id="f-producto" aria-label="Cultivo"><option value="">Todos los cultivos</option><option>rosa</option><option>clavel</option><option>alstroemeria</option><option>otro</option></select>
+      </div>
+      <button class="btn" id="csv" type="button">Descargar CSV</button>
+    </div>
+    <div class="tabla"><table><thead><tr>
+      <th data-k="creado">Fecha</th><th data-k="finca">Finca</th><th data-k="nombre">Contacto</th><th data-k="whatsapp">WhatsApp</th><th data-k="email">Correo</th>
+      <th data-k="producto">Cultivo</th><th data-k="region">Región</th><th data-k="hectareas">Ha</th>
+      <th data-k="valor_botrytis_usd">Botrytis USD</th><th data-k="valor_estimados_usd">Estimados USD</th><th data-k="valor_cajas_usd">Cajas USD</th><th data-k="valor_total_usd">Total USD</th>
+    </tr></thead><tbody id="filas"></tbody></table></div>
+  </section>
+
+  <dialog id="detalle"><div id="detalle-c"></div><form method="dialog" style="margin-top:16px;text-align:right"><button class="btn sec">Cerrar</button></form></dialog>
+</main>
+<script>
+(() => {
+  "use strict";
+  const qs = new URLSearchParams(location.search);
+  const LOCAL = ["localhost", "127.0.0.1", ""].includes(location.hostname);
+  const API = qs.get("api") || (LOCAL ? "http://localhost:8030/api/diagnostico" : "https://api.combariza.com/api/diagnostico");
+  const $ = s => document.querySelector(s);
+  const ss = { get: k => { try { return sessionStorage.getItem(k); } catch { return null; } },
+               set: (k, v) => { try { sessionStorage.setItem(k, v); } catch {} },
+               del: k => { try { sessionStorage.removeItem(k); } catch {} } };
+  let token = ss.get("diag_token"), filas = [], orden = { k: "creado", dir: -1 };
+  const nf = (n, d = 0) => n === null || n === undefined ? "—" : Number(n).toLocaleString("es-CO", { maximumFractionDigits: d });
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+  async function get(ruta, tipo = "json") {
+    const r = await fetch(API + ruta, { headers: { Authorization: "Bearer " + token } });
+    if (r.status === 401) throw new Error("401");
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    return tipo === "json" ? r.json() : r.blob();
+  }
+
+  async function cargar() {
+    try {
+      const [res, lista] = await Promise.all([get("/admin/resumen"), get("/admin/diagnosticos?limite=2000")]);
+      $("#login").hidden = true; $("#panel").hidden = false; $("#salir").hidden = false;
+      filas = lista; pintarResumen(res); pintarTabla();
+    } catch (e) {
+      $("#login-err").hidden = false;
+      $("#login-err").textContent = e.message === "401" ? "Token inválido." : "No se pudo conectar con la API (" + e.message + ").";
+      ss.del("diag_token"); token = null;
+      $("#login").hidden = false; $("#panel").hidden = true;
+    }
+  }
+
+  function pintarResumen(r) {
+    const k = [["Diagnósticos", nf(r.diagnosticos)], ["Hectáreas", nf(r.hectareas)],
+      ["Valor medio Botrytis", "USD " + nf(r.promedio_botrytis_usd)], ["Valor medio Estimados", "USD " + nf(r.promedio_estimados_usd)],
+      ["Valor total identificado", "USD " + nf(r.valor_total_usd)]];
+    $("#kpis").innerHTML = k.map(([t, n]) => `<div class="kpi"><div class="eyebrow">${t}</div><div class="n">${n}</div></div>`).join("");
+    const dist = (lista, clave) => { const max = Math.max(1, ...lista.map(x => x.diagnosticos));
+      return lista.map(x => `<div class="fila"><span>${esc(x[clave])}</span><span class="pista"><i style="width:${100 * x.diagnosticos / max}%"></i></span><span class="num">${x.diagnosticos}</span></div>`).join("") || "<p class='eyebrow'>Sin datos</p>"; };
+    $("#d-producto").innerHTML = dist(r.por_producto, "producto");
+    $("#d-region").innerHTML = dist(r.por_region, "region");
+  }
+
+  function pintarTabla() {
+    const q = $("#buscar").value.toLowerCase(), p = $("#f-producto").value;
+    const vis = filas.filter(f => (!p || f.producto === p) &&
+      (!q || [f.finca, f.nombre, f.email, f.whatsapp, f.region, f.cargo].some(v => (v || "").toLowerCase().includes(q))))
+      .sort((a, b) => (a[orden.k] ?? "") > (b[orden.k] ?? "") ? orden.dir : (a[orden.k] ?? "") < (b[orden.k] ?? "") ? -orden.dir : 0);
+    $("#filas").innerHTML = vis.map(f => `<tr data-id="${f.id}">
+      <td class="num">${esc(String(f.creado).slice(0, 16).replace("T", " "))}</td><td>${esc(f.finca)}</td><td>${esc(f.nombre)}${f.cargo ? ` · <span style="color:var(--text-3)">${esc(f.cargo)}</span>` : ""}</td>
+      <td>${f.whatsapp ? `<a href="https://wa.me/${esc(f.whatsapp.replace(/\D/g, ""))}" target="_blank" rel="noopener" style="color:var(--accent)">${esc(f.whatsapp)}</a>` : "—"}</td>
+      <td>${f.email ? `<a href="mailto:${esc(f.email)}" style="color:var(--accent)">${esc(f.email)}</a>` : "—"}</td>
+      <td>${esc(f.producto)}</td><td>${esc(f.region || "—")}</td><td class="num">${nf(f.hectareas, 1)}</td>
+      <td class="num">${nf(f.valor_botrytis_usd)}</td><td class="num">${nf(f.valor_estimados_usd)}</td><td class="num">${nf(f.valor_cajas_usd)}</td><td class="num"><b>${nf(f.valor_total_usd)}</b></td></tr>`).join("")
+      || `<tr><td colspan="12" style="text-align:center;color:var(--text-3);padding:28px">Sin diagnósticos todavía</td></tr>`;
+  }
+
+  async function verDetalle(id) {
+    const d = await get("/admin/diagnosticos/" + id);
+    const h = d.resultado.herramientas.map(x => `<dt>${esc(x.nombre)}</dt><dd>USD ${nf(x.escenarios.medio.total_usd)} (rango ${nf(x.escenarios.pesimista.total_usd)}–${nf(x.escenarios.optimista.total_usd)})${x.costo_anual_usd ? ` · costo USD ${nf(x.costo_anual_usd)}` : ""}</dd>`).join("");
+    $("#detalle-c").innerHTML = `<span class="eyebrow">#${d.id} · ${esc(d.creado)}</span><h2 style="margin:6px 0 16px">${esc(d.finca)}</h2>
+      <dl><dt>Contacto</dt><dd>${esc(d.nombre)} ${d.cargo ? "· " + esc(d.cargo) : ""}</dd><dt>Finca</dt><dd>${nf(d.hectareas, 1)} ha de ${esc(d.producto)} · ${esc(d.region || "sin región")}</dd>${h}</dl>
+      <p class="eyebrow" style="margin-top:18px">Respuestas</p><pre>${esc(JSON.stringify(d.respuestas, null, 2))}</pre>`;
+    $("#detalle").showModal();
+  }
+
+  $("#login").addEventListener("submit", e => { e.preventDefault(); token = $("#token").value.trim(); ss.set("diag_token", token); cargar(); });
+  $("#salir").addEventListener("click", () => { ss.del("diag_token"); location.reload(); });
+  $("#buscar").addEventListener("input", pintarTabla);
+  $("#f-producto").addEventListener("change", pintarTabla);
+  document.querySelectorAll("th[data-k]").forEach(th => th.addEventListener("click", () => {
+    orden = { k: th.dataset.k, dir: orden.k === th.dataset.k ? -orden.dir : -1 }; pintarTabla();
+  }));
+  $("#filas").addEventListener("click", e => { const tr = e.target.closest("tr[data-id]"); if (tr && !e.target.closest("a")) verDetalle(tr.dataset.id); });
+  $("#csv").addEventListener("click", async () => {
+    const blob = await get("/admin/export.csv", "blob");
+    const a = Object.assign(document.createElement("a"), { href: URL.createObjectURL(blob), download: "diagnosticos_agrivision.csv" });
+    a.click(); URL.revokeObjectURL(a.href);
+  });
+  if (token) cargar();
+})();
+</script>
+</body>
+</html>

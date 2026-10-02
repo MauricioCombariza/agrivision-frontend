@@ -1,0 +1,87 @@
+[
+ {
+  "nombre": "referencia_100ha",
+  "respuestas": {
+   "hectareas": 100
+  },
+  "esperado_medio_usd": {
+   "botrytis": 1201000.0,
+   "estimados": 2204290.9409409408
+  },
+  "esperado_costo_usd": {
+   "botrytis": 59868.0,
+   "estimados": 23939.999999999996
+  }
+ },
+ {
+  "nombre": "pequena_sin_export",
+  "respuestas": {
+   "hectareas": 5,
+   "producto": "clavel",
+   "pct_contrato": 1,
+   "pct_abierto": 0,
+   "pct_nacional": 0,
+   "ingreso_anual_usd": 400000
+  },
+  "esperado_medio_usd": {
+   "botrytis": 23600.0,
+   "estimados": 52511.11111111111
+  },
+  "esperado_costo_usd": {
+   "botrytis": 42323.4,
+   "estimados": 1197.0
+  }
+ },
+ {
+  "nombre": "datos_propios",
+  "respuestas": {
+   "hectareas": 32,
+   "camas_ha": 60,
+   "ingreso_anual_usd": 6500000,
+   "pct_contrato": 0.5,
+   "pct_abierto": 0.4,
+   "pct_nacional": 0.1,
+   "personas_ha": 14,
+   "costo_trabajador_cop_mes": 2500000,
+   "trm": 3900,
+   "pct_perdida_botrytis": 0.04,
+   "fungicida_l_ha": 2,
+   "fungicida_usd_l": 60,
+   "aplicaciones_ano": 24,
+   "informes_despacho_ano": 20,
+   "lotes_sello_ano": 10,
+   "pct_flor_destiempo": 0.04,
+   "error_estimado_actual": 0.25,
+   "plan_estimados": "temprano"
+  },
+  "esperado_medio_usd": {
+   "botrytis": 287648.0,
+   "estimados": 736753.205128205
+  },
+  "esperado_costo_usd": {
+   "botrytis": 22870.800000000003,
+   "estimados": 11289.599999999999
+  }
+ },
+ {
+  "nombre": "con_cajas",
+  "respuestas": {
+   "hectareas": 60,
+   "producto": "alstroemeria",
+   "incluye_cajas": true,
+   "cajas_ano": 250000,
+   "pct_error_cajas": 0.002,
+   "costo_error_caja_cop": 800000
+  },
+  "esperado_medio_usd": {
+   "botrytis": 720600.0,
+   "estimados": 1322574.5645645645,
+   "cajas": 69135.8024691358
+  },
+  "esperado_costo_usd": {
+   "botrytis": 52480.8,
+   "estimados": 14364.0,
+   "cajas": null
+  }
+ }
+]

@@ -1,0 +1,918 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diagnóstico de Valor AgriVision</title>
+<meta name="description" content="Responde unas preguntas sobre tu finca y mira cuánto valor te pueden generar las herramientas de AgriVision con tus propios números.">
+<meta name="theme-color" content="#0f2519">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ijc4OCA3ODYgMTkzMSAzMzg5Ij48cGF0aCBkPSJNMTc0NC43NzQsNDExNC43NjRjLTc1LjE4OCwtMjUuNzkxIC0zNi4wMjcsLTUxLjM3NiAtMzkuMjEyLC0xOTYuMDRjLTcuNzk5LC0zNTQuMTM2IC0zOTMuMDA3LC00MDguMzI2IC02MzUuMzgzLC03NTkuNDIzYy02MDkuODc4LC04ODMuNDQ3IDE5NC4yMzQsLTE3NjguMTA4IDUzOS4yMTMsLTIxNjcuMTU1YzYxLjc0NSwtNzEuNDIyIDEyNS4zNTIsLTE5My45ODggMTg0LjUxNCwtMTI2LjgxMWM3MTEuNTk3LDgwOC4wMDQgODA4LjI4MywxMTc2LjYgODM3LjIzOCwxMzE3LjM5NWMxNzYuNTMzLDg1OC4zODcgLTUyNS41MTksMTMwNC40MTIgLTU2MS45OCwxMzMzLjAxOWMtMjY0LjgyMywyMDcuNzY4IC0yNDcuOTQ2LDIzNS4wNTggLTI1OC40NTQsNTU3LjIwOGMtMS40ODYsNDUuNTQzIC0xNy42NjUsMzkuMzU1IC02NS45MzYsNDEuODA3WiIgZmlsbD0iIzI3NTIwZiIvPjxwYXRoIGQ9Ik0yMjQ0LjQzNCwyMTMxLjQ4N2MxMS4yMDQsLTE0Mi44NzIgMTQ3LjQ3NiwtODkuMDYxIDE2Ni42MjMsLTUzLjFjNTYuNjcxLDEwNi40MzggLTgxLjY4MywxMjYuNjI1IC05NC44OTQsMTI4LjU1MmMtMTkuMTAxLDIuNzg3IC0zNS45OTEsNS4yNTEgLTE3Ny44NzcsMTUyLjgzNWMtNTUuMDY4LDU3LjI4IC0yNi41NDIsNjUuNjk1IC0zMC42ODIsMjE4LjMxNGMtMS43NjYsNjUuMDg3IC0yNDUuNDk5LDI2Mi41OTYgLTMwNy4xNjIsMzI2LjY0M2MtNDMuMTgsNDQuODUgLTQuMTQ3LDczOS4wNzMgLTIzLjY0Niw3NzAuODcyYy03MC4xODIsMTE0LjQ1NyAtNDAuMjU1LC0zMzkuNDkgLTQ1Ljk5LC03MDIuMTc3Yy0wLjQzNiwtMjcuNTU1IC0xLjAyNywtNjQuOTIxIC0yMzIuMDY1LC0yNjcuNjg5Yy0xMjIuNzEzLC0xMDcuNjk3IC05My4zOTMsLTEyNS4yNTggLTk1Ljk3NywtMjgyLjQyMWMtMC4zMDUsLTE4LjU1MyAzLjgwMywtMzEuNDQgLTE3NS40OTIsLTIwMS44MzhjLTMyLjc2NywtMzEuMTQxIC01Ni42NywwLjg1IC0xMDguNjU2LC0zNi41NjljLTEzNy4zNjUsLTk4Ljg3NSAxMzEuNjExLC0yMzAuNDI3IDE0Mi45MDEsLTcwLjAwNWM3LjYxMywxMDguMTc2IDIyLjE1NiwxMDUuMzQzIDEwNi4xNDgsMTgwLjg4NWMxNzYuNDM3LDE1OC42ODYgNDMuNjcsMjA3LjYxNSA5My41ODIsMzAzLjYwN2M3LjY4NSwxNC43OCAyNDQuNTA2LDI0MC4wODggMjQ3LjAwMSwyNDAuNTQ4YzEyLjAyLDIuMjE5IDI3LjAzNiwtMC43MjEgMjIuNzgzLC0xNDEuNDkxYy0zLjIsLTEwNS44ODcgLTEyOC45ODEsLTY3LjcgLTEyOS4zMDYsLTIwNS44MTdjLTAuNjQ1LC0yNzMuNjc3IDQyLjgyMSwtMjk3LjM2NyAtMTAxLjk2MywtNDI0LjM2OGMtMTE2LjY3MSwtMTAyLjM0MSAtMTAyLjYxOCwtMTE0LjU1NCAtMTAyLjEwNCwtMjYzLjMzNGMwLjEzOSwtNDAuMjA3IC01NS40NDcsLTQ1Ljg2MyAtNTguODI2LC0xMDIuNzU0Yy0xMC4wMzUsLTE2OC45NzYgMjgwLjkyMywtNTkuMzc0IDE0MS45MjcsNjAuNzE3Yy00MC4zMzQsMzQuODQ4IC03NC43NzMsMTcxLjY1IDMyLjcyMywyNTguMjk5YzIwNC41LDE2NC44NCAxNDAuNTYxLDIwMS4xMzcgMTM5LjgwMSw0NTQuMTFjLTAuMzIsMTA2LjQyOSA3Ny4xMzUsMTI1Ljk2NSA3OC4wMzMsODcuMDQ4YzIuMTU5LC05My41OCAxMy40NDcsLTU4Mi43MzQgLTIuMDM0LC0xMTcwLjAyM2MtMC45OTcsLTM3LjgyNSAtNjEuNTI4LC00NC43NzYgLTYzLjgzLC0xMDIuNDIyYy02LjQ5OSwtMTYyLjcyNyAyNjYuMzIxLC02Ni42MiAxNTIuNjc3LDUwLjU4NGMtNzMuMTk2LDc1LjQ4OCAtMzcuOTg0LDg3LjA2MSAtMzguMDEyLDE4OS43NDVjLTAuMjc5LDEwMzcuNDY0IC0yLjI1NCwxMDU0LjYzOCAyMS4xMjYsMTA1MC42NzJjNzIuMTAzLC0xMi4yMzMgNDYuOTc4LC0yOTAuODU5IDQ4LjM5MiwtMzgwLjU1YzEuOTE0LC0xMjEuNDUgMTkyLjk4MSwtMTc0Ljg1NyAyMDUuNDgzLC0yNTguMzYxYzE1LjY1NiwtMTA0LjU2NyAyNC42NDYsLTExMS4xNjEgLTQ0LjE4NCwtMTk0LjcwMWMtNTAuMzUzLC02MS4xMTQgMTAuODQsLTE0NS45NTkgODQuODQxLC0xMzUuNzE1YzE0MC4xOTMsMTkuNDA2IDE0LjQ2NywxODMuNjg5IDE0LjMxMSwyMTAuNTcxYy0wLjk0NiwxNjIuODU3IC0xNy40OTcsMTYzLjY4OSAtMTM5LjE1NCwyNzkuNTQ4Yy0xNzguMTY2LDE2OS42NzYgNDguNTU1LDM3Ni4xNTYgLTEzOS4xNjQsNTIyLjI1OWMtODkuNDczLDY5LjYzOCAtNTIuNzYsODcuMDk0IC01Mi43NjcsMTk2LjAwNmMtMC4wMDQsNjMuNDk2IDk5LjczMSwtNTcuMzE2IDE5NS41NDYsLTE0OC42NDRjMTIwLjQ4OCwtMTE0Ljg0NiA3Ny41MTQsLTEzNy4xMzUgNzkuMzAyLC0yNjQuOTQ0YzEuNDg0LC0xMDYuMDM3IDE4OS43MSwtMTIzLjA1NSAxOTAuNTg1LC0yNzQuODkxWiIgZmlsbD0iI2RiYzY0MCIvPjxwYXRoIGQ9Ik0xMDQ4LjEzNywyNTk0LjQ1OWMtNzMuMDAyLC0xNTQuOTE5IDIwNC4xNjUsLTE3NC45NjQgMTUyLjYyOSwtMTQuMTEyYy0xMy4yNTIsNDEuMzYyIDM2Ni4zNzUsMzgxLjYxIDQzMi40NzgsNDYzLjQwNmMxOC42MDYsMjMuMDI0IDI4LjIyNiwzNC45MjYgMjIuMTM2LDM2MC4wMjFjLTEuNzE3LDkxLjYzMyAtMjM1LjY4NCwtMjUxLjE5NCAtMzE0LjI1MiwtMjYxLjg1NGMtMTk4LjI3NywtMjYuOTAzIC04MC4zODIsLTE1NC41NDYgLTY4LjQ4NCwtMTYwLjkzNWMxMzEuNzY3LC03MC43NjQgMTMzLjcxNSwxMzIuNTYxIDE0NS4xNTEsMTQ1LjMyMWMxMi41NzMsMTQuMDI5IDE0MS4wNTQsMTU3LjM4NSAxNjQuMTE3LDE2OS43MWMxMi41NjUsNi43MTUgMjYuNTc2LC0yLjU0NSAyMS4xMDYsLTE2Ny44OTJjLTEuNjUzLC00OS45NTkgLTIuNTQ0LC03Ni45MTggLTQzMC4wMTUsLTQ3OC40ODNjLTQ5Ljc3NCwtNDYuNzU4IC02OS40OTYsLTEyLjU2OSAtMTI0Ljg2NiwtNTUuMTg0WiIgZmlsbD0iI2RmYzg0MSIvPjxwYXRoIGQ9Ik0yMjQ0LjU1OCwyOTg3Ljk1YzEyOS40ODEsMTI0LjMxNyAtNzAuNDQsMTMwLjk1NCAtMTQ0LjE5LDE5Ny4wMjdjLTk4Ljg4Niw4OC41OTEgLTI0OC4xMzEsMjk4LjMwMiAtMjQ4LjMyOSwyMTkuMTc3Yy0wLjU4MSwtMjMyLjg1MyAtNzQuNjI2LC0yNjEuNjM2IDkzLjc2NywtNDMyLjA4NmMxODcuOTMzLC0xOTAuMjI5IDE4Ny45NSwtMTg4LjMxNyAyMDIuOTcxLC0yMDUuNzU3YzgyLjcwMiwtOTYuMDI1IDE2Ni40MDUsLTEyNy42NjcgMTUyLjc2OCwtMjA1LjY3NGMtMjcuNzYzLC0xNTguODE5IDI1My42MDQsLTkzLjg3MiAxNTguNDUzLDMzLjI1NWMtMzkuNTQ0LDUyLjgzMiAtODMuODc1LDE0LjQwMyAtMTI1LjMxNCw1NC4wMjhjLTQyNy4zNTEsNDA4LjYzNiAtNDI3LjkzMiw0MzAuMTc4IC00MjkuMjgyLDQ4MC4yMTZjLTQuNDI0LDE2NC4wNSA5Ljg3MiwxNzMuNDczIDIxLjg5MiwxNjYuMTczYzAuMTIyLC0wLjA3NCAxNjcuMTQyLC0xNjguOTY0IDE3NS40NDQsLTE4MC4wNzRjMC45NzksLTEuMzEgLTEwLjYyMiwtMTY1Ljc2NiAxMDMuNTM2LC0xNDUuMjMzYzIyLjY5Niw0LjA4MiAxOS4wMTUsNi43MjMgMzguMjg0LDE4Ljk0OFoiIGZpbGw9IiNlMGM4NDIiLz48L3N2Zz4=">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sansation:ital,wght@0,400;0,700;1,400;1,700&family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Manual de Marca AgriVision + escalas de guia-agrivision.html */
+  --forest-950:#081a10; --forest-900:#0f2519; --forest-800:#143520; --forest-700:#1a4726;
+  --forest-600:#1d550e; --forest-500:#2f6b18; --forest-400:#457d20; --forest-300:#558927; --forest-200:#7fa855;
+  --gold-700:#a37f1e; --gold-600:#c29e35; --gold-500:#d9b94e; --gold-400:#f2da6e; --gold-300:#f5e18f; --gold-200:#f8ecb6;
+  --cream-50:#fdfdfb; --cream-100:#f8f6ef; --cream-200:#f1eee1; --cream-300:#e5e0cd; --cream-400:#d5ceb3;
+  --ink:#10190d; --ink-soft:#263821; --mist:#56634c; --mist-light:#86917a;
+
+  --bg: var(--cream-100);
+  --surface: var(--cream-50);
+  --surface-2: var(--cream-200);
+  --border: var(--cream-300);
+  --border-strong: var(--cream-400);
+  --text: var(--ink);
+  --text-2: var(--mist);
+  --text-3: var(--mist-light);
+  --accent: var(--forest-600);
+  --accent-hover: var(--forest-500);
+  --on-accent: var(--cream-50);
+  --focus: var(--gold-600);
+  --bot: var(--gold-700);
+  --est: var(--forest-600);
+  --caj: var(--forest-300);
+  --error: #a2412a;
+  --shadow: 0 1px 2px rgba(15,37,25,.05), 0 10px 30px -14px rgba(15,37,25,.18);
+  --radius: 14px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: var(--forest-950); --surface: var(--forest-900); --surface-2: var(--forest-800);
+    --border: rgba(253,253,251,.12); --border-strong: rgba(253,253,251,.22);
+    --text: var(--cream-50); --text-2: rgba(253,253,251,.72); --text-3: rgba(253,253,251,.5);
+    --accent: var(--forest-200); --accent-hover: #93b96b; --on-accent: var(--forest-950);
+    --focus: var(--gold-400); --bot: var(--gold-400); --est: var(--forest-200); --caj: #a9c98a;
+    --error: #e58a6f; --shadow: 0 1px 2px rgba(0,0,0,.3), 0 14px 34px -18px rgba(0,0,0,.7);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: var(--forest-950); --surface: var(--forest-900); --surface-2: var(--forest-800);
+  --border: rgba(253,253,251,.12); --border-strong: rgba(253,253,251,.22);
+  --text: var(--cream-50); --text-2: rgba(253,253,251,.72); --text-3: rgba(253,253,251,.5);
+  --accent: var(--forest-200); --accent-hover: #93b96b; --on-accent: var(--forest-950);
+  --focus: var(--gold-400); --bot: var(--gold-400); --est: var(--forest-200); --caj: #a9c98a;
+  --error: #e58a6f; --shadow: 0 1px 2px rgba(0,0,0,.3), 0 14px 34px -18px rgba(0,0,0,.7);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 400 16px/1.55 Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3 { font-family: Sansation, Inter, sans-serif; font-weight: 700; line-height: 1.1; margin: 0; text-wrap: balance; }
+p { margin: 0; }
+.mono, .eyebrow { font-family: "DM Mono", ui-monospace, monospace; }
+.eyebrow { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--text-3); }
+.num { font-family: "DM Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+/* ---------- barra superior (siempre fondo bosque: logo negativo) ---------- */
+.top { background: var(--forest-900); color: var(--cream-50); }
+.top-in { max-width: 1160px; margin: 0 auto; padding: 18px 16px; display: flex; align-items: center; gap: 16px; justify-content: space-between; }
+.logo { height: 30px; width: auto; display: block; }
+.top .lv { fill: var(--cream-50); }
+.top .lc { display: none; }
+.top .tag { font-family: Sansation, sans-serif; font-style: italic; font-size: .92rem; color: rgba(253,253,251,.7); }
+@media (max-width: 520px) { .top .tag { display: none; } }
+.moneda { display: inline-flex; border: 1px solid rgba(253,253,251,.25); border-radius: 999px; padding: 2px; }
+.moneda button { all: unset; cursor: pointer; font: 500 .72rem "DM Mono", monospace; letter-spacing: .08em; padding: 5px 11px; border-radius: 999px; color: rgba(253,253,251,.75); }
+.moneda button[aria-pressed="true"] { background: var(--gold-400); color: var(--forest-900); }
+
+.shell { max-width: 1160px; margin: 0 auto; padding: 0 16px 80px; }
+
+/* ---------- intro ---------- */
+.intro { padding: 56px 0 40px; display: grid; gap: 28px; grid-template-columns: 1.2fr 1fr; align-items: center; }
+.intro h1 { font-size: clamp(2.1rem, 5vw, 3.4rem); font-style: italic; color: var(--text); }
+.intro h1 em { font-style: italic; color: var(--accent); }
+.intro .lead { font-size: 1.08rem; color: var(--text-2); max-width: 56ch; margin-top: 16px; }
+.intro .meta { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 22px; color: var(--text-3); font-size: .86rem; }
+.herrs { display: grid; gap: 12px; }
+.herr { display: grid; grid-template-columns: 10px 1fr; gap: 14px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow); }
+.herr .dot { width: 10px; height: 100%; border-radius: 4px; }
+.herr h3 { font-size: 1.1rem; }
+.herr p { color: var(--text-2); font-size: .9rem; margin-top: 4px; }
+@media (max-width: 820px) { .intro { grid-template-columns: 1fr; padding-top: 36px; } }
+
+.btn { appearance: none; border: 0; cursor: pointer; font: 600 .98rem Inter, sans-serif; padding: 13px 22px; border-radius: 999px; background: var(--accent); color: var(--on-accent); transition: background .15s, transform .15s; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; }
+.btn:hover { background: var(--accent-hover); }
+.btn:active { transform: translateY(1px); }
+.btn.sec { background: transparent; color: var(--text); border: 1px solid var(--border-strong); }
+.btn.sec:hover { background: var(--surface-2); }
+.btn.oro { background: var(--gold-400); color: var(--forest-900); }
+.btn.oro:hover { background: var(--gold-300); }
+.btn[disabled] { opacity: .5; cursor: progress; }
+
+/* ---------- asistente ---------- */
+.flujo { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 28px; align-items: start; padding-top: 32px; }
+@media (max-width: 960px) { .flujo { grid-template-columns: 1fr; } }
+.pasos { display: flex; gap: 6px; margin-bottom: 18px; }
+.pasos span { flex: 1; height: 4px; border-radius: 4px; background: var(--border); transition: background .25s; }
+.pasos span.hecho { background: var(--accent); }
+.pasos span.actual { background: var(--gold-500); }
+.paso-meta { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+.tarjeta { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 28px; }
+@media (max-width: 560px) { .tarjeta { padding: 20px 16px; } }
+fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+fieldset > legend { padding: 0; }
+.paso h2 { font-size: clamp(1.5rem, 3.4vw, 2rem); font-style: italic; }
+.paso .sub { color: var(--text-2); margin: 8px 0 24px; max-width: 62ch; }
+.campos { display: grid; gap: 22px; grid-template-columns: 1fr 1fr; }
+.campos .ancho { grid-column: 1 / -1; }
+@media (max-width: 640px) { .campos { grid-template-columns: 1fr; } }
+.campo > label, .campo > .etq { display: block; font-weight: 600; font-size: .95rem; margin-bottom: 4px; }
+.ayuda { color: var(--text-3); font-size: .84rem; margin-bottom: 8px; }
+.entrada { display: flex; align-items: center; background: var(--bg); border: 1px solid var(--border-strong); border-radius: 10px; transition: border-color .15s; }
+.entrada:focus-within { border-color: var(--accent); }
+.entrada input, .entrada select { all: unset; flex: 1; min-width: 0; padding: 11px 12px; font: 500 1rem "DM Mono", monospace; color: var(--text); }
+.entrada select { font-family: Inter, sans-serif; cursor: pointer; }
+.entrada .unidad { padding: 0 12px; color: var(--text-3); font: .8rem "DM Mono", monospace; white-space: nowrap; }
+.entrada.desact { opacity: .45; }
+.entrada select option { color: #10190d; }
+.nose { display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; font-size: .84rem; color: var(--text-2); cursor: pointer; }
+.nose input { accent-color: var(--accent); width: 16px; height: 16px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips label { cursor: pointer; }
+.chips input { position: absolute; opacity: 0; pointer-events: none; }
+.chips span { display: inline-block; padding: 9px 16px; border-radius: 999px; border: 1px solid var(--border-strong); font-size: .92rem; transition: all .15s; }
+.chips input:checked + span { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.chips input:focus-visible + span { outline: 2px solid var(--focus); outline-offset: 2px; }
+.canales { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+@media (max-width: 480px) { .canales { grid-template-columns: 1fr; } }
+.canales small { display: block; color: var(--text-3); font-size: .78rem; margin-bottom: 4px; }
+.suma { font-size: .82rem; margin-top: 8px; color: var(--text-3); }
+.suma.mal { color: var(--error); }
+.err { color: var(--error); font-size: .84rem; margin-top: 6px; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: .88rem; color: var(--text-2); cursor: pointer; }
+.check input { accent-color: var(--accent); width: 18px; height: 18px; margin-top: 2px; flex-shrink: 0; }
+.nav { display: flex; justify-content: space-between; gap: 12px; margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--border); }
+.anim { animation: entra .35s ease both; }
+@keyframes entra { from { opacity: 0; transform: translateY(8px); } }
+
+/* ---------- panel en vivo ---------- */
+.vivo { position: sticky; top: 16px; background: var(--forest-900); color: var(--cream-50); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); }
+.vivo .eyebrow { color: rgba(253,253,251,.55); }
+.vivo .grande { font-family: Sansation, sans-serif; font-style: italic; font-weight: 700; font-size: 2.2rem; color: var(--gold-400); margin: 8px 0 2px; line-height: 1.05; }
+.vivo .rango { font-size: .82rem; color: rgba(253,253,251,.6); }
+.vivo ul { list-style: none; padding: 0; margin: 18px 0 0; display: grid; gap: 10px; }
+.vivo li { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; font-size: .88rem; }
+.vivo li .barra { grid-column: 1 / -1; height: 5px; border-radius: 4px; background: rgba(253,253,251,.1); overflow: hidden; }
+.vivo li .barra i { display: block; height: 100%; border-radius: 4px; transition: width .4s ease; }
+.vivo .pie { margin-top: 18px; padding-top: 14px; border-top: 1px solid rgba(253,253,251,.12); font-size: .78rem; color: rgba(253,253,251,.55); }
+@media (max-width: 960px) {
+  .vivo { position: fixed; left: 0; right: 0; bottom: 0; top: auto; border-radius: 14px 14px 0 0; padding: 12px 16px; z-index: 5; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .vivo .grande { font-size: 1.35rem; margin: 0; }
+  .vivo ul, .vivo .pie, .vivo .rango { display: none; }
+  .shell { padding-bottom: 120px; }
+}
+
+/* ---------- informe ---------- */
+.informe { padding-top: 36px; }
+.inf-head { display: flex; justify-content: space-between; gap: 20px; align-items: flex-end; flex-wrap: wrap; margin-bottom: 26px; }
+.inf-head h1 { font-size: clamp(1.9rem, 4.4vw, 2.8rem); font-style: italic; margin-top: 6px; }
+.inf-head .acciones { display: flex; gap: 10px; flex-wrap: wrap; }
+.guardado { font-size: .8rem; color: var(--text-3); margin-top: 8px; }
+.hero-valor { background: var(--forest-900); color: var(--cream-50); border-radius: var(--radius); padding: 30px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 28px; align-items: center; margin-bottom: 22px; }
+.hero-valor .eyebrow { color: rgba(253,253,251,.55); }
+.hero-valor .grande { font-family: Sansation, sans-serif; font-style: italic; font-weight: 700; font-size: clamp(2.2rem, 6vw, 3.6rem); color: var(--gold-400); line-height: 1; margin: 10px 0 8px; }
+.hero-valor p { color: rgba(253,253,251,.75); }
+.hero-valor .rec { background: rgba(253,253,251,.06); border: 1px solid rgba(253,253,251,.14); border-radius: 12px; padding: 18px; }
+.hero-valor .rec b { color: var(--gold-400); font-family: Sansation, sans-serif; font-style: italic; font-size: 1.25rem; display: block; margin: 6px 0; }
+@media (max-width: 760px) { .hero-valor { grid-template-columns: 1fr; padding: 22px 18px; } }
+.grid-herr { display: grid; gap: 22px; }
+.card-herr { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 26px; border-top: 4px solid var(--c); break-inside: avoid; }
+@media (max-width: 560px) { .card-herr { padding: 20px 16px; } }
+.card-herr header { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: flex-start; }
+.card-herr h2 { font-size: 1.6rem; font-style: italic; }
+.card-herr .desc { color: var(--text-2); font-size: .92rem; margin-top: 4px; }
+.card-herr .valor { text-align: right; }
+.card-herr .valor .v { font-family: Sansation, sans-serif; font-weight: 700; font-style: italic; font-size: 2rem; color: var(--c); line-height: 1; }
+.card-herr .valor small { display: block; color: var(--text-3); font-size: .8rem; margin-top: 4px; }
+.cuerpo { display: grid; grid-template-columns: 1.4fr 1fr; gap: 26px; margin-top: 22px; }
+@media (max-width: 760px) { .cuerpo { grid-template-columns: 1fr; } .card-herr .valor { text-align: left; } }
+.sec-t { font: 500 .7rem "DM Mono", monospace; letter-spacing: .1em; text-transform: uppercase; color: var(--text-3); margin-bottom: 12px; }
+.pal { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; padding: 9px 0; font-size: .9rem; }
+.pal + .pal { border-top: 1px solid var(--border); }
+.pal .pista { grid-column: 1 / -1; height: 10px; background: var(--surface-2); border-radius: 5px; overflow: hidden; }
+.pal .pista i { display: block; height: 100%; background: var(--c); border-radius: 5px; transform-origin: left; animation: crece .7s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes crece { from { transform: scaleX(0); } }
+.esc { position: relative; height: 34px; margin: 6px 0 4px; }
+.esc .linea { position: absolute; top: 15px; left: 0; right: 0; height: 4px; background: var(--surface-2); border-radius: 4px; }
+.esc .tramo { position: absolute; top: 13px; height: 8px; border-radius: 4px; background: var(--c); opacity: .35; }
+.esc .marca { position: absolute; top: 7px; width: 4px; height: 20px; margin-left: -2px; background: var(--c); border-radius: 2px; }
+.esc-l { display: flex; justify-content: space-between; font-size: .78rem; color: var(--text-3); }
+.esc-l b { display: block; color: var(--text); font-family: "DM Mono", monospace; font-weight: 500; }
+.kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 18px; }
+.kpi { background: var(--surface-2); border-radius: 10px; padding: 12px; }
+.kpi .k { font-size: .74rem; color: var(--text-3); }
+.kpi .n { font: 500 1.05rem "DM Mono", monospace; margin-top: 2px; }
+.seg { display: inline-flex; background: var(--surface-2); border-radius: 999px; padding: 3px; margin-top: 12px; flex-wrap: wrap; }
+.seg button { all: unset; cursor: pointer; font-size: .8rem; padding: 6px 12px; border-radius: 999px; color: var(--text-2); }
+.seg button[aria-pressed="true"] { background: var(--surface); color: var(--text); box-shadow: var(--shadow); font-weight: 600; }
+.extra { margin-top: 18px; padding: 14px 16px; border-radius: 10px; border: 1px dashed var(--border-strong); font-size: .88rem; color: var(--text-2); }
+.extra b { color: var(--text); }
+.nota { margin-top: 26px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px 26px; font-size: .88rem; color: var(--text-2); }
+.nota h3 { font-size: 1.05rem; margin-bottom: 8px; color: var(--text); }
+.nota ul { margin: 8px 0 0; padding-left: 18px; }
+.nota li + li { margin-top: 4px; }
+footer.pie { max-width: 1160px; margin: 0 auto; padding: 26px 16px 40px; color: var(--text-3); font-size: .8rem; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--border); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* ---------- PDF ---------- */
+@media print {
+  @page { size: A4; margin: 12mm; }
+  :root, :root[data-theme] { --bg:#fff; --surface:#fff; --surface-2:#f1eee1; --border:#e5e0cd; --border-strong:#d5ceb3; --text:#10190d; --text-2:#56634c; --text-3:#86917a; --bot:#a37f1e; --est:#1d550e; --caj:#558927; --shadow:none; }
+  body { background: #fff; font-size: 12px; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .no-print, .intro, .flujo, .vivo, .moneda, footer.pie { display: none !important; }
+  .shell { padding: 0; max-width: none; }
+  .top-in { padding: 10px 14px; }
+  .informe { padding-top: 14px; }
+  .card-herr, .hero-valor, .nota { break-inside: avoid; box-shadow: none; }
+  .pal .pista i { animation: none; }
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+      <svg class="logo" viewBox="216 2135 3076 691" role="img" aria-label="AgriVision" xmlns="http://www.w3.org/2000/svg"><path class="lv" fill="#27520f" d="M402.654,2806.022c-13.998,-5.14 -6.707,-10.238 -7.301,-39.066c-1.452,-70.571 -73.17,-81.37 -118.295,-151.335c-113.546,-176.05 36.162,-352.342 100.39,-431.863c11.496,-14.233 23.338,-38.657 34.353,-25.27c132.484,161.016 150.485,234.469 155.876,262.526c32.867,171.056 -97.84,259.939 -104.629,265.639c-49.304,41.403 -46.162,46.841 -48.119,111.039c-0.277,9.076 -3.289,7.843 -12.276,8.331Z"/><path class="lv" fill="#16390d" d="M2714.18,2659.471c-23.751,-3.862 -69.246,-9.111 -104.066,-52.422c-54.694,-68.031 -64.141,-237.902 42.723,-294.781c51.053,-27.173 277.417,-67.951 283.423,153.358c5.554,204.662 -145.364,200.957 -222.08,193.845Z"/><path class="lv" fill="#13370a" d="M1632.987,2649.297c0.367,0.022 4.588,0.276 4.588,0.276c0.285,-0.361 -0.258,-338.507 0.081,-348.496c0.294,-8.647 25.254,-6.978 59.453,-6.51c11.091,0.152 7.995,18.498 7.998,27.238c0.096,333.578 0.136,335.733 -4.872,337.501c-1.207,0.426 -137.031,0.411 -139.839,-0.078c-9.6,-1.671 -91.542,-129.181 -108.808,-149.856c-7.878,-9.433 -8.058,-37.734 -1.075,-40.489c16.714,-6.593 17.292,-3.391 34.493,-9.589c86.144,-31.044 66.747,-104.741 16.929,-105.414c-89.399,-1.207 -90.563,-3.376 -95.808,2.216c-3.151,3.36 -0.489,281.963 -1.542,297.614c-0.342,5.079 -2.078,8.27 -63.395,5.501c-7.058,-0.319 -6.059,-4.743 -6.059,-244.955c0,-112.801 -2.552,-119.47 9.305,-119.724c160.146,-3.428 182.799,1.125 198.361,4.254c6.132,1.233 49.802,10.011 62.765,46.614c38.996,110.114 -71.944,148.154 -75.127,155.375c-4.163,9.446 85.172,116.851 102.551,148.522Z"/><path class="lc" fill="#fcfcfa" d="M2768.895,2638.413c-10.959,0.053 -169.25,21.766 -168.317,-162.519c0.06,-11.935 -9.091,-170.463 164.906,-161.314c39.23,2.063 153.496,8.363 140.981,188.754c-9.015,129.931 -122.158,134.462 -137.57,135.079Z"/><path class="lv" fill="#13370a" d="M1276.197,2299.813c12.449,2.899 31.575,3.126 31.653,18.544c0.086,16.988 3.807,51.982 -8.023,48.373c-279.229,-85.174 -251.304,172.816 -178.975,216.987c57.752,35.269 117.211,16.569 118.727,8.914c2.442,-12.331 -4.863,-98.531 5.159,-100.949c0.518,-0.125 55.628,-0.962 59.058,0.26c5.135,1.829 4.082,4.065 4.069,120.915c-0.002,15.194 11.968,31.534 -35.005,42.241c-74.318,16.941 -217.696,10.681 -252.696,-87.131c-27.109,-75.759 -25.875,-177.879 33.373,-232.291c49.601,-45.553 145.769,-54.429 222.66,-35.865Z"/><path class="lv" fill="#14380b" d="M971.2,2659.515c-27.54,-0.149 -34.288,6.108 -44.326,-19.344c-30.904,-78.352 -32.752,-80.135 -41.196,-80.234c-105.459,-1.233 -112.138,3.56 -110.929,-5.241c0.558,-4.066 18.124,-49.713 21.587,-51.725c8.738,-5.077 69.373,2.774 70.157,-6.321c0.147,-1.701 -52.298,-128.405 -53.554,-128.777c-5.878,-1.739 -33.086,74.917 -48.443,110.94c-50.89,119.377 -67.27,180.339 -80.989,180.664c-58.405,1.383 -61.691,-0.636 -60.167,-5.221c3.183,-9.57 101.219,-237.167 110.089,-257.76c41.47,-96.276 38.325,-101.476 49.458,-101.875c65.182,-2.336 66.846,1.23 69.197,6.267c5.213,11.171 115.321,263.204 150.002,346.18c8.801,21.057 -7.925,11.994 -30.886,12.447Z"/><path class="lv" fill="#15390c" d="M2981.178,2659.515c-1.051,-0.183 -12.146,2.928 -12.295,-9.009c-0.354,-28.391 -4.373,-350.635 2.782,-354.902c22.822,-13.611 43.578,13.832 45.941,16.957c18.069,23.891 225.003,297.497 227.149,297.664c4.599,0.358 2.379,-3.554 2.934,-295.269c0.038,-19.763 2.736,-27.225 20.773,-19.723c4.083,1.698 3.657,3.542 3.641,338.171c-0.001,21.979 0.121,32.515 -20.835,25.031c-6.143,-2.194 -183.658,-238.017 -198.973,-257.292c-50.707,-63.817 -61.209,-85.351 -61.185,-69.164c0.134,90.83 0.704,90.416 0.704,181.58c-0.001,45.658 -0.002,91.316 -0.003,136.974c-0.06,10.827 -6.871,8.497 -10.634,8.984Z"/><path class="lv" fill="#15390c" d="M2296.348,2638.416c0.601,0.003 149.767,18.78 130.479,-104.382c-14.463,-92.351 -180.994,1.744 -238.969,-86.242c-21.77,-33.039 -30.861,-150.994 118.76,-156.928c47.645,-1.889 136.336,8.118 138.363,20.281c6.698,40.185 -25.206,-2.765 -138.33,4.136c-147.458,8.996 -103.528,120.902 -78.119,135.63c66.567,38.584 246.287,-44.477 224.565,127.572c-15.796,125.11 -262.211,77.235 -265.816,65.013c-11.884,-40.281 20.87,-8.316 109.068,-5.08Z"/><path class="lv" fill="#173a0e" d="M1899.148,2659.515c-17.547,-0.973 -21.057,4.515 -25.93,-6.31c-7.852,-17.442 -72.628,-161.328 -96.278,-218.856c-33.775,-82.154 -68.681,-139.662 -52.421,-139.912c29.935,-0.459 25.519,13.708 40.909,47.998c105.475,234.997 106.415,234.314 127.663,287.143c7.445,18.511 17.201,-18.453 19.533,-23.671c7.705,-17.242 7.199,-16.984 95.274,-215.988c40.777,-92.135 40.221,-94.951 48.779,-95.31c21.852,-0.917 20.203,4.877 19.576,6.401c-62.107,151.101 -69.293,147.629 -131.487,298.615c-1.78,4.321 -14.722,35.739 -23.112,53.649c-5.217,11.136 -8.68,5.39 -22.506,6.241Z"/><path class="ld" fill="#dbc640" d="M495.68,2410.802c2.086,-28.471 27.457,-17.748 31.022,-10.582c10.551,21.211 -15.208,25.233 -17.667,25.617c-3.556,0.555 -6.701,1.046 -33.117,30.456c-10.253,11.414 -4.942,13.091 -5.712,43.505c-0.329,12.97 -45.707,52.329 -57.187,65.092c-8.039,8.937 -0.772,147.28 -4.402,153.617c-13.066,22.808 -7.495,-67.652 -8.562,-139.927c-0.081,-5.491 -0.191,-12.937 -43.205,-53.344c-22.846,-21.462 -17.388,-24.961 -17.869,-56.28c-0.057,-3.697 0.708,-6.265 -32.673,-40.222c-6.1,-6.206 -10.551,0.169 -20.229,-7.287c-25.574,-19.703 24.503,-45.919 26.605,-13.95c1.417,21.557 4.125,20.992 19.763,36.046c32.849,31.622 8.13,41.373 17.423,60.502c1.431,2.945 45.522,47.844 45.986,47.936c2.238,0.442 5.034,-0.144 4.242,-28.196c-0.596,-21.101 -24.013,-13.491 -24.074,-41.015c-0.12,-54.537 7.972,-59.258 -18.983,-84.567c-21.722,-20.394 -19.105,-22.828 -19.01,-52.476c0.026,-8.012 -10.323,-9.139 -10.952,-20.476c-1.868,-33.673 52.302,-11.832 26.424,12.1c-7.509,6.944 -13.921,34.206 6.092,51.473c38.074,32.849 26.17,40.082 26.028,90.493c-0.06,21.209 14.361,25.102 14.528,17.347c0.402,-18.648 2.504,-116.125 -0.379,-233.158c-0.186,-7.538 -11.455,-8.923 -11.884,-20.41c-1.21,-32.428 49.583,-13.276 28.425,10.08c-13.628,15.043 -7.072,17.349 -7.077,37.812c-0.052,206.742 -0.42,210.165 3.933,209.374c13.424,-2.438 8.746,-57.961 9.009,-75.835c0.356,-24.202 35.929,-34.845 38.257,-51.485c2.915,-20.838 4.589,-22.152 -8.226,-38.799c-9.375,-12.179 2.018,-29.086 15.796,-27.045c26.101,3.867 2.693,36.605 2.664,41.962c-0.176,32.454 -3.258,32.619 -25.907,55.707c-33.171,33.812 9.04,74.959 -25.909,104.074c-16.658,13.877 -9.823,17.356 -9.824,39.059c-0.001,12.653 18.568,-11.422 36.406,-29.621c22.432,-22.886 14.431,-27.328 14.764,-52.797c0.276,-21.131 35.32,-24.522 35.483,-54.779Z"/><path class="lv" fill="#14380b" d="M2515.489,2659.515c-10.259,-1.811 -14.81,1.463 -14.874,-8.963c-0.173,-28.223 -2.121,-345.766 1.044,-352.798c0.892,-1.981 25.43,-11.047 25.482,6.909c0.081,27.964 0.992,344.249 -0.198,349.551c-1.437,6.405 -10.694,5.229 -11.454,5.301Z"/><path class="lv" fill="#193c10" d="M2118.297,2659.515c-3.277,-0.224 -10.585,1.146 -12.577,-5.733c-0.839,-2.899 -0.189,-321.162 -0.132,-349.089c0.035,-17.259 24.137,-9.79 25.412,-6.455c1.937,5.066 0.731,324.097 0.624,352.279c-0.038,9.947 -3.425,8.583 -13.328,8.997Z"/><path class="ld" fill="#dfc841" d="M272.955,2503.061c-13.591,-30.872 38.011,-34.866 28.416,-2.812c-2.467,8.243 68.211,76.046 80.518,92.346c3.464,4.588 5.255,6.96 4.121,71.744c-0.32,18.26 -43.879,-50.057 -58.507,-52.181c-36.915,-5.361 -14.965,-30.797 -12.75,-32.071c24.532,-14.102 24.895,26.416 27.024,28.959c2.341,2.796 26.261,31.363 30.555,33.819c2.339,1.338 4.948,-0.507 3.93,-33.457c-0.308,-9.956 -0.474,-15.328 -80.06,-95.35c-9.267,-9.318 -12.939,-2.505 -23.247,-10.997Z"/><path class="ld" fill="#e0c842" d="M495.703,2581.475c24.107,24.773 -13.114,26.096 -26.845,39.263c-18.411,17.654 -46.197,59.445 -46.234,43.677c-0.108,-46.402 -13.894,-52.138 17.457,-86.105c34.989,-37.908 34.992,-37.527 37.789,-41.003c15.397,-19.135 30.981,-25.441 28.442,-40.986c-5.169,-31.649 47.216,-18.706 29.501,6.627c-7.362,10.528 -15.616,2.87 -23.331,10.767c-79.564,81.432 -79.672,85.724 -79.923,95.696c-0.824,32.691 1.838,34.569 4.076,33.114c0.023,-0.015 31.118,-33.671 32.664,-35.884c0.182,-0.261 -1.978,-33.033 19.276,-28.942c4.226,0.814 3.54,1.34 7.128,3.776Z"/></svg>
+      <span class="tag">Datos del campo. Decisiones ciertas.</span>
+    </div>
+    <div class="moneda" role="group" aria-label="Moneda">
+      <button type="button" data-moneda="COP" aria-pressed="true">COP</button>
+      <button type="button" data-moneda="USD" aria-pressed="false">USD</button>
+    </div>
+  </div>
+</header>
+
+<main class="shell">
+  <!-- ================= INTRO ================= -->
+  <section class="intro" id="intro">
+    <div>
+      <span class="eyebrow">Diagnóstico de valor · 5 minutos</span>
+      <h1 style="margin-top:12px">¿Cuánto vale AgriVision <em>en tu finca</em>?</h1>
+      <p class="lead">Contesta unas preguntas sobre tu operación y te mostramos, con tus propios números, cuánta plata te puede ahorrar o hacer ganar cada herramienta. Si no tienes un dato a la mano, marcas «No sé» y usamos el promedio del sector.</p>
+      <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap">
+        <button class="btn" type="button" id="empezar">Empezar diagnóstico →</button>
+        <button class="btn sec" type="button" id="continuar" hidden>Continuar donde iba</button>
+      </div>
+      <div class="meta"><span>✓ 6 pasos cortos</span><span>✓ Informe en PDF</span><span>✓ Cifras en COP o USD</span></div>
+    </div>
+    <div class="herrs">
+      <div class="herr"><span class="dot" style="background:var(--bot)"></span><div><h3>Botrytis</h3><p>Detecta el moho gris antes de que se vea, para tratar solo donde hay foco y no despachar flor que será rechazada.</p></div></div>
+      <div class="herr"><span class="dot" style="background:var(--est)"></span><div><h3>Estimados de producción</h3><p>Pronostica con 4 semanas cuánta flor vas a cosechar, para planear cuadrillas y vender con tiempo.</p></div></div>
+      <div class="herr"><span class="dot" style="background:var(--caj)"></span><div><h3>Conteo de cajas</h3><p>Cuenta las cajas de cada pallet con visión artificial antes del despacho. Opcional.</p></div></div>
+    </div>
+  </section>
+
+  <!-- ================= ASISTENTE ================= -->
+  <section class="flujo" id="flujo" hidden>
+    <div>
+      <div class="paso-meta"><span class="eyebrow" id="paso-num">Paso 1 de 6</span><span class="eyebrow" id="paso-nombre"></span></div>
+      <div class="pasos" id="pasos" aria-hidden="true"></div>
+      <form class="tarjeta" id="form" novalidate autocomplete="on">
+
+        <!-- 1. Finca -->
+        <fieldset class="paso" data-paso="1" data-nombre="Tu finca">
+          <legend><h2>Cuéntanos de tu finca</h2></legend>
+          <p class="sub">Con el área y el cultivo calculamos todo lo demás.</p>
+          <div class="campos">
+            <div class="campo" data-campo="hectareas">
+              <label for="hectareas">Hectáreas en producción</label>
+              <p class="ayuda">Solo el área sembrada, sin vías ni poscosecha.</p>
+              <div class="entrada"><input id="hectareas" type="number" inputmode="decimal" min="0.5" max="5000" step="0.5" required placeholder="Ej. 40"><span class="unidad">ha</span></div>
+              <p class="err" hidden>Escribe cuántas hectáreas tienes.</p>
+            </div>
+            <div class="campo" data-campo="region">
+              <label for="region">Región</label>
+              <p class="ayuda">Nos ayuda a comparar con fincas parecidas.</p>
+              <div class="entrada"><select id="region">
+                <option value="">Selecciona…</option>
+                <option>Sabana de Bogotá</option><option>Cundinamarca (otra zona)</option>
+                <option>Oriente antioqueño</option><option>Boyacá</option><option>Eje Cafetero</option>
+                <option>Otra región de Colombia</option><option>Ecuador</option><option>Otro país</option>
+              </select></div>
+            </div>
+            <div class="campo ancho">
+              <span class="etq">Cultivo principal</span>
+              <div class="chips" role="radiogroup" aria-label="Cultivo principal">
+                <label><input type="radio" name="producto" value="rosa" checked><span>Rosa</span></label>
+                <label><input type="radio" name="producto" value="clavel"><span>Clavel</span></label>
+                <label><input type="radio" name="producto" value="alstroemeria"><span>Alstroemeria</span></label>
+                <label><input type="radio" name="producto" value="otro"><span>Otro</span></label>
+              </div>
+            </div>
+            <div class="campo" data-campo="camas_ha">
+              <label for="camas_ha">Camas por hectárea</label>
+              <div class="entrada"><input id="camas_ha" type="number" inputmode="decimal" min="1" max="200" step="1"><span class="unidad">camas/ha</span></div>
+              <label class="nose"><input type="checkbox" data-nose="camas_ha" checked> No sé — usar 57</label>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- 2. Producción y ventas -->
+        <fieldset class="paso" data-paso="2" data-nombre="Producción y ventas" hidden>
+          <legend><h2>Producción y ventas</h2></legend>
+          <p class="sub">El valor de cada herramienta depende de cuánto factura la finca y por dónde vende.</p>
+          <div class="campos">
+            <div class="campo ancho" data-campo="ingreso_anual">
+              <label for="ingreso_anual">Ventas anuales de la finca</label>
+              <p class="ayuda">Un número aproximado basta. Puedes escribirlo en pesos o en dólares.</p>
+              <div class="entrada">
+                <input id="ingreso_anual" type="number" inputmode="decimal" min="0" step="any">
+                <select id="ingreso_moneda" aria-label="Moneda de las ventas" style="flex:0 0 auto;padding-right:6px"><option value="COP">COP</option><option value="USD">USD</option></select>
+              </div>
+              <label class="nose"><input type="checkbox" data-nose="ingreso_anual" checked> No sé — usar promedio del sector (<span id="ing-def"></span>)</label>
+            </div>
+            <div class="campo ancho" data-campo="canales">
+              <span class="etq">¿Cómo se reparte tu venta?</span>
+              <p class="ayuda">Porcentaje del volumen por canal. Debe sumar 100%.</p>
+              <div class="canales">
+                <div><small>Contrato / programa fijo</small><div class="entrada"><input id="pct_contrato" type="number" inputmode="decimal" min="0" max="100" step="1" aria-label="Contrato"><span class="unidad">%</span></div></div>
+                <div><small>Mercado abierto</small><div class="entrada"><input id="pct_abierto" type="number" inputmode="decimal" min="0" max="100" step="1" aria-label="Mercado abierto"><span class="unidad">%</span></div></div>
+                <div><small>Mercado nacional</small><div class="entrada"><input id="pct_nacional" type="number" inputmode="decimal" min="0" max="100" step="1" aria-label="Nacional"><span class="unidad">%</span></div></div>
+              </div>
+              <p class="suma" id="suma-canales"></p>
+              <label class="nose"><input type="checkbox" data-nose="canales" checked> No sé — usar 65 / 30 / 5</label>
+            </div>
+            <div class="campo" data-campo="personas_ha">
+              <label for="personas_ha">Personas por hectárea</label>
+              <p class="ayuda">Cultivo + poscosecha.</p>
+              <div class="entrada"><input id="personas_ha" type="number" inputmode="decimal" min="1" max="60" step="0.1"><span class="unidad">pers/ha</span></div>
+              <label class="nose"><input type="checkbox" data-nose="personas_ha" checked> No sé — usar 16</label>
+            </div>
+            <div class="campo" data-campo="costo_trabajador_cop_mes">
+              <label for="costo_trabajador_cop_mes">Costo total por trabajador al mes</label>
+              <p class="ayuda">Salario + prestaciones + auxilio de transporte.</p>
+              <div class="entrada"><input id="costo_trabajador_cop_mes" type="number" inputmode="numeric" min="0" step="1000"><span class="unidad">COP/mes</span></div>
+              <label class="nose"><input type="checkbox" data-nose="costo_trabajador_cop_mes" checked> No sé — usar $2.335.000</label>
+            </div>
+            <div class="campo" data-campo="trm">
+              <label for="trm">Tasa de cambio</label>
+              <div class="entrada"><input id="trm" type="number" inputmode="decimal" min="2000" max="8000" step="10"><span class="unidad">COP/USD</span></div>
+              <label class="nose"><input type="checkbox" data-nose="trm" checked> Usar $4.050</label>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- 3. Botrytis -->
+        <fieldset class="paso" data-paso="3" data-nombre="Botrytis hoy" hidden>
+          <legend><h2>Botrytis hoy</h2></legend>
+          <p class="sub">Entre más tarde se descubre el moho, más caro sale: primero en el cultivo, después en el embarque y al final con el comprador.</p>
+          <div class="campos">
+            <div class="campo ancho" data-campo="pct_perdida_botrytis">
+              <label for="pct_perdida_botrytis">¿Qué parte de tus ventas se pierde por Botrytis en un año?</label>
+              <p class="ayuda">Cuenta tallos botados, cajas rechazadas y descuentos al cliente. El sector reporta alrededor de 5%.</p>
+              <div class="entrada"><input id="pct_perdida_botrytis" type="number" inputmode="decimal" min="0" max="50" step="0.5"><span class="unidad">% de ventas</span></div>
+              <label class="nose"><input type="checkbox" data-nose="pct_perdida_botrytis" checked> No sé — usar 5% (rango 3–7%)</label>
+            </div>
+            <div class="campo" data-campo="aplicaciones_ano">
+              <label for="aplicaciones_ano">Aplicaciones preventivas de fungicida al año</label>
+              <div class="entrada"><input id="aplicaciones_ano" type="number" inputmode="numeric" min="0" max="120" step="1"><span class="unidad">aplic./año</span></div>
+              <label class="nose"><input type="checkbox" data-nose="aplicaciones_ano" checked> No sé — usar 20</label>
+            </div>
+            <div class="campo" data-campo="fungicida_l_ha">
+              <label for="fungicida_l_ha">Litros de producto por hectárea, por aplicación</label>
+              <div class="entrada"><input id="fungicida_l_ha" type="number" inputmode="decimal" min="0" max="50" step="0.1"><span class="unidad">L/ha</span></div>
+              <label class="nose"><input type="checkbox" data-nose="fungicida_l_ha" checked> No sé — usar 1,5</label>
+            </div>
+            <div class="campo" data-campo="fungicida_cop_l">
+              <label for="fungicida_cop_l">Precio del fungicida por litro</label>
+              <div class="entrada"><input id="fungicida_cop_l" type="number" inputmode="numeric" min="0" step="1000"><span class="unidad">COP/L</span></div>
+              <label class="nose"><input type="checkbox" data-nose="fungicida_cop_l" checked> No sé — usar USD 80 (≈ $324.000)</label>
+            </div>
+            <div class="campo" data-campo="informes_despacho_ano">
+              <label for="informes_despacho_ano">Despachos al año que querrías revisar antes de salir</label>
+              <p class="ayuda">Define el costo del servicio, no el valor.</p>
+              <div class="entrada"><input id="informes_despacho_ano" type="number" inputmode="numeric" min="0" max="500" step="1"><span class="unidad">informes</span></div>
+              <label class="nose"><input type="checkbox" data-nose="informes_despacho_ano" checked> No sé — usar 40</label>
+            </div>
+            <div class="campo" data-campo="lotes_sello_ano">
+              <label for="lotes_sello_ano">Lotes al año con sello de calidad para el comprador</label>
+              <div class="entrada"><input id="lotes_sello_ano" type="number" inputmode="numeric" min="0" max="500" step="1"><span class="unidad">lotes</span></div>
+              <label class="nose"><input type="checkbox" data-nose="lotes_sello_ano" checked> No sé — usar 40</label>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- 4. Planeación -->
+        <fieldset class="paso" data-paso="4" data-nombre="Planeación" hidden>
+          <legend><h2>Planeación y estimados</h2></legend>
+          <p class="sub">Cuando no se sabe con tiempo cuánta flor va a salir, se pagan horas extra, se remata flor y se pierden ventanas de exportación.</p>
+          <div class="campos">
+            <div class="campo ancho" data-campo="pct_flor_destiempo">
+              <label for="pct_flor_destiempo">¿Qué parte de la flor se bota o se remata por salir a destiempo?</label>
+              <p class="ayuda">Flor que estaba buena pero no tenía comprador cuando salió, como % de las ventas.</p>
+              <div class="entrada"><input id="pct_flor_destiempo" type="number" inputmode="decimal" min="0" max="50" step="0.5"><span class="unidad">% de ventas</span></div>
+              <label class="nose"><input type="checkbox" data-nose="pct_flor_destiempo" checked> No sé — usar 5,5% (rango 3–8%)</label>
+            </div>
+            <div class="campo ancho" data-campo="error_estimado_actual">
+              <label for="error_estimado_actual">¿Qué tan lejos queda tu estimado de producción de lo que realmente sale?</label>
+              <p class="ayuda">Diferencia promedio entre lo que proyectas a 4 semanas y lo que se cosecha.</p>
+              <div class="entrada"><select id="error_estimado_actual">
+                <option value="">No sé / no lo medimos</option>
+                <option value="0.10">Menos de 10%</option><option value="0.15">Alrededor de 15%</option>
+                <option value="0.20">Alrededor de 20%</option><option value="0.25">Alrededor de 25%</option>
+                <option value="0.30">Alrededor de 30%</option><option value="0.40">40% o más</option>
+              </select></div>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- 5. Cajas -->
+        <fieldset class="paso" data-paso="5" data-nombre="Despacho" hidden>
+          <legend><h2>Despacho de cajas</h2></legend>
+          <p class="sub">Si el conteo de cajas por pallet se hace a mano, un error termina en reclamo o devolución.</p>
+          <div class="campos">
+            <div class="campo ancho">
+              <span class="etq">¿Cuentan a mano las cajas que despachan?</span>
+              <div class="chips" role="radiogroup" aria-label="Conteo manual de cajas">
+                <label><input type="radio" name="incluye_cajas" value="no" checked><span>No, o no es un problema</span></label>
+                <label><input type="radio" name="incluye_cajas" value="si"><span>Sí, y a veces hay errores</span></label>
+              </div>
+            </div>
+            <div class="campo" data-campo="cajas_ano" data-cajas hidden>
+              <label for="cajas_ano">Cajas despachadas al año</label>
+              <div class="entrada"><input id="cajas_ano" type="number" inputmode="numeric" min="0" step="100" placeholder="Ej. 150000"><span class="unidad">cajas</span></div>
+            </div>
+            <div class="campo" data-campo="pct_error_cajas" data-cajas hidden>
+              <label for="pct_error_cajas">Cajas con error de conteo</label>
+              <div class="entrada"><input id="pct_error_cajas" type="number" inputmode="decimal" min="0" max="50" step="0.05"><span class="unidad">%</span></div>
+              <label class="nose"><input type="checkbox" data-nose="pct_error_cajas" checked> No sé — usar 0,1%</label>
+            </div>
+            <div class="campo ancho" data-campo="costo_error_caja_cop" data-cajas hidden>
+              <label for="costo_error_caja_cop">Lo que cuesta cada error (devolución, reclamo, flete)</label>
+              <div class="entrada"><input id="costo_error_caja_cop" type="number" inputmode="numeric" min="0" step="10000"><span class="unidad">COP</span></div>
+              <label class="nose"><input type="checkbox" data-nose="costo_error_caja_cop" checked> No sé — usar $1.100.000</label>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- 6. Contacto -->
+        <fieldset class="paso" data-paso="6" data-nombre="Contacto" hidden>
+          <legend><h2>¿A quién le enviamos el informe?</h2></legend>
+          <p class="sub">Guardamos tu diagnóstico para poder conversarlo contigo. No compartimos tus datos con nadie.</p>
+          <div class="campos">
+            <div class="campo" data-campo="nombre">
+              <label for="nombre">Tu nombre</label>
+              <div class="entrada"><input id="nombre" type="text" autocomplete="name" maxlength="120" style="font-family:Inter,sans-serif"></div>
+              <p class="err" hidden>Escribe tu nombre.</p>
+            </div>
+            <div class="campo" data-campo="finca">
+              <label for="finca">Finca o empresa</label>
+              <div class="entrada"><input id="finca" type="text" autocomplete="organization" maxlength="160" style="font-family:Inter,sans-serif"></div>
+              <p class="err" hidden>Escribe el nombre de la finca.</p>
+            </div>
+            <div class="campo" data-campo="cargo">
+              <label for="cargo">Cargo <span style="color:var(--text-3);font-weight:400">(opcional)</span></label>
+              <div class="entrada"><input id="cargo" type="text" autocomplete="organization-title" maxlength="120" style="font-family:Inter,sans-serif"></div>
+            </div>
+            <div class="campo" data-campo="whatsapp">
+              <label for="whatsapp">WhatsApp</label>
+              <div class="entrada"><input id="whatsapp" type="tel" autocomplete="tel" maxlength="30" placeholder="+57 300 000 0000"></div>
+            </div>
+            <div class="campo ancho" data-campo="email">
+              <label for="email">Correo</label>
+              <div class="entrada"><input id="email" type="email" autocomplete="email" maxlength="254" style="font-family:Inter,sans-serif"></div>
+              <p class="err" hidden>Déjanos un WhatsApp o un correo válido.</p>
+            </div>
+            <div class="campo ancho" data-campo="consentimiento">
+              <label class="check"><input id="consentimiento" type="checkbox"> <span>Autorizo a AgriVision a tratar mis datos para enviarme este diagnóstico y contactarme sobre sus servicios, según la Ley 1581 de 2012. Puedo pedir que los borren en cualquier momento.</span></label>
+              <p class="err" hidden>Necesitamos tu autorización para guardar el diagnóstico.</p>
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="nav">
+          <button class="btn sec" type="button" id="atras">← Atrás</button>
+          <button class="btn" type="submit" id="siguiente">Siguiente →</button>
+        </div>
+      </form>
+    </div>
+
+    <aside class="vivo" aria-live="polite">
+      <div>
+        <span class="eyebrow">Valor estimado al año</span>
+        <div class="grande" id="vivo-total">—</div>
+        <div class="rango" id="vivo-rango"></div>
+      </div>
+      <ul id="vivo-lista"></ul>
+      <p class="pie" id="vivo-pie"></p>
+    </aside>
+  </section>
+
+  <!-- ================= INFORME ================= -->
+  <section class="informe" id="informe" hidden></section>
+</main>
+
+<footer class="pie">
+  <span>AgriVision · Datos del campo. Decisiones ciertas.</span>
+  <span>Modelo <span class="num" id="version"></span> · cifras estimadas con datos del sector</span>
+</footer>
+
+<script src="modelo.js"></script>
+<script>
+(() => {
+  "use strict";
+  const { calcular, SUPUESTOS: S } = window.ModeloAgrivision;
+  const qs = new URLSearchParams(location.search);
+  const LOCAL = ["localhost", "127.0.0.1", ""].includes(location.hostname);
+  const API = qs.get("api") || (LOCAL ? "http://localhost:8030/api/diagnostico" : "https://api.combariza.com/api/diagnostico");
+  // Número de WhatsApp comercial (solo dígitos, con indicativo). Vacío = se oculta el botón.
+  const WHATSAPP_AGRIVISION = "";
+
+  const $ = (sel, el = document) => el.querySelector(sel);
+  const $$ = (sel, el = document) => [...el.querySelectorAll(sel)];
+  const store = {
+    get(k) { try { return JSON.parse(localStorage.getItem(k)); } catch { return null; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} },
+    del(k) { try { localStorage.removeItem(k); } catch {} },
+  };
+
+  // ---------- Moneda ----------
+  let moneda = store.get("diag_moneda") || "COP";
+  let ultimo = null; // { res, respuestas, contacto }
+  const COLORES = { botrytis: "var(--bot)", estimados: "var(--est)", cajas: "var(--caj)" };
+  const nf = (n, d = 0) => n.toLocaleString("es-CO", { maximumFractionDigits: d, minimumFractionDigits: d });
+  function dinero(usd, trm, corto = false) {
+    if (usd === null || usd === undefined || !isFinite(usd)) return "—";
+    if (moneda === "USD") {
+      if (corto && Math.abs(usd) >= 1e6) return `USD ${nf(usd / 1e6, 2)} M`;
+      return `USD ${nf(usd)}`;
+    }
+    const cop = usd * trm;
+    const mill = corto ? "M" : "millones";
+    if (Math.abs(cop) >= 1e6) return `$${nf(cop / 1e6, Math.abs(cop) >= 1e8 ? 0 : 1)} ${mill}`;
+    return `$${nf(cop)}`;
+  }
+  function pintarMoneda() {
+    $$(".moneda button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.moneda === moneda)));
+    $("#ing-def").textContent = moneda === "USD" ? "USD 225.800 por ha" : "≈ $914 M COP por ha";
+  }
+  $$(".moneda button").forEach(b => b.addEventListener("click", () => {
+    moneda = b.dataset.moneda; store.set("diag_moneda", moneda); pintarMoneda();
+    actualizarVivo(); if (ultimo) pintarInforme();
+  }));
+
+  // ---------- Asistente ----------
+  const form = $("#form");
+  const pasos = $$(".paso", form);
+  let paso = 0;
+  $("#pasos").innerHTML = pasos.map(() => "<span></span>").join("");
+
+  function mostrarPaso(i, enfocar = true) {
+    paso = i;
+    pasos.forEach((p, j) => { p.hidden = j !== i; if (j === i) { p.classList.remove("anim"); void p.offsetWidth; p.classList.add("anim"); } });
+    $$("#pasos span").forEach((s, j) => s.className = j < i ? "hecho" : j === i ? "actual" : "");
+    $("#paso-num").textContent = `Paso ${i + 1} de ${pasos.length}`;
+    $("#paso-nombre").textContent = pasos[i].dataset.nombre;
+    $("#atras").style.visibility = i === 0 ? "hidden" : "visible";
+    $("#siguiente").textContent = i === pasos.length - 1 ? "Ver mi diagnóstico →" : "Siguiente →";
+    if (enfocar) {
+      $("#flujo").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+      const primero = $("input:not([type=checkbox]):not([readonly]), select", pasos[i]);
+      if (primero && innerWidth > 640) setTimeout(() => primero.focus({ preventScroll: true }), 250);
+    }
+  }
+
+  // «No sé» deshabilita el campo
+  function sincronizarNose(cb) {
+    const campo = cb.closest(".campo");
+    $$(".entrada", campo).forEach(e => e.classList.toggle("desact", cb.checked));
+    // readOnly y no disabled: así el clic en la entrada sigue llegando y desmarca «No sé»
+    $$(".entrada input", campo).forEach(inp => { inp.readOnly = cb.checked; inp.tabIndex = cb.checked ? -1 : 0; });
+  }
+  $$("[data-nose]").forEach(cb => { cb.addEventListener("change", () => { sincronizarNose(cb); if (!cb.checked) $(".entrada input", cb.closest(".campo"))?.focus(); cambio(); }); });
+  // Escribir en un campo con «No sé» lo desmarca: se hace al hacer clic en la entrada deshabilitada
+  $$(".entrada").forEach(e => e.addEventListener("click", () => {
+    const cb = $("[data-nose]", e.closest(".campo"));
+    if (cb && cb.checked) { cb.checked = false; sincronizarNose(cb); $("input", e)?.focus(); cambio(); }
+  }));
+  $$("input[name=incluye_cajas]").forEach(r => r.addEventListener("change", () => {
+    const si = $("input[name=incluye_cajas]:checked").value === "si";
+    $$("[data-cajas]").forEach(c => c.hidden = !si);
+    cambio();
+  }));
+
+  const valor = id => {
+    const el = $("#" + id);
+    const cb = $("[data-nose]", el.closest(".campo"));
+    return (cb && cb.checked) || el.value === "" ? null : Number(el.value);
+  };
+  const nose = id => $(`[data-nose="${id}"]`)?.checked;
+
+  function leerRespuestas() {
+    const trm = valor("trm") ?? S.TRM;
+    const r = {
+      hectareas: valor("hectareas"),
+      camas_ha: valor("camas_ha"),
+      producto: $("input[name=producto]:checked").value,
+      region: $("#region").value || null,
+      ingreso_anual_usd: null,
+      pct_contrato: null, pct_abierto: null, pct_nacional: null,
+      personas_ha: valor("personas_ha"),
+      costo_trabajador_cop_mes: valor("costo_trabajador_cop_mes"),
+      trm: valor("trm"),
+      pct_perdida_botrytis: valor("pct_perdida_botrytis"),
+      fungicida_l_ha: valor("fungicida_l_ha"),
+      fungicida_usd_l: null,
+      aplicaciones_ano: valor("aplicaciones_ano"),
+      informes_despacho_ano: valor("informes_despacho_ano"),
+      lotes_sello_ano: valor("lotes_sello_ano"),
+      pct_flor_destiempo: valor("pct_flor_destiempo"),
+      error_estimado_actual: $("#error_estimado_actual").value ? Number($("#error_estimado_actual").value) : null,
+      plan_estimados: ultimo?.respuestas?.plan_estimados || "arranque",
+      incluye_cajas: $("input[name=incluye_cajas]:checked").value === "si",
+      cajas_ano: valor("cajas_ano"),
+      pct_error_cajas: valor("pct_error_cajas"),
+      costo_error_caja_cop: valor("costo_error_caja_cop"),
+    };
+    const ing = valor("ingreso_anual");
+    if (ing) r.ingreso_anual_usd = $("#ingreso_moneda").value === "USD" ? ing : ing / trm;
+    const fcop = valor("fungicida_cop_l");
+    if (fcop !== null) r.fungicida_usd_l = fcop / trm;
+    if (!nose("canales")) {
+      const c = ["pct_contrato", "pct_abierto", "pct_nacional"].map(id => valor(id) ?? 0);
+      if (c.some(x => x > 0)) [r.pct_contrato, r.pct_abierto, r.pct_nacional] = c.map(x => x / 100);
+    }
+    for (const k of ["pct_perdida_botrytis", "pct_flor_destiempo", "pct_error_cajas"]) if (r[k] !== null) r[k] /= 100;
+    if (!r.incluye_cajas) { r.cajas_ano = r.pct_error_cajas = r.costo_error_caja_cop = null; }
+    return r;
+  }
+
+  function leerContacto() {
+    const t = id => $("#" + id).value.trim() || null;
+    return { nombre: t("nombre"), finca: t("finca"), cargo: t("cargo"), email: t("email"),
+             whatsapp: t("whatsapp"), consentimiento: $("#consentimiento").checked };
+  }
+
+  function sumaCanales() {
+    const el = $("#suma-canales");
+    if (nose("canales")) { el.textContent = ""; el.classList.remove("mal"); return true; }
+    const s = ["pct_contrato", "pct_abierto", "pct_nacional"].reduce((a, id) => a + (valor(id) ?? 0), 0);
+    const ok = Math.abs(s - 100) <= 2;
+    el.textContent = `Suma: ${nf(s)}%${ok ? " ✓" : " — debe dar 100%"}`;
+    el.classList.toggle("mal", !ok);
+    return ok;
+  }
+
+  function mostrarError(campo, si) { const e = $(`[data-campo="${campo}"] .err`); if (e) e.hidden = !si; }
+
+  function validarPaso(i) {
+    let ok = true;
+    if (i === 0) { const h = valor("hectareas"); const bien = h > 0 && h <= 5000; mostrarError("hectareas", !bien); ok = bien; }
+    if (i === 1) ok = sumaCanales();
+    if (i === 5) {
+      const c = leerContacto();
+      const emailOk = !c.email || $("#email").checkValidity();
+      mostrarError("nombre", !c.nombre || c.nombre.length < 2);
+      mostrarError("finca", !c.finca || c.finca.length < 2);
+      mostrarError("email", !(c.email || c.whatsapp) || !emailOk);
+      mostrarError("consentimiento", !c.consentimiento);
+      ok = c.nombre?.length >= 2 && c.finca?.length >= 2 && (c.email || c.whatsapp) && emailOk && c.consentimiento;
+    }
+    if (!ok) $(".err:not([hidden])", pasos[i])?.closest(".campo")?.querySelector("input, select")?.focus();
+    return ok;
+  }
+
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    if (!validarPaso(paso)) return;
+    if (paso < pasos.length - 1) { mostrarPaso(paso + 1); guardarBorrador(); }
+    else enviar();
+  });
+  $("#atras").addEventListener("click", () => paso > 0 && mostrarPaso(paso - 1));
+
+  // ---------- Vista previa en vivo (espejo JS) ----------
+  function actualizarVivo() {
+    const r = leerRespuestas();
+    if (!(r.hectareas > 0)) {
+      $("#vivo-total").textContent = "—";
+      $("#vivo-rango").textContent = "Escribe tus hectáreas para empezar";
+      $("#vivo-lista").innerHTML = ""; $("#vivo-pie").textContent = "";
+      return;
+    }
+    const res = calcular(r);
+    const trm = res.finca.trm;
+    $("#vivo-total").textContent = dinero(res.total_usd.medio, trm, true);
+    $("#vivo-rango").textContent = `Rango: ${dinero(res.total_usd.pesimista, trm, true)} – ${dinero(res.total_usd.optimista, trm, true)}`;
+    const max = Math.max(...res.herramientas.map(h => h.escenarios.medio.total_usd), 1);
+    $("#vivo-lista").innerHTML = res.herramientas.map(h => `
+      <li><span>${h.nombre}</span><span class="num">${dinero(h.escenarios.medio.total_usd, trm, true)}</span>
+      <span class="barra"><i style="width:${(100 * h.escenarios.medio.total_usd / max).toFixed(1)}%;background:${h.id === "botrytis" ? "var(--gold-400)" : h.id === "estimados" ? "var(--forest-200)" : "#a9c98a"}"></i></span></li>`).join("");
+    const aplican = $$("[data-nose]").filter(c => !c.closest("[data-cajas]")?.hidden);
+    const propios = aplican.filter(c => !c.checked).length, total = aplican.length;
+    $("#vivo-pie").textContent = `Calculado con ${propios} de ${total} datos tuyos; el resto son promedios del sector.`;
+  }
+  let t;
+  function cambio() { sumaCanales(); actualizarVivo(); clearTimeout(t); t = setTimeout(guardarBorrador, 600); }
+  form.addEventListener("input", cambio);
+
+  // ---------- Borrador local (solo en este navegador) ----------
+  function guardarBorrador() {
+    const d = { paso };
+    $$("input, select", form).forEach(el => {
+      if (!el.id && !el.name) return;
+      if (el.type === "radio") { if (el.checked) d["r:" + el.name] = el.value; }
+      else if (el.type === "checkbox") d["c:" + (el.dataset.nose || el.id)] = el.checked;
+      else d[el.id] = el.value;
+    });
+    store.set("diag_borrador", d);
+  }
+  function cargarBorrador(d) {
+    for (const [k, v] of Object.entries(d)) {
+      if (k === "paso") continue;
+      if (k.startsWith("r:")) { const el = $(`input[name="${k.slice(2)}"][value="${v}"]`); if (el) { el.checked = true; el.dispatchEvent(new Event("change")); } }
+      else if (k.startsWith("c:")) { const el = $(`[data-nose="${k.slice(2)}"]`) || $("#" + k.slice(2)); if (el) el.checked = v; }
+      else if ($("#" + k)) $("#" + k).value = v;
+    }
+    $$("[data-nose]").forEach(sincronizarNose);
+  }
+
+  function abrirFlujo(desdeBorrador) {
+    $("#intro").hidden = true; $("#informe").hidden = true; $("#flujo").hidden = false;
+    const d = desdeBorrador && store.get("diag_borrador");
+    if (d) cargarBorrador(d);
+    mostrarPaso(d ? Math.min(d.paso || 0, pasos.length - 1) : 0);
+    cambio();
+  }
+  $("#empezar").addEventListener("click", () => { form.reset(); $$("[data-nose]").forEach(sincronizarNose); $$("[data-cajas]").forEach(c => c.hidden = true); store.del("diag_borrador"); abrirFlujo(false); });
+  $("#continuar").addEventListener("click", () => abrirFlujo(true));
+  if (store.get("diag_borrador")) $("#continuar").hidden = false;
+
+  // ---------- Envío ----------
+  async function post(ruta, cuerpo) {
+    const ctrl = new AbortController(); const to = setTimeout(() => ctrl.abort(), 12000);
+    try {
+      const resp = await fetch(API + ruta, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(cuerpo), signal: ctrl.signal });
+      if (!resp.ok) throw Object.assign(new Error("HTTP " + resp.status), { status: resp.status, detalle: await resp.text() });
+      return await resp.json();
+    } finally { clearTimeout(to); }
+  }
+
+  async function enviar() {
+    const btn = $("#siguiente"); btn.disabled = true; btn.textContent = "Calculando…";
+    const respuestas = leerRespuestas(); const contacto = leerContacto();
+    let res, estado;
+    try {
+      const out = await post("/diagnosticos", { respuestas, contacto });
+      res = out.resultado; estado = "Diagnóstico guardado. Te contactaremos para revisarlo juntos.";
+    } catch (err) {
+      res = calcular(respuestas);
+      if (err.status && err.status < 500 && err.status !== 429) estado = "No pudimos guardar el diagnóstico, revisa tus datos de contacto.";
+      else { encolar({ respuestas, contacto }); estado = "Sin conexión con el servidor: guardamos el diagnóstico en este navegador y lo enviaremos en tu próxima visita."; }
+    }
+    btn.disabled = false;
+    store.del("diag_borrador");
+    ultimo = { res, respuestas, contacto, estado };
+    store.set("diag_ultimo", ultimo);
+    pintarInforme(); verInforme();
+  }
+
+  function encolar(envio) { const q = store.get("diag_pendientes") || []; q.push(envio); store.set("diag_pendientes", q.slice(-5)); }
+  async function reintentar() {
+    const q = store.get("diag_pendientes") || []; if (!q.length) return;
+    const quedan = [];
+    for (const envio of q) { try { await post("/diagnosticos", envio); } catch (e) { if (!e.status || e.status >= 500) quedan.push(envio); } }
+    quedan.length ? store.set("diag_pendientes", quedan) : store.del("diag_pendientes");
+  }
+
+  // ---------- Informe ----------
+  function verInforme() {
+    $("#intro").hidden = true; $("#flujo").hidden = true; $("#informe").hidden = false;
+    scrollTo({ top: 0, behavior: "auto" });
+  }
+
+  const NOMBRES_PLAN = { arranque: "Arranque", temprano: "Adoptante temprano", estandar: "Estándar" };
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+  function tarjeta(h, trm) {
+    const m = h.escenarios.medio, p = h.escenarios.pesimista, o = h.escenarios.optimista;
+    const max = Math.max(...m.palancas.map(x => x.usd), 1);
+    const pos = v => o.total_usd ? (100 * v / o.total_usd) : 0;
+    const palancas = m.palancas.map(x => `
+      <div class="pal"><span>${esc(x.nombre)}</span><span class="num">${dinero(x.usd, trm)}</span>
+        <span class="pista"><i style="width:${(100 * x.usd / max).toFixed(1)}%"></i></span></div>`).join("");
+    const kpis = h.costo_anual_usd ? `
+      <div class="kpis">
+        <div class="kpi"><div class="k">Costo AgriVision/año</div><div class="n">${dinero(h.costo_anual_usd, trm, true)}</div></div>
+        <div class="kpi"><div class="k">Retorno por $1</div><div class="n">${nf(m.multiplo, m.multiplo < 10 ? 1 : 0)}×</div></div>
+        <div class="kpi"><div class="k">Se paga en</div><div class="n">${m.payback_meses < 1 ? `${nf(m.payback_meses * 30)} días` : `${nf(m.payback_meses, 1)} meses`}</div></div>
+      </div>` : `<div class="extra">El precio del conteo de cajas se define con cada empresa según volumen; aquí solo mostramos el valor que genera.</div>`;
+    let extra = "";
+    if (h.id === "estimados") {
+      extra += `<div class="no-print"><div class="sec-t" style="margin-top:18px">Plan de precio</div><div class="seg" role="group" aria-label="Plan de Estimados">${
+        Object.keys(NOMBRES_PLAN).map(k => `<button type="button" data-plan="${k}" aria-pressed="${h.plan === k}">${NOMBRES_PLAN[k]} · USD ${nf(S.PRECIO_ESTIMADOS_CAMA_MES[k], 2)}/cama/mes</button>`).join("")}</div></div>`;
+      if (h.mejora_error && h.mejora_error.metas[0].usd.medio > 0) {
+        const [a, b] = h.mejora_error.metas;
+        extra += `<div class="extra">Hoy tu estimado se desvía cerca de <b>${nf(h.mejora_error.error_actual * 100)}%</b>. Bajarlo a ${nf(a.meta * 100)}% vale <b>${dinero(a.usd.medio, trm)}</b> al año${b.usd.medio > 0 ? `, y a ${nf(b.meta * 100)}% vale <b>${dinero(b.usd.medio, trm)}</b>` : ""}. Es una forma alternativa de medir el mismo beneficio, no se suma al total.</div>`;
+      }
+    }
+    if (h.id === "botrytis") {
+      const d = h.costo_detalle;
+      extra += `<div class="extra">El costo incluye vigilancia por cama (${dinero(d.vigilancia, trm, true)}), revisión antes de despachar (${dinero(d.informes, trm, true)}) y sello de calidad por lote (${dinero(d.sellos, trm, true)}).</div>`;
+    }
+    return `
+    <article class="card-herr" style="--c:${COLORES[h.id]}">
+      <header>
+        <div><span class="eyebrow">${h.id === ultimo.res.recomendada ? "★ Recomendada para empezar" : "Herramienta"}</span><h2 style="margin-top:6px">${esc(h.nombre)}</h2><p class="desc">${esc(h.descripcion)}</p></div>
+        <div class="valor"><div class="v">${dinero(m.total_usd, trm, true)}</div><small>al año · ${dinero(m.total_usd_ha, trm)} por ha</small></div>
+      </header>
+      <div class="cuerpo">
+        <div><div class="sec-t">De dónde sale el valor (escenario medio)</div>${palancas}</div>
+        <div>
+          <div class="sec-t">Rango según qué tan bien funcione</div>
+          <div class="esc" aria-hidden="true"><span class="linea"></span>
+            <span class="tramo" style="left:${pos(p.total_usd)}%;width:${pos(o.total_usd) - pos(p.total_usd)}%"></span>
+            <span class="marca" style="left:${pos(m.total_usd)}%"></span></div>
+          <div class="esc-l"><span>Pesimista<b>${dinero(p.total_usd, trm, true)}</b></span><span style="text-align:center">Medio<b>${dinero(m.total_usd, trm, true)}</b></span><span style="text-align:right">Optimista<b>${dinero(o.total_usd, trm, true)}</b></span></div>
+          ${kpis}
+        </div>
+      </div>
+      ${extra}
+    </article>`;
+  }
+
+  function usadosPorDefecto(r) {
+    const l = [];
+    if (r.ingreso_anual_usd === null) l.push("ventas de USD 225.800 por hectárea");
+    if (r.pct_contrato === null) l.push("65% contrato, 30% mercado abierto, 5% nacional");
+    if (r.personas_ha === null) l.push("16 personas por hectárea");
+    if (r.pct_perdida_botrytis === null) l.push("pérdida por Botrytis de 5% de las ventas");
+    if (r.aplicaciones_ano === null) l.push("20 aplicaciones de fungicida al año");
+    if (r.pct_flor_destiempo === null) l.push("5,5% de flor rematada o botada por destiempo");
+    return l;
+  }
+
+  function pintarInforme() {
+    const { res, respuestas: r, contacto: c, estado } = ultimo;
+    const trm = res.finca.trm;
+    const rec = res.herramientas.find(h => h.id === res.recomendada);
+    const fecha = new Date().toLocaleDateString("es-CO", { day: "numeric", month: "long", year: "numeric" });
+    const defs = usadosPorDefecto(r);
+    const wa = WHATSAPP_AGRIVISION && `https://wa.me/${WHATSAPP_AGRIVISION}?text=${encodeURIComponent(`Hola, soy ${c.nombre} de ${c.finca}. Hice el diagnóstico de valor y quiero revisarlo con ustedes.`)}`;
+    $("#informe").innerHTML = `
+      <div class="inf-head">
+        <div>
+          <span class="eyebrow">Diagnóstico de valor · ${esc(fecha)}</span>
+          <h1>${esc(c.finca)}</h1>
+          <p style="color:var(--text-2);margin-top:6px">${r.hectareas.toLocaleString("es-CO", { maximumFractionDigits: 1 })} ha de ${esc(r.producto)}${r.region ? " · " + esc(r.region) : ""} · preparado para ${esc(c.nombre)}</p>
+          <p class="guardado no-print">${esc(estado || "")}</p>
+        </div>
+        <div class="acciones no-print">
+          <button class="btn sec" type="button" id="editar">← Ajustar respuestas</button>
+          <button class="btn sec" type="button" id="pdf">Descargar PDF</button>
+          ${wa ? `<a class="btn oro" href="${wa}" target="_blank" rel="noopener">Hablar por WhatsApp</a>` : ""}
+        </div>
+      </div>
+      <div class="hero-valor">
+        <div>
+          <span class="eyebrow">Valor estimado para tu finca, por año</span>
+          <div class="grande">${dinero(res.total_usd.medio, trm, true)}</div>
+          <p>Entre ${dinero(res.total_usd.pesimista, trm, true)} y ${dinero(res.total_usd.optimista, trm, true)} según el escenario. ${res.costo_total_usd ? `El servicio completo costaría alrededor de ${dinero(res.costo_total_usd, trm, true)} al año.` : ""}</p>
+        </div>
+        <div class="rec">
+          <span class="eyebrow">Por dónde empezar</span>
+          <b>${esc(rec.nombre)}</b>
+          <p style="font-size:.9rem">Es la que deja más valor neto en tu finca: ${dinero(rec.escenarios.medio.neto_usd, trm, true)} al año después de pagar el servicio.</p>
+        </div>
+      </div>
+      <div class="grid-herr">${res.herramientas.map(h => tarjeta(h, trm)).join("")}</div>
+      <div class="nota">
+        <h3>Cómo leer estas cifras</h3>
+        <p>Son estimaciones construidas con datos públicos del sector floricultor y con lo que nos contaste; todavía no son resultados medidos en tu finca. El escenario medio es el más probable; el pesimista es el número más prudente para tomar decisiones. Con una prueba piloto en tu finca los afinamos con datos reales.</p>
+        ${defs.length ? `<p style="margin-top:10px">Donde no tenías el dato usamos promedios del sector:</p><ul>${defs.map(d => `<li>${d}</li>`).join("")}</ul>` : ""}
+        <p style="margin-top:10px">Tasa de cambio: $${nf(trm)} COP por USD · Modelo ${res.version_modelo}.</p>
+      </div>`;
+    $("#editar").addEventListener("click", () => { $("#informe").hidden = true; $("#flujo").hidden = false; mostrarPaso(0); cambio(); });
+    $("#pdf").addEventListener("click", () => print());
+    $$("[data-plan]").forEach(b => b.addEventListener("click", () => {
+      ultimo.respuestas.plan_estimados = b.dataset.plan;
+      ultimo.res = calcular(ultimo.respuestas);
+      store.set("diag_ultimo", ultimo);
+      pintarInforme();
+    }));
+  }
+
+  // ---------- Inicio ----------
+  $("#version").textContent = S.VERSION_MODELO;
+  pintarMoneda();
+  $$("[data-nose]").forEach(sincronizarNose);
+  reintentar();
+  if (qs.has("informe") && store.get("diag_ultimo")) { ultimo = store.get("diag_ultimo"); pintarInforme(); verInforme(); }
+})();
+</script>
+</body>
+</html>
