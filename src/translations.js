@@ -14,6 +14,7 @@ export const translations = {
       subtext: 'Confirma tus pedidos de exportación con datos, no con esperanza.',
       cta: 'Agenda tu demo en campo',
       ctaSub: 'Sin costo · En tu propia finca',
+      diagnostico: '¿Cuánto vale en tu finca?',
       metrics: [
         { value: '≥85%', label: 'Precisión CV' },
         { value: '<15%', label: 'Error proyección' },
@@ -244,6 +245,7 @@ export const translations = {
       subtext: 'Confirm your export orders with data, not hope.',
       cta: 'Schedule your field demo',
       ctaSub: 'Free · At your own farm',
+      diagnostico: 'What is it worth on your farm?',
       metrics: [
         { value: '≥85%', label: 'CV accuracy' },
         { value: '<15%', label: 'Forecast error' },

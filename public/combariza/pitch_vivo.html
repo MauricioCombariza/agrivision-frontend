@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AgriVision — Pitch v8 · Ensayo con audio</title>
+  <title>AgriVision — Pitch v8 · Diálogo Catalina + Mauricio</title>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css" />
@@ -328,10 +328,6 @@
 
     <audio id="s01-audio" src="https://res.cloudinary.com/combariza/video/upload/v1782477133/Pitch_ceis_2026/slide_1_v1.m4a" preload="auto"></audio>
     <audio id="s03-audio" src="https://res.cloudinary.com/combariza/video/upload/v1784921933/Pitch_ceis_2026/mauro.m4a" preload="auto"></audio>
-    <!-- Solo en pitch_v8_ensayo.html: audios de ensayo del diálogo en vivo (S02/S04/S05). -->
-    <audio id="s02-audio" src="https://res.cloudinary.com/combariza/video/upload/v1790859424/S02_san_valentin.m4a" preload="auto"></audio>
-    <audio id="s04-audio" src="https://res.cloudinary.com/combariza/video/upload/v1790859718/S04_propuesta_de_valor.m4a" preload="auto"></audio>
-    <audio id="s05-audio" src="https://res.cloudinary.com/combariza/video/upload/v1790864381/S05_modelo_de_negocio.m4a" preload="auto"></audio>
     <!-- S01 (apertura) y S03 (Mauricio, mauro.m4a) llevan audio pre-grabado y suenan siempre.
          S02, S04 y S05 son diálogo en vivo entre Catalina y Mauricio: sus cues están
          sincronizados a los audios de ensayo, que solo suenan en pitch_v8_ensayo.html. -->
@@ -1833,7 +1829,7 @@ var AUTOPLAY  = true;
    audio de ensayo grabado. Los `data-dur` de esas slides ya están sincronizados
    a esos audios (cada cue ~0,3 s antes de la palabra clave), así que el mismo
    deck sirve para presentar en vivo (ENSAYO = false) o para ensayar con audio. */
-var ENSAYO    = true;
+var ENSAYO    = false;
 var ENSAYO_AUDIO = { 2:'s02-audio', 4:'s04-audio', 5:'s05-audio' };
 /* S03 (Mauricio, quién soy) suena siempre — en vivo y en ensayo — como S01. */
 var SLIDE_AUDIO  = { 3:'s03-audio' };

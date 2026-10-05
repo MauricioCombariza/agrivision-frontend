@@ -1,6 +1,7 @@
 {
   "rewrites": [
     { "source": "/combariza/pitch.html", "destination": "/combariza/pitch.html" },
+    { "source": "/combariza/pitch_vivo.html", "destination": "/combariza/pitch_vivo.html" },
     { "source": "/pitch.html",           "destination": "/pitch.html" },
     { "source": "/pitch_agritech.html",  "destination": "/pitch_agritech.html" },
     { "source": "/vale.html",            "destination": "/vale.html" },
