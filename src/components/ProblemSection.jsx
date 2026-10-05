@@ -21,7 +21,7 @@ export default function ProblemSection() {
   const [headerRef, headerVisible] = useScrollAnimation()
 
   return (
-    <section className="problem">
+    <section className="problem" id="problem">
       <div className="container">
         <div
           ref={headerRef}

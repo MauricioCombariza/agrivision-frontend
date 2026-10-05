@@ -21,7 +21,7 @@ export default function HowItWorks() {
   const [headerRef, headerVisible] = useScrollAnimation()
 
   return (
-    <section className="howitworks">
+    <section className="howitworks" id="howitworks">
       <div className="container">
         <div
           ref={headerRef}

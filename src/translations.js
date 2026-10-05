@@ -20,6 +20,40 @@ export const translations = {
         { value: '30s', label: 'Foto a resultado' },
       ],
     },
+    journey: {
+      flor: 'La flor · Quiénes somos',
+      tallo: 'El tallo · Nuestros productos',
+      raices: 'Las raíces · Misión, visión y valores',
+    },
+    about: {
+      label: 'Quiénes somos',
+      title: 'El puente entre la naturaleza\ny la precisión tecnológica.',
+      text: 'En AgriVision interpretamos el comportamiento y el lenguaje de las flores y los cultivos para convertirlos en datos reales y accionables.',
+      origin: 'Nacimos en la Sabana de Bogotá, Colombia, con un propósito claro: reemplazar la estimación por datos, para que cada productor pueda entender cómo avanza su cultivo y tomar decisiones con mayor certeza.',
+      presentation: 'Una tecnología concebida para escuchar lo que el cultivo tiene que decir: transformamos el comportamiento y el lenguaje de flores y cultivos controlados en decisiones claras, precisas y accionables.',
+    },
+    video: {
+      label: 'AgriVision en acción',
+      title: 'Mira cómo escuchamos\nal cultivo.',
+    },
+    mission: {
+      label: 'Misión',
+      text: 'En AgriVision escuchamos lo que el cultivo tiene que decir: leemos el comportamiento y el lenguaje de flores y cultivos controlados para anticipar riesgos, fumigar exactamente en el punto que lo necesita, y entregarle a cada productor un inventario claro y el porcentaje real de su cosecha.',
+    },
+    vision: {
+      label: 'Visión',
+      text: 'Ser la tecnología de referencia para entender el lenguaje de los cultivos, ayudando a que cada flor y cada cosecha se desarrolle en las mejores condiciones posibles, y a que ningún productor tenga que adivinar cómo va su cultivo.',
+    },
+    values: {
+      label: 'Valores',
+      title: 'Lo que nos sostiene.',
+      items: [
+        { title: 'Precisión', text: 'No fumigamos "por si acaso": actuamos solo donde el cultivo mismo indica que hay un riesgo, cuidando la planta y reduciendo el uso innecesario de insumos.' },
+        { title: 'Acción', text: 'La lectura del cultivo no sirve si se queda en un reporte; cada dato se traduce en una decisión concreta para el productor: dónde fumigar, cuánto esperar, qué cosechar.' },
+        { title: 'Honestidad', text: 'Reemplazamos la estimación por el dato real. El productor merece saber, no adivinar, cómo va su inventario y su rendimiento.' },
+        { title: 'Tecnología', text: 'La tecnología existe para escuchar mejor a la planta, y darle las mejores herramientas al agricultor.' },
+      ],
+    },
     problem: {
       label: 'El problema',
       title: 'Cada semana, una apuesta.',
@@ -214,6 +248,40 @@ export const translations = {
         { value: '≥85%', label: 'CV accuracy' },
         { value: '<15%', label: 'Forecast error' },
         { value: '30s', label: 'Photo to result' },
+      ],
+    },
+    journey: {
+      flor: 'The flower · Who we are',
+      tallo: 'The stem · Our products',
+      raices: 'The roots · Mission, vision and values',
+    },
+    about: {
+      label: 'Who we are',
+      title: 'The bridge between nature\nand technological precision.',
+      text: 'At AgriVision we interpret the behavior and language of flowers and crops and turn them into real, actionable data.',
+      origin: 'We were born in the Sabana de Bogotá, Colombia, with a clear purpose: replace estimates with data, so every grower can understand how their crop is progressing and decide with greater certainty.',
+      presentation: 'A technology built to listen to what the crop has to say: we turn the behavior and language of flowers and controlled crops into clear, precise, actionable decisions.',
+    },
+    video: {
+      label: 'AgriVision in action',
+      title: 'See how we listen\nto the crop.',
+    },
+    mission: {
+      label: 'Mission',
+      text: 'At AgriVision we listen to what the crop has to say: we read the behavior and language of flowers and controlled crops to anticipate risks, spray exactly where it is needed, and give every grower a clear inventory and the real percentage of their harvest.',
+    },
+    vision: {
+      label: 'Vision',
+      text: 'To be the reference technology for understanding the language of crops, helping every flower and every harvest grow in the best possible conditions, so that no grower ever has to guess how their crop is doing.',
+    },
+    values: {
+      label: 'Values',
+      title: 'What holds us up.',
+      items: [
+        { title: 'Precision', text: 'We don\'t spray "just in case": we act only where the crop itself shows a risk, caring for the plant and cutting unnecessary inputs.' },
+        { title: 'Action', text: 'Reading the crop is useless if it stays in a report; every data point becomes a concrete decision for the grower: where to spray, how long to wait, what to harvest.' },
+        { title: 'Honesty', text: 'We replace estimates with real data. Growers deserve to know, not guess, how their inventory and yield are doing.' },
+        { title: 'Technology', text: 'Technology exists to listen better to the plant, and to give the grower the best tools.' },
       ],
     },
     problem: {

@@ -1,32 +1,4 @@
-import { useMemo } from 'react'
 import { useLang } from '../App'
-
-// Generate the field dot grid — visual metaphor for CV scanning a crop
-function FieldGrid() {
-  const dots = useMemo(() => {
-    return Array.from({ length: 320 }, (_, i) => {
-      const rand = Math.sin(i * 9301 + 49297) * 0.5 + 0.5 // deterministic pseudo-random
-      const rand2 = Math.sin(i * 7919 + 1013) * 0.5 + 0.5
-      const isAmber = rand < 0.06       // 6%  → "detected" plants
-      const isDim   = rand > 0.7        // 30% → dimmer background
-      const delay   = (rand2 * 4).toFixed(2)
-      const dur     = (3 + rand * 2).toFixed(2)
-      return { isAmber, isDim, delay, dur }
-    })
-  }, [])
-
-  return (
-    <div className="hero__field" aria-hidden="true">
-      {dots.map((d, i) => (
-        <span
-          key={i}
-          className={`hero__dot ${d.isAmber ? 'hero__dot--amber' : d.isDim ? 'hero__dot--dim' : 'hero__dot--green'}`}
-          style={{ animationDelay: `${d.delay}s`, animationDuration: `${d.dur}s` }}
-        />
-      ))}
-    </div>
-  )
-}
 
 export default function Hero({ onDemoClick }) {
   const { t } = useLang()
@@ -34,9 +6,6 @@ export default function Hero({ onDemoClick }) {
 
   return (
     <section className="hero" aria-label="AgriVision hero">
-      <FieldGrid />
-      <div className="hero__overlay" aria-hidden="true" />
-
       <div className="hero__content">
         <div className="container">
           <div className="hero__inner">
@@ -95,8 +64,6 @@ export default function Hero({ onDemoClick }) {
           </div>
         </div>
       </div>
-
-      <div className="hero__bottom-fade" aria-hidden="true" />
     </section>
   )
 }

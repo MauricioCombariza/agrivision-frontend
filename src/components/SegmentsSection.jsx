@@ -23,7 +23,7 @@ export default function SegmentsSection() {
   const [headerRef, headerVisible] = useScrollAnimation()
 
   return (
-    <section className="segments">
+    <section className="segments" id="segments">
       <div className="container">
         <div
           ref={headerRef}

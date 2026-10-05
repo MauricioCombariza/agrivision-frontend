@@ -12,6 +12,12 @@ import MetricsSection from './components/MetricsSection'
 import WhyUs from './components/WhyUs'
 import SegmentsSection from './components/SegmentsSection'
 import MeetingSection from './components/MeetingSection'
+import AboutSection from './components/AboutSection'
+import VideoSection from './components/VideoSection'
+import MissionVision from './components/MissionVision'
+import ValuesSection from './components/ValuesSection'
+import PlantJourney, { PlantStage, Anchor } from './components/journey/PlantJourney'
+import { ANCHORS } from './components/journey/plantMap'
 import LoginModal from './components/LoginModal'
 import Footer from './components/Footer'
 
@@ -32,13 +38,29 @@ export default function App() {
     <LangContext.Provider value={{ lang, t, toggleLang }}>
       <Navbar onLoginClick={() => setLoginOpen(true)} />
       <main>
-        <Hero onDemoClick={() => document.getElementById('demo').scrollIntoView({ behavior: 'smooth' })} />
-        <ProblemSection />
-        <SolutionSection />
-        <HowItWorks />
-        <MetricsSection />
-        <WhyUs />
-        <SegmentsSection />
+        {/* Recorrido del Manual de Marca: la flor (quiénes somos), el tallo (productos)
+            y las raíces (misión, visión, valores), con la planta fija a la derecha. */}
+        <PlantJourney>
+          <PlantStage stage="flor" tone="light">
+            <Anchor at={ANCHORS.hero} node="flor">
+              <Hero onDemoClick={() => document.getElementById('demo').scrollIntoView({ behavior: 'smooth' })} />
+            </Anchor>
+            <Anchor at={ANCHORS.about} node="flor"><AboutSection /></Anchor>
+            <Anchor at={ANCHORS.video}><VideoSection /></Anchor>
+          </PlantStage>
+          <PlantStage stage="tallo" tone="light">
+            <Anchor at={ANCHORS.problem}><ProblemSection /></Anchor>
+            <SolutionSection />
+            <Anchor at={ANCHORS.howItWorks}><HowItWorks /></Anchor>
+            <Anchor at={ANCHORS.metrics}><MetricsSection /></Anchor>
+          </PlantStage>
+          <PlantStage stage="raices" tone="dark">
+            <MissionVision />
+            <ValuesSection />
+            <Anchor at={ANCHORS.whyUs}><WhyUs /></Anchor>
+            <Anchor at={ANCHORS.segments}><SegmentsSection /></Anchor>
+          </PlantStage>
+        </PlantJourney>
         <MeetingSection />
       </main>
       <Footer onLoginClick={() => setLoginOpen(true)} />

@@ -1,5 +1,10 @@
 import { useLang } from '../App'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
+import { Anchor } from './journey/PlantJourney'
+import { ANCHORS } from './journey/plantMap'
+
+// Cada módulo es una hoja de la planta: su nodo dorado se enciende al leerlo.
+const MODULE_NODES = ['campo', 'proyeccion', 'logistica']
 
 function SolutionCard({ item, index }) {
   const [ref, visible] = useScrollAnimation()
@@ -22,7 +27,7 @@ export default function SolutionSection() {
   const [headerRef, headerVisible] = useScrollAnimation()
 
   return (
-    <section className="solution">
+    <section className="solution" id="solution">
       <div className="container">
         <div
           ref={headerRef}
@@ -35,7 +40,9 @@ export default function SolutionSection() {
 
         <div className="solution__grid">
           {s.items.map((item, i) => (
-            <SolutionCard key={i} item={item} index={i} />
+            <Anchor key={i} at={ANCHORS.modules[i]} node={MODULE_NODES[i]}>
+              <SolutionCard item={item} index={i} />
+            </Anchor>
           ))}
         </div>
       </div>

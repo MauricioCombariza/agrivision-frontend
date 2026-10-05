@@ -1,7 +1,7 @@
 import { useLang } from '../App'
 
 function AgriVisionLogo() {
-  return <img width="24" height="24" src="/brand/isotipo-negativo.svg" alt="" aria-hidden="true" />
+  return <img className="footer__logo-img" src="/brand/logo-h-negativo.svg" alt="AgriVision" />
 }
 
 export default function Footer({ onLoginClick }) {
@@ -11,14 +11,18 @@ export default function Footer({ onLoginClick }) {
   const navLinks = lang === 'es'
     ? [
         { label: 'Inicio', href: '#' },
+        { label: 'Quiénes somos', href: '#about' },
         { label: 'Solución', href: '#solution' },
         { label: 'Cómo funciona', href: '#howitworks' },
+        { label: 'Misión y visión', href: '#mision' },
         { label: 'Para quién es', href: '#segments' },
       ]
     : [
         { label: 'Home', href: '#' },
+        { label: 'Who we are', href: '#about' },
         { label: 'Solution', href: '#solution' },
         { label: 'How it works', href: '#howitworks' },
+        { label: 'Mission & vision', href: '#mision' },
         { label: 'Who it\'s for', href: '#segments' },
       ]
 
@@ -29,7 +33,6 @@ export default function Footer({ onLoginClick }) {
           <div className="footer__brand">
             <div className="footer__logo">
               <AgriVisionLogo />
-              <span className="footer__wordmark">AgriVision</span>
             </div>
             <p className="footer__tagline">{f.tagline}</p>
             <p className="footer__description">{f.description}</p>
