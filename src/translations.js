@@ -6,7 +6,7 @@ export const translations = {
       langSwitch: 'EN',
     },
     hero: {
-      eyebrow: 'Inteligencia de cultivo · Sabana Norte, Colombia',
+      eyebrow: 'Inteligencia de cultivo · Desde Colombia para el mundo',
       headline1: 'Convertimos en datos',
       headline2: 'la forma en que miras',
       headline3: 'el campo,',
@@ -30,7 +30,7 @@ export const translations = {
       label: 'Quiénes somos',
       title: 'El puente entre la naturaleza\ny la precisión tecnológica.',
       text: 'En AgriVision interpretamos el comportamiento y el lenguaje de las flores y los cultivos para convertirlos en datos reales y accionables.',
-      origin: 'Nacimos en la Sabana de Bogotá, Colombia, con un propósito claro: reemplazar la estimación por datos, para que cada productor pueda entender cómo avanza su cultivo y tomar decisiones con mayor certeza.',
+      origin: 'Nacimos en la Sabana de Bogotá, Colombia, con un propósito claro: reemplazar la estimación por datos, para que cada productor pueda entender cómo avanza su cultivo y tomar decisiones con mayor certeza. Hoy llevamos esa tecnología a productores de Colombia, Ecuador, Kenia, México y cualquier región que quiera cultivar con datos.',
       presentation: 'Una tecnología concebida para escuchar lo que el cultivo tiene que decir: transformamos el comportamiento y el lenguaje de flores y cultivos controlados en decisiones claras, precisas y accionables.',
     },
     video: {
@@ -62,7 +62,7 @@ export const translations = {
         {
           number: '01',
           title: 'Proyecciones que no cierran',
-          text: 'El gerente confirma pedidos a Miami con Excel y la intuición del agrónomo. Error promedio: 20–30%. En San Valentín, eso son entre $30M y $100M COP perdidos en una semana.',
+          text: 'El gerente confirma pedidos de exportación con Excel y la intuición del agrónomo. Error promedio: 20–30%. En San Valentín, eso son entre USD 7.000 y 25.000 perdidos en una semana.',
         },
         {
           number: '02',
@@ -84,14 +84,14 @@ export const translations = {
         {
           tag: 'Módulo Campo',
           title: 'Estado fisiológico en tiempo real',
-          text: 'Modelos de visión computacional entrenados exclusivamente en flores colombianas clasifican cada planta: botón, apertura, flor lista. Precisión ≥85%. Detección de botritis y mildiu antes de que se propague.',
-          detail: 'YOLOv8 · Flores colombianas · Alerta inmediata',
+          text: 'Modelos de visión computacional entrenados en campo real con flores y cultivos de exportación clasifican cada planta: botón, apertura, flor lista. Precisión ≥85%. Detección de botritis y mildiu antes de que se propague.',
+          detail: 'TerraVix Vision · Flores y cultivos · Alerta inmediata',
         },
         {
           tag: 'Módulo Proyección',
           title: '¿Cuánto vas a producir?',
-          text: 'XGBoost + series de tiempo predictivas generan una proyección de producción a 1–4 semanas con error menor al 15%. Confirma contratos internacionales con certeza, no con intuición.',
-          detail: 'XGBoost · Proyección 1–4 semanas · Error <15%',
+          text: 'TerraVix, el sistema predictivo creado por AgriVision, genera una proyección de producción a 1–4 semanas con error menor al 15%. Confirma contratos internacionales con certeza, no con intuición.',
+          detail: 'TerraVix Forecast · Proyección 1–4 semanas · Error <15%',
         },
         {
           tag: 'Módulo Logística',
@@ -113,7 +113,7 @@ export const translations = {
         {
           number: '02',
           title: 'Análisis',
-          text: 'Los modelos de visión computacional y XGBoost procesan las imágenes. Resultado en menos de 30 segundos.',
+          text: 'TerraVix, el sistema de AgriVision, procesa las imágenes. Resultado en menos de 30 segundos.',
         },
         {
           number: '03',
@@ -123,7 +123,7 @@ export const translations = {
         {
           number: '04',
           title: 'Decisión',
-          text: 'Confirma tu pedido a Miami con datos reales de tu propio cultivo. De la ansiedad a la certeza.',
+          text: 'Confirma tus pedidos de exportación con datos reales de tu propio cultivo. De la ansiedad a la certeza.',
         },
       ],
     },
@@ -142,16 +142,16 @@ export const translations = {
       title: 'Lo que no se puede\ncomprar ni copiar.',
       items: [
         {
-          title: '+10 años en flores colombianas',
-          text: 'La única plataforma construida por alguien que vivió el campo. El conocimiento de dominio no se contrata en el mercado. No existe este perfil en Colombia.',
+          title: '+10 años en floricultura de exportación',
+          text: 'La única plataforma construida por alguien que vivió el campo. El conocimiento de dominio no se contrata en el mercado. Un perfil difícil de encontrar en cualquier mercado.',
         },
         {
-          title: 'Dataset propio · flores colombianas',
-          text: 'Imágenes anotadas de rosas, claveles y crisantemos en condiciones reales de Sabana Norte. Cada nuevo cliente refuerza la barrera. El competidor que llegue tarde encontrará un modelo mucho más preciso.',
+          title: 'Dataset propio · cultivos reales',
+          text: 'Imágenes anotadas de rosas, claveles y crisantemos en condiciones reales de campo, desde la Sabana de Bogotá y creciendo con cada nuevo país y cliente. Cada nuevo cliente refuerza la barrera. El competidor que llegue tarde encontrará un modelo mucho más preciso.',
         },
         {
           title: 'Solo tu celular',
-          text: 'YOLOv8 corre en tiempo real en el dispositivo que ya tienes. Sin drones. Sin sensores. Sin infraestructura. Sin inversión en hardware.',
+          text: 'TerraVix corre en tiempo real en el dispositivo que ya tienes. Sin drones. Sin sensores. Sin infraestructura. Sin inversión en hardware.',
         },
         {
           title: 'Integración end-to-end',
@@ -166,26 +166,26 @@ export const translations = {
           ['Especialización en flores', '✗', '✗', '✗', '✓'],
           ['Estado fisiológico real', '✗', '✗', '✗', '✓'],
           ['Módulo logístico', '✗', 'parcial', '✗', '✓'],
-          ['Proyección XGBoost', 'parcial', '✗', '✗', '✓'],
-          ['Presencia en Colombia', '✗', '✗', '✗', '✓'],
+          ['Proyección TerraVix', 'parcial', '✗', '✗', '✓'],
+          ['Acompañamiento en campo', '✗', '✗', '✗', '✓'],
         ],
       },
     },
     segments: {
       label: 'Para quién es',
-      title: 'Diseñado para quien\ntiene algo que perder.',
+      title: 'Diseñado para quien\nquiere cosechar más.',
       items: [
         {
           icon: '◈',
-          title: 'Gerentes de floricultoras',
-          sub: '100–500 ha · Sabana Norte de Bogotá',
+          title: 'Gerentes de fincas exportadoras',
+          sub: '100–500 ha · Colombia · Ecuador · Kenia · México',
           text: 'Tienes contratos de exportación activos. Sabes cuánto cuesta un error de proyección en temporada alta. AgriVision te da la certeza que el agrónomo no puede darte solo.',
           signal: 'Señal de compra: "La última temporada quedé corto en San Valentín."',
         },
         {
           icon: '◇',
           title: 'Sector financiero',
-          sub: 'Finagro · Bancoldex · Banca agro',
+          sub: 'Banca agro · Fondos de desarrollo · Aseguradoras',
           text: 'Necesitas evaluar una finca antes de aprobar un crédito. Obtén un informe objetivo del inventario fisiológico, estado sanitario y proyección de producción en 48 horas.',
           signal: 'Señal de compra: "Necesito un peritaje en menos de una semana."',
         },
@@ -211,11 +211,11 @@ export const translations = {
       },
     },
     footer: {
-      tagline: 'Construido para durar.\nHecho para el campo colombiano.',
-      description: 'Plataforma de inteligencia de cultivo especializada en floricultura colombiana. Visión computacional + modelos predictivos + logística integrada.',
+      tagline: 'Construido para durar.\nHecho para el campo, en cualquier lugar del mundo.',
+      description: 'Plataforma de inteligencia de cultivo especializada en flores y cultivos de exportación. Visión computacional + modelos predictivos + logística integrada.',
       contact: 'hola@agrivision.co',
       links: ['Política de privacidad', 'Términos de uso'],
-      copyright: '© 2026 AgriVision · Sabana Norte, Bogotá, Colombia',
+      copyright: '© 2026 AgriVision · Bogotá, Colombia · Operando para el mundo',
     },
     login: {
       title: 'Acceder a AgriVision',
@@ -237,7 +237,7 @@ export const translations = {
       langSwitch: 'ES',
     },
     hero: {
-      eyebrow: 'Crop intelligence · Sabana Norte, Colombia',
+      eyebrow: 'Crop intelligence · From Colombia to the world',
       headline1: 'We turn the way you',
       headline2: 'see your field',
       headline3: 'into data,',
@@ -261,7 +261,7 @@ export const translations = {
       label: 'Who we are',
       title: 'The bridge between nature\nand technological precision.',
       text: 'At AgriVision we interpret the behavior and language of flowers and crops and turn them into real, actionable data.',
-      origin: 'We were born in the Sabana de Bogotá, Colombia, with a clear purpose: replace estimates with data, so every grower can understand how their crop is progressing and decide with greater certainty.',
+      origin: 'We were born in the Sabana de Bogotá, Colombia, with a clear purpose: replace estimates with data, so every grower can understand how their crop is progressing and decide with greater certainty. Today we bring that technology to growers in Colombia, Ecuador, Kenya, Mexico and any region ready to farm with data.',
       presentation: 'A technology built to listen to what the crop has to say: we turn the behavior and language of flowers and controlled crops into clear, precise, actionable decisions.',
     },
     video: {
@@ -293,7 +293,7 @@ export const translations = {
         {
           number: '01',
           title: 'Projections that fail',
-          text: 'Farm managers confirm Miami orders using Excel and their agronomist\'s gut. Average error: 20–30%. During Valentine\'s season, that\'s $7,000–$25,000 USD lost in a single week.',
+          text: 'Farm managers confirm export orders using Excel and their agronomist\'s gut. Average error: 20–30%. During Valentine\'s season, that\'s $7,000–$25,000 USD lost in a single week.',
         },
         {
           number: '02',
@@ -315,14 +315,14 @@ export const translations = {
         {
           tag: 'Field Module',
           title: 'Real-time physiological status',
-          text: 'Computer vision models trained exclusively on Colombian flowers classify every plant: bud, opening, ready. Accuracy ≥85%. Botrytis and mildew detection before spreading.',
-          detail: 'YOLOv8 · Colombian flowers · Instant alert',
+          text: 'Computer vision models trained in real field conditions on export flowers and crops classify every plant: bud, opening, ready. Accuracy ≥85%. Botrytis and mildew detection before spreading.',
+          detail: 'TerraVix Vision · Flowers and crops · Instant alert',
         },
         {
           tag: 'Projection Module',
           title: 'How much will you produce?',
-          text: 'XGBoost + predictive time-series models generate a 1–4 week production forecast with less than 15% error. Confirm international contracts with certainty, not intuition.',
-          detail: 'XGBoost · 1–4 week forecast · Error <15%',
+          text: 'TerraVix, the predictive system built by AgriVision, generates a 1–4 week production forecast with less than 15% error. Confirm international contracts with certainty, not intuition.',
+          detail: 'TerraVix Forecast · 1–4 week forecast · Error <15%',
         },
         {
           tag: 'Logistics Module',
@@ -344,7 +344,7 @@ export const translations = {
         {
           number: '02',
           title: 'Analysis',
-          text: 'Computer vision and XGBoost models process the images. Result in under 30 seconds.',
+          text: 'TerraVix, AgriVision\'s own system, processes the images. Result in under 30 seconds.',
         },
         {
           number: '03',
@@ -354,7 +354,7 @@ export const translations = {
         {
           number: '04',
           title: 'Decision',
-          text: 'Confirm your Miami order with real data from your own crop. From anxiety to certainty.',
+          text: 'Confirm your export orders with real data from your own crop. From anxiety to certainty.',
         },
       ],
     },
@@ -373,16 +373,16 @@ export const translations = {
       title: 'What can\'t be bought\nor copied.',
       items: [
         {
-          title: '10+ years in Colombian flowers',
-          text: 'The only platform built by someone who lived the field. Domain knowledge can\'t be hired off the shelf. This profile doesn\'t exist in Colombia\'s job market.',
+          title: '10+ years in export floriculture',
+          text: 'The only platform built by someone who lived the field. Domain knowledge can\'t be hired off the shelf. A profile that is hard to find in any market.',
         },
         {
-          title: 'Proprietary dataset · Colombian flowers',
-          text: 'Annotated images of roses, carnations, and chrysanthemums in real Sabana Norte conditions. Every new client deepens the moat. A late competitor will face a far more accurate model.',
+          title: 'Proprietary dataset · real crops',
+          text: 'Annotated images of roses, carnations, and chrysanthemums in real field conditions, starting in the Sabana de Bogotá and growing with every new country and client. Every new client deepens the moat. A late competitor will face a far more accurate model.',
         },
         {
           title: 'Just your phone',
-          text: 'YOLOv8 runs in real time on the device you already have. No drones. No sensors. No infrastructure. No hardware investment.',
+          text: 'TerraVix runs in real time on the device you already have. No drones. No sensors. No infrastructure. No hardware investment.',
         },
         {
           title: 'End-to-end integration',
@@ -397,26 +397,26 @@ export const translations = {
           ['Flower specialization', '✗', '✗', '✗', '✓'],
           ['Real physiological status', '✗', '✗', '✗', '✓'],
           ['Logistics module', '✗', 'partial', '✗', '✓'],
-          ['XGBoost forecast', 'partial', '✗', '✗', '✓'],
-          ['Colombia presence', '✗', '✗', '✗', '✓'],
+          ['TerraVix forecast', 'partial', '✗', '✗', '✓'],
+          ['On-site field support', '✗', '✗', '✗', '✓'],
         ],
       },
     },
     segments: {
       label: 'Who it\'s for',
-      title: 'Built for those with\nsomething to lose.',
+      title: 'Built for growers\nready to harvest more.',
       items: [
         {
           icon: '◈',
-          title: 'Farm managers',
-          sub: '100–500 ha · Sabana Norte, Bogotá',
+          title: 'Export farm managers',
+          sub: '100–500 ha · Colombia · Ecuador · Kenya · Mexico',
           text: 'You have active export contracts. You know what a projection error costs during peak season. AgriVision gives you the certainty your agronomist alone can\'t provide.',
           signal: 'Buying signal: "Last Valentine\'s I came up short on my order."',
         },
         {
           icon: '◇',
           title: 'Financial sector',
-          sub: 'Finagro · Bancoldex · Agro banking',
+          sub: 'Agro banking · Development funds · Insurers',
           text: 'You need to evaluate a farm before approving a loan. Get an objective report on physiological inventory, health status, and production forecast in 48 hours.',
           signal: 'Buying signal: "I need a farm appraisal in under a week."',
         },
@@ -442,11 +442,11 @@ export const translations = {
       },
     },
     footer: {
-      tagline: 'Built to last.\nMade for the Colombian field.',
-      description: 'Crop intelligence platform specialized in Colombian floriculture. Computer vision + predictive models + integrated logistics.',
+      tagline: 'Built to last.\nMade for the field, anywhere in the world.',
+      description: 'Crop intelligence platform specialized in export flowers and crops. Computer vision + predictive models + integrated logistics.',
       contact: 'hello@agrivision.co',
       links: ['Privacy policy', 'Terms of use'],
-      copyright: '© 2026 AgriVision · Sabana Norte, Bogotá, Colombia',
+      copyright: '© 2026 AgriVision · Bogotá, Colombia · Serving the world',
     },
     login: {
       title: 'Access AgriVision',

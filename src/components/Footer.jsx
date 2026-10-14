@@ -74,8 +74,8 @@ export default function Footer({ onLoginClick }) {
               {f.contact}
             </a>
             <p className="footer__link" style={{ marginTop: '1.5rem', fontFamily: 'var(--font-mono)', fontSize: '0.68rem', letterSpacing: '0.06em', color: 'var(--mist)', lineHeight: '1.5' }}>
-              Sabana Norte<br />
-              Bogotá, Colombia
+              {lang === 'es' ? 'Sede: Bogotá, Colombia' : 'HQ: Bogotá, Colombia'}<br />
+              {lang === 'es' ? 'Colombia · Ecuador · Kenia · México' : 'Colombia · Ecuador · Kenya · Mexico'}
             </p>
           </div>
         </div>
