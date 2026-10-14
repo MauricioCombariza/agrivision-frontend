@@ -173,7 +173,7 @@ export const translations = {
     },
     segments: {
       label: 'Para quién es',
-      title: 'Diseñado para quien\nquiere cosechar más.',
+      title: 'Diseñado para quien mejora\ndía a día basándose en datos reales.',
       items: [
         {
           icon: '◈',
@@ -404,7 +404,7 @@ export const translations = {
     },
     segments: {
       label: 'Who it\'s for',
-      title: 'Built for growers\nready to harvest more.',
+      title: 'Built for those who improve\nevery day based on real data.',
       items: [
         {
           icon: '◈',
