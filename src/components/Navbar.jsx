@@ -36,7 +36,7 @@ export default function Navbar({ onLoginClick }) {
             <AgriVisionLogo />
           </a>
           <div className="navbar__actions">
-            <a href="https://combariza.com/detector" className="navbar__lang navbar__extra" style={{ textDecoration: 'none' }} target="_blank" rel="noopener">
+            <a href="/detector" className="navbar__lang navbar__extra" style={{ textDecoration: 'none' }} target="_blank" rel="noopener">
               Detector
             </a>
             {/* Ruta relativa a proposito: con la absoluta, quien abra esto desde
