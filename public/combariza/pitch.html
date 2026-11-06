@@ -223,7 +223,13 @@
     section[data-scene="crops"] .layer-global,
     section[data-scene="global"] .layer-global,
     section[data-scene="ratio"] .layer-ratio,
-    section[data-scene="share"] .layer-share { opacity: 1; }
+    section[data-scene="share"] .layer-share,
+    section[data-scene="promise"] .layer-promise { opacity: 1; }
+    section[data-scene="promise"] .hearts-wrap { opacity: 1; }
+    .cap-promise {
+      font-family: 'DM Mono', monospace; font-size: 15px; letter-spacing: 0.24em;
+      text-transform: uppercase; color: var(--verde-acc);
+    }
     .s05-card {
       background: var(--verde-deep); border-radius: 24px; padding: 32px 44px;
       box-shadow: 0 24px 60px rgba(8,14,10,0.24); color: var(--crema); box-sizing: border-box;
@@ -651,9 +657,16 @@
       <span class="fragment cue" data-scene="stat" data-stat-value="20%" data-stat-label="Error de estimado de producción" data-stat-source="valor-error-estimados-produccion.md" data-dur="4500"></span>
       <span class="fragment cue" data-scene="stat" data-stat-value="~40%" data-stat-label="Del fungicida se aplica a ciegas" data-stat-source="enfoques_ventas_deteccion_botritys.md" data-dur="9000"></span>
       <span class="fragment cue" data-dur="2000"></span>
-      <span class="fragment cue" data-scene="stat" data-stat-value="~60%" data-stat-label="Mujeres en floricultura (empleo formal)" data-stat-source="Asocolflores / Corficolombiana 2025" data-dur="12600"></span>
-      <span class="fragment cue" data-scene="stat" data-stat-value="+54.000" data-stat-label="Hogares en riesgo (estimación propia)" data-stat-source="cálculo de escritorio, no dato publicado" data-dur="7800"></span>
-      <span class="fragment cue" data-scene="stat" data-stat-value="USD 125M / año" data-stat-label="Pérdida por botritys · sector flores Colombia" data-stat-source="~5% de las exportaciones · estimación interna (costo-perdidas-botrytis.md)" data-dur="4900"></span>
+      <!-- Ajuste S02 (valor agregado + ventajas, diálogo final del Word): desde aquí los tiempos son ESTIMADOS por palabras
+           (0,44 s/palabra del ensayo v9) — recalibrar al regrabar el audio de ensayo. -->
+      <span class="fragment cue" data-scene="stat" data-dur="4500"></span>
+      <span class="fragment cue" data-scene="stat" data-stat-value="USD 2.400M" data-stat-label="Ventas de flores de Colombia · 2025" data-stat-source="Procolombia / Corficolombiana 2025" data-dur="3500"></span>
+      <span class="fragment cue" data-scene="stat" data-stat-value="7%" data-stat-label="Valor que agrega Estimados · ≈ USD 170M / año" data-stat-source="supuesto del fundador · estimación de escritorio" data-dur="3100"></span>
+      <span class="fragment cue" data-scene="stat" data-stat-value="5%" data-stat-label="Valor que agrega Botrytis · ≈ USD 120M / año" data-stat-source="supuesto del fundador · estimación de escritorio" data-dur="2200"></span>
+      <span class="fragment cue" data-scene="stat" data-stat-value="USD ~290M / año" data-stat-label="Valor que AgriVision devuelve al sector" data-stat-source="7% + 5% de las ventas 2025 · estimación de escritorio, no cifra oficial" data-dur="6200"></span>
+      <span class="fragment cue" data-scene="stat" data-stat-value="Presintomático" data-stat-label="Vemos la botritys antes del síntoma · los demás ven lo que ya se ve" data-stat-source="benchmark global v2.0 · GHT Corp, Lima Labs, Corvus" data-dur="4200"></span>
+      <span class="fragment cue" data-scene="stat" data-stat-value="Muestreo ×10" data-stat-label="El video cuenta mejor los estados fenológicos · mejores estimados" data-stat-source="supuesto del fundador" data-dur="9200"></span>
+      <span class="fragment cue" data-scene="stat" data-stat-value="Algoritmos por región" data-stat-label="Entrenados con la luz y las variedades de cada región" data-stat-source="supuesto del fundador" data-dur="7800"></span>
     </section>
 
 
@@ -1024,7 +1037,7 @@
 
         </div>
 
-        <!-- ── FASE 3 (v9): "¿Y eso no existe ya?" — mapa de posicionamiento ── -->
+        <!-- ── FASE 3 (v9): callback a S02 — "los demás ven la flor enferma" — mapa de posicionamiento (benchmark v2.0) ── -->
         <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:36px 58px 28px;box-sizing:border-box;gap:10px;">
           <div class="sq" id="s04comph" style="width:100%;max-width:960px;display:flex;align-items:center;gap:8px;">
             <span style="width:5px;height:5px;border-radius:50%;background:rgba(242,218,110,0.6);display:inline-block;flex-shrink:0;"></span>
@@ -1038,17 +1051,17 @@
               <line x1="132" y1="10" x2="132" y2="112" stroke="rgba(242,218,110,0.28)" stroke-width="0.8"/>
               <text x="20" y="59" font-family="'DM Mono',monospace" font-size="4.6" fill="rgba(253,253,251,0.45)" letter-spacing="0.4">HORTALIZA · INVERNADERO</text>
               <text x="244" y="59" text-anchor="end" font-family="'DM Mono',monospace" font-size="4.6" fill="rgba(253,253,251,0.45)" letter-spacing="0.4">FLORES</text>
-              <text x="135" y="15" font-family="'DM Mono',monospace" font-size="4.6" fill="rgba(253,253,251,0.45)" letter-spacing="0.4">IMAGEN DE CAMPO · LO QUE HAY HOY</text>
-              <text x="135" y="110" font-family="'DM Mono',monospace" font-size="4.6" fill="rgba(253,253,251,0.45)" letter-spacing="0.4">DATOS DIGITADOS · HACE TRES DÍAS</text>
-              <g id="comp-0" opacity="0"><circle cx="56" cy="30" r="3.4" fill="rgba(253,253,251,0.55)"/><text x="56" y="39.5" text-anchor="middle" font-family="'Inter',sans-serif" font-size="5.6" fill="rgba(253,253,251,0.8)">iUNU / LUNA</text></g>
-              <g id="comp-1" opacity="0"><circle cx="90" cy="44" r="3.4" fill="rgba(253,253,251,0.55)"/><text x="90" y="53.5" text-anchor="middle" font-family="'Inter',sans-serif" font-size="5.6" fill="rgba(253,253,251,0.8)">Ecoation</text></g>
-              <g id="comp-2" opacity="0"><circle cx="200" cy="84" r="3.4" fill="rgba(181,98,63,0.85)"/><text x="200" y="93.5" text-anchor="middle" font-family="'Inter',sans-serif" font-size="5.6" fill="rgba(253,253,251,0.8)">GHT Corp · BI / ERP</text></g>
-              <g id="comp-3" opacity="0"><circle cx="160" cy="94" r="3.4" fill="rgba(181,98,63,0.85)"/><text x="160" y="103.5" text-anchor="middle" font-family="'Inter',sans-serif" font-size="5.6" fill="rgba(253,253,251,0.8)">Optim Power</text></g>
+              <text x="135" y="15" font-family="'DM Mono',monospace" font-size="4.6" fill="rgba(253,253,251,0.45)" letter-spacing="0.4">PRESINTOMÁTICO · ESPECTRAL</text>
+              <text x="135" y="110" font-family="'DM Mono',monospace" font-size="4.6" fill="rgba(253,253,251,0.45)" letter-spacing="0.4">SÍNTOMA VISIBLE · DRON / RGB</text>
+              <g id="comp-0" opacity="0"><circle cx="222" cy="72" r="3.4" fill="rgba(181,98,63,0.85)"/><text x="222" y="81.5" text-anchor="middle" font-family="'Inter',sans-serif" font-size="5.6" fill="rgba(253,253,251,0.8)">GHT Corp · dron + ML</text></g>
+              <g id="comp-1" opacity="0"><circle cx="160" cy="84" r="3.4" fill="rgba(181,98,63,0.85)"/><text x="160" y="93.5" text-anchor="middle" font-family="'Inter',sans-serif" font-size="5.6" fill="rgba(253,253,251,0.8)">Lima Labs + Chrysal</text></g>
+              <g id="comp-2" opacity="0"><circle cx="218" cy="91" r="3.4" fill="rgba(181,98,63,0.85)"/><text x="218" y="100.5" text-anchor="middle" font-family="'Inter',sans-serif" font-size="5.6" fill="rgba(253,253,251,0.8)">Corvus · dron</text></g>
+              <g id="comp-3" opacity="0"><circle cx="60" cy="88" r="3.4" fill="rgba(253,253,251,0.55)"/><text x="60" y="97.5" text-anchor="middle" font-family="'Inter',sans-serif" font-size="5.6" fill="rgba(253,253,251,0.8)">iUNU · Ecoation (hortaliza)</text></g>
               <g id="comp-av" opacity="0">
                 <circle class="s05-ping" cx="214" cy="30" r="6" fill="none" stroke="#f2da6e" stroke-width="1.2"/>
                 <path d="M214,22.5 L216.2,27.6 L221.6,28 L217.5,31.5 L218.8,36.8 L214,34 L209.2,36.8 L210.5,31.5 L206.4,28 L211.8,27.6 Z" fill="#f2da6e"/>
                 <text x="214" y="45" text-anchor="middle" font-family="'Sansation',sans-serif" font-size="7.2" font-weight="700" fill="#f2da6e">AgriVision</text>
-                <text x="214" y="51.5" text-anchor="middle" font-family="'DM Mono',monospace" font-size="4.2" fill="rgba(253,253,251,0.6)">FLORES · VIDEO DE CAMPO</text>
+                <text x="214" y="51.5" text-anchor="middle" font-family="'DM Mono',monospace" font-size="4.2" fill="rgba(253,253,251,0.6)">FLORES · PRESINTOMÁTICO</text>
               </g>
             </svg>
           </div>
@@ -1056,14 +1069,15 @@
       </div>
 
       <!-- Calibrado al audio de ensayo v9 (53,7 s): "Con un video" 4,6 · "detecta" 7,2 · "predice" 13,2 ·
-           "Y la Botritis" 23,5 · "cámara" 29,3 · "¿Y eso no existe ya?" 39,0 — cada cue ~0,3 s antes. -->
+           "Y la Botritis" 23,5 · "cámara" 29,3 · cierre callback 39,0 — cada cue ~0,3 s antes.
+           El cierre ("Eso es lo que me dijiste que nadie más hace…") es ESTIMADO por palabras: recalibrar al regrabar. -->
       <span class="fragment cue" data-step="s04-fase1-intro" data-dur="3600"></span>
       <span class="fragment cue" data-dur="2600"></span>
       <span class="fragment cue" data-step="s04-detect" data-dur="6000"></span>
       <span class="fragment cue" data-step="s04-gauss" data-dur="10300"></span>
       <span class="fragment cue" data-step="s04-fase2-intro" data-dur="5800"></span>
       <span class="fragment cue" data-step="s04-fase2-scan" data-dur="9700"></span>
-      <span class="fragment cue" data-step="s04-compete" data-dur="16200"></span>
+      <span class="fragment cue" data-step="s04-compete" data-dur="12800"></span>
     </section>
 
 
@@ -1139,11 +1153,12 @@
       </div>
 
       <!-- Calibrado al audio de ensayo v9 (46,0 s): "Cobramos" 6,1 · "180" 14,7 · "4 millones" 17,8 · "2 millones" 21,7 ·
-           "6 millones" 24,4 · "33" 32,8 · "¿Y para nosotros?" 34,2 · "Como el costo" 36,0 — cada cue ~0,3 s antes. -->
+           "6 millones" 24,4 · "33" 32,8 · "¿Y para nosotros?" 34,2 · "Como el costo" 36,0 — cada cue ~0,3 s antes.
+           Recorte 2: se quitó "Tomemos una finca de ciento ochenta hectáreas." (~2,9 s) y el cue "180"; la finca de 180 ha
+           pasa a la etiqueta de $3,96M. Desde aquí el audio de ensayo va ~2,9 s adelantado: regrabar. -->
       <span class="fragment cue" data-dur="5100"></span>
-      <span class="fragment cue" data-scene="price" data-dur="8600"></span>
-      <span class="fragment cue" data-scene="stat" data-stat-value="180" data-stat-label="Hectáreas — finca ejemplo" data-dur="3100"></span>
-      <span class="fragment cue" data-scene="stat" data-stat-value="$3,96M" data-stat-label="Valor / año — Estimados de Cosecha" data-stat-source="precios-y-valor-agregado-100ha.md" data-dur="3900"></span>
+      <span class="fragment cue" data-scene="price" data-dur="8800"></span>
+      <span class="fragment cue" data-scene="stat" data-stat-value="$3,96M" data-stat-label="Valor / año — Estimados de Cosecha · finca de 180 ha" data-stat-source="precios-y-valor-agregado-100ha.md" data-dur="3900"></span>
       <span class="fragment cue" data-scene="stat" data-stat-value="$2,16M" data-stat-label="Valor / año — Botrytis" data-stat-source="precios-y-valor-agregado-100ha.md" data-dur="2700"></span>
       <span class="fragment cue" data-scene="stat" data-stat-value="$6,12M / $183,6K" data-stat-label="Valor total generado / inversión en AgriVision (año)" data-dur="8400"></span>
       <span class="fragment cue" data-scene="stat" data-stat-value="≈33×" data-stat-label="Retorno por cada dólar invertido" data-stat-source="estimación de escritorio — no citar literal" data-dur="1400"></span>
@@ -1190,7 +1205,7 @@
                     <div class="chip" style="display:inline-block; margin-top:8px;">→ Estimados</div>
                   </div>
                 </div>
-                <div class="v9-quote rv" style="--d:4.3s; margin-top:22px;">“Confirma tus pedidos con lo que hay en la cama.”</div>
+                <div class="v9-quote rv" style="--d:4.3s; margin-top:22px;">“Negocia los precios conociendo lo que tienes para ofrecer.”</div>
               </div>
               <div class="v9-panel rv" style="--d:7.0s;">
                 <div style="display:flex; align-items:center; gap:14px;"><svg viewBox="0 0 40 40" width="44" height="44" style="display:block;"><circle cx="20" cy="13" r="7" fill="none" stroke="#f2da6e" stroke-width="2.2"/><path d="M6,36 C6,26 12,22 20,22 C28,22 34,26 34,36" fill="none" stroke="#f2da6e" stroke-width="2.2" stroke-linecap="round"/></svg>
@@ -1249,30 +1264,30 @@
                 <div class="s05-title" style="font-size:20px; margin-top:0;">WhatsApp · red</div>
                 <div class="s05-lab">contactos directos<br>de los fundadores</div>
               </div>
-              <div class="v9-tile rv" style="--d:2.7s;">
+              <div class="v9-tile rv" style="--d:1.6s;">
                 <svg viewBox="0 0 40 40" width="46" height="46"><circle cx="20" cy="16" r="5" fill="#f2da6e"/><ellipse cx="20" cy="8" rx="4" ry="5.5" fill="none" stroke="#f2da6e" stroke-width="2"/><ellipse cx="27.6" cy="13.5" rx="4" ry="5.5" transform="rotate(72 27.6 13.5)" fill="none" stroke="#f2da6e" stroke-width="2"/><ellipse cx="12.4" cy="13.5" rx="4" ry="5.5" transform="rotate(-72 12.4 13.5)" fill="none" stroke="#f2da6e" stroke-width="2"/><path d="M20,22 L20,36" stroke="#6f9c78" stroke-width="2.4" stroke-linecap="round"/></svg>
                 <div class="s05-title" style="font-size:20px; margin-top:0;">Asocolflores</div>
                 <div class="s05-lab">eventos y boletines<br>gremiales</div>
               </div>
-              <div class="v9-tile rv" style="--d:4.0s;">
+              <div class="v9-tile rv" style="--d:2.4s;">
                 <svg viewBox="0 0 40 40" width="46" height="46"><path d="M5,17 L20,6 L35,17 Z" fill="none" stroke="#f2da6e" stroke-width="2.2" stroke-linejoin="round"/><rect x="8" y="17" width="24" height="16" fill="none" stroke="#f2da6e" stroke-width="2.2"/><rect x="15" y="22" width="10" height="11" fill="rgba(242,218,110,0.3)"/></svg>
                 <div class="s05-title" style="font-size:20px; margin-top:0;">Proflora</div>
                 <div class="s05-lab">feria · demo<br>en vivo</div>
               </div>
-              <div class="v9-tile rv" style="--d:5.1s;">
+              <div class="v9-tile rv" style="--d:3.0s;">
                 <svg viewBox="0 0 40 40" width="46" height="46"><rect x="5" y="5" width="30" height="30" rx="6" fill="none" stroke="#f2da6e" stroke-width="2.2"/><rect x="11" y="17" width="4" height="12" fill="#f2da6e"/><circle cx="13" cy="12" r="2.2" fill="#f2da6e"/><path d="M19,29 L19,17 L23,17 L23,19 C24,17.5 25.5,16.7 27.2,16.7 C29.6,16.7 31,18.4 31,21.4 L31,29 L27,29 L27,22.2 C27,20.8 26.3,20.1 25.2,20.1 C24,20.1 23,21 23,22.6 L23,29 Z" fill="#f2da6e"/></svg>
                 <div class="s05-title" style="font-size:20px; margin-top:0;">LinkedIn</div>
                 <div class="s05-lab">casos reales<br>con resultados</div>
               </div>
-              <div class="v9-tile rv" style="--d:5.6s;">
+              <div class="v9-tile rv" style="--d:3.4s;">
                 <svg viewBox="0 0 40 40" width="46" height="46"><circle cx="11" cy="13" r="4.5" fill="none" stroke="#6f9c78" stroke-width="2.2"/><circle cx="29" cy="13" r="4.5" fill="none" stroke="#6f9c78" stroke-width="2.2"/><path d="M4,32 C4,25 7,22 11,22 C15,22 18,25 18,32" fill="none" stroke="#6f9c78" stroke-width="2.2"/><path d="M22,32 C22,25 25,22 29,22 C33,22 36,25 36,32" fill="none" stroke="#6f9c78" stroke-width="2.2"/><path d="M15,13 L25,13 M22,10 L25,13 L22,16" fill="none" stroke="#f2da6e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 <div class="s05-title" style="font-size:20px; margin-top:0;">Referidos</div>
                 <div class="s05-lab">agrónomos<br>“Pionero AgriVision”</div>
               </div>
             </div>
             <div style="display:flex; justify-content:space-between; align-items:center; margin-top:18px;">
-              <div class="s05-val rv" style="--d:6.0s; color:var(--crema);">Sin pauta paga hasta tener 3 clientes con caso documentado</div>
-              <div class="s05-src rv" style="--d:6.2s;">one-page-marketing.md ③ ⑨</div>
+              <div class="s05-val rv" style="--d:3.8s; color:var(--crema);">Sin pauta paga hasta tener 3 clientes con caso documentado</div>
+              <div class="s05-src rv" style="--d:4.0s;">one-page-marketing.md ③ ⑨</div>
             </div>
           </div>
         </div>
@@ -1299,7 +1314,9 @@
       <span class="fragment cue" data-scene="sam" data-dur="12100"></span>
       <span class="fragment cue" data-scene="buyers" data-dur="15500"></span>
       <span class="fragment cue" data-scene="diag" data-dur="8300"></span>
-      <span class="fragment cue" data-scene="channels" data-dur="6700"></span>
+      <!-- Recorte 1: "Lo movemos por WhatsApp, Asocolflores y Proflora." (sin "y nuestra red" ni "LinkedIn"); los íconos
+           de LinkedIn y Referidos siguen en pantalla. Cue −2,0 s; el audio de ensayo ya no coincide desde aquí. -->
+      <span class="fragment cue" data-scene="channels" data-dur="4700"></span>
       <span class="fragment cue" data-scene="calendar" data-dur="9400"></span>
     </section>
 
@@ -1311,24 +1328,24 @@
       <div class="kicker">S07 · Plan comercial</div>
 
       <div class="scene-stage">
-        <!-- 1 · Embudo: nunca la finca completa el primer día -->
+        <!-- 1 · Embudo: generalmente empezamos con un bloque -->
         <div class="scene-layer layer-funnel s05-scene">
           <div class="s05-card" style="width:1060px;">
             <div class="s05-kick">Cómo se vende · bloque a bloque</div>
-            <div class="s05-title">Nunca la finca completa el primer día</div>
+            <div class="s05-title">Empezamos con un bloque</div>
             <div style="display:flex; gap:6px; margin-top:26px;">
               <div class="v9-step rv" style="--d:0.4s;"><div class="v9-step-n">01</div><div class="v9-step-t">Diagnóstico<br>gratuito</div></div>
-              <div class="v9-step hi rv" style="--d:4.0s;">
+              <div class="v9-step hi rv" style="--d:2.2s;">
                 <div class="v9-step-n">02</div><div class="v9-step-t">Bloque piloto</div>
                 <div style="display:flex; align-items:center; gap:8px;">
                   <div style="display:grid; grid-template-columns:repeat(5,12px); gap:3px;"><div class="blk est" style="width:12px;height:12px;"></div><div class="blk est" style="width:12px;height:12px;"></div><div class="blk" style="width:12px;height:12px;"></div><div class="blk" style="width:12px;height:12px;"></div><div class="blk" style="width:12px;height:12px;"></div><div class="blk" style="width:12px;height:12px;"></div><div class="blk" style="width:12px;height:12px;"></div><div class="blk" style="width:12px;height:12px;"></div><div class="blk" style="width:12px;height:12px;"></div><div class="blk" style="width:12px;height:12px;"></div></div>
                   <span class="s05-val">20%</span>
                 </div>
               </div>
-              <div class="v9-step rv" style="--d:5.9s;"><div class="v9-step-n">03</div><div class="v9-step-t">Contrato<br>donde más duele</div></div>
-              <div class="v9-step rv" style="--d:9.1s;"><div class="v9-step-n">04</div><div class="v9-step-t">Expansión<br>bloque a bloque</div></div>
+              <div class="v9-step rv" style="--d:4.1s;"><div class="v9-step-n">03</div><div class="v9-step-t">Contrato<br>donde más duele</div></div>
+              <div class="v9-step rv" style="--d:7.3s;"><div class="v9-step-n">04</div><div class="v9-step-t">Expansión<br>bloque a bloque</div></div>
             </div>
-            <div class="rv" style="--d:12.1s; margin-top:24px; display:flex; align-items:center; gap:18px; padding:16px 22px; border-radius:14px; border:1.5px dashed rgba(242,218,110,0.5);">
+            <div class="rv" style="--d:10.3s; margin-top:24px; display:flex; align-items:center; gap:18px; padding:16px 22px; border-radius:14px; border:1.5px dashed rgba(242,218,110,0.5);">
               <div class="s05-big" style="font-size:40px;">&lt; 25%</div>
               <div>
                 <div class="s05-val" style="color:var(--crema);">Cada bloque nuevo se gana con un número</div>
@@ -1492,7 +1509,7 @@
       <!-- Calibrado al audio de ensayo v9 (53,5 s): "nunca la finca completa" 3,1 · "y al segundo año" 18,5 ·
            "Desde octubre" 30,3 · "El primer trimestre" 38,3 — cada cue ~0,3 s antes. -->
       <span class="fragment cue" data-dur="2100"></span>
-      <span class="fragment cue" data-scene="funnel" data-dur="15400"></span>
+      <span class="fragment cue" data-scene="funnel" data-dur="13600"></span>
       <span class="fragment cue" data-scene="expand" data-dur="11800"></span>
       <span class="fragment cue" data-scene="traction" data-dur="8000"></span>
       <span class="fragment cue" data-scene="roadmap" data-dur="16700"></span>
@@ -1642,6 +1659,27 @@
             </div>
           </div>
         </div>
+        <div class="scene-layer layer-promise">
+          <div class="rose-scene">
+            <div class="hearts-wrap" id="s08-hearts"></div>
+            <svg class="rose-svg" viewBox="0 0 220 260" width="260" height="307">
+              <path d="M110,255 C106,190 114,140 110,95" fill="none" stroke="#1b4422" stroke-width="6" stroke-linecap="round"/>
+              <path d="M110,192 C90,184 78,170 72,152 C93,157 106,167 110,192 Z" fill="#1b4422"/>
+              <path d="M110,148 C130,140 142,126 148,108 C128,113 114,123 110,148 Z" fill="#1b4422"/>
+              <g>
+                <ellipse cx="110" cy="78" rx="58" ry="20" fill="#a81f34"/>
+                <ellipse cx="110" cy="78" rx="20" ry="58" fill="#c62840"/>
+                <ellipse cx="110" cy="78" rx="44" ry="24" fill="#a81f34" transform="rotate(45 110 78)"/>
+                <ellipse cx="110" cy="78" rx="44" ry="24" fill="#c62840" transform="rotate(-45 110 78)"/>
+                <ellipse cx="110" cy="78" rx="34" ry="15" fill="#a81f34" transform="rotate(20 110 78)"/>
+                <ellipse cx="110" cy="78" rx="34" ry="15" fill="#c62840" transform="rotate(-20 110 78)"/>
+                <ellipse cx="110" cy="78" rx="15" ry="34" fill="#8c1a2b"/>
+                <circle cx="110" cy="78" r="15" fill="#6e1220"/>
+              </g>
+            </svg>
+            <div class="cap-promise">14 de febrero · a tiempo</div>
+          </div>
+        </div>
       </div>
 
       <!-- Calibrado al audio de ensayo v9 (44,9 s): geografía con la pregunta de Catalina 0,6 · "la misma cámara" 3,5 ·
@@ -1652,7 +1690,9 @@
       <span class="fragment cue" data-scene="crops" data-dur="9200"></span>
       <span class="fragment cue" data-scene="global" data-dur="4600"></span>
       <span class="fragment cue" data-scene="ratio" data-dur="4800"></span>
-      <span class="fragment cue" data-scene="share" data-dur="16500"></span>
+      <span class="fragment cue" data-scene="share" data-dur="15300"></span>
+      <!-- Cierre de Catalina ("…San Valentín llega a tiempo y con una flor divina") — ESTIMADO por palabras. -->
+      <span class="fragment cue" data-scene="promise" data-dur="10400"></span>
     </section>
 
 
@@ -1770,6 +1810,7 @@ function buildHearts(id, count) {
   }
 }
 buildHearts('s02-hearts', 16);
+buildHearts('s08-hearts', 16);
 
 /* ── Marca de agua: hoja AgriVision — boceto (outline) que se dibuja y se colorea ──
    Reutiliza la geometría real del isotipo (mismos paths que S00/S01/S06/S03-final). */
@@ -2270,16 +2311,15 @@ function runS04Step(step) {
   }
   if (step === 's04-compete') {
     /* Timeline (no tweens sueltos con delay) para que se mate al cambiar de slide.
-       Tiempos desde el cue (audio de ensayo v9): "digitó" +4,6 s; "tomate y pepino"
-       +7,1 s; "Nosotros contamos" +8,5 s — cada uno ~0,3 s antes. */
+       Tiempos ESTIMADOS desde el cue: "Los demás ven la flor enferma" +4,1 s;
+       "Nosotros, la que se va a enfermar" +7,1 s — recalibrar al regrabar el ensayo. */
     var ct = gsap.timeline();
     LOOP_TLS.push(ct);
     ct.to([sq('s04esqh'), sq('s04esq')], { opacity:0, y:-16, stagger:0.05, duration:0.35, ease:'power2.in', overwrite:true }, 0)
       .to(sq('s04comph'), { opacity:1, y:0, duration:0.5, ease:'power2.out' }, 0.4)
       .to(sq('s04comp'),  { opacity:1, y:0, duration:0.6, ease:'power2.out' }, 0.55)
-      .to(['#comp-2','#comp-3'], { opacity:1, duration:0.4, stagger:0.25 }, 4.3)
-      .to(['#comp-0','#comp-1'], { opacity:1, duration:0.4, stagger:0.25 }, 6.8)
-      .fromTo('#comp-av', { opacity:0, scale:0.6, transformOrigin:'50% 50%' }, { opacity:1, scale:1, duration:0.6, ease:'back.out(1.8)' }, 8.2);
+      .to(['#comp-0','#comp-1','#comp-2','#comp-3'], { opacity:1, duration:0.4, stagger:0.25 }, 4.1)
+      .fromTo('#comp-av', { opacity:0, scale:0.6, transformOrigin:'50% 50%' }, { opacity:1, scale:1, duration:0.6, ease:'back.out(1.8)' }, 7.1);
   }
 }
 
