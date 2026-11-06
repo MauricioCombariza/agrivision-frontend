@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AgriVision — Pitch v9 · Ensayo con audio</title>
+  <title>AgriVision — Pitch v9 · Diálogo Catalina + Mauricio</title>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css" />
@@ -2429,7 +2429,7 @@ var AUTOPLAY  = true;
    su audio de ensayo (si el <audio> ya tiene src). Los `data-dur` de v9 son ESTIMADOS
    (pitch_v9.md); se recalibran con esos audios, cada cue ~0,3 s antes de la palabra clave.
    Un solo archivo sirve para presentar en vivo o para ensayar con audio. */
-var ENSAYO    = true; /* pitch_v9_ensayo.html: siempre en modo ensayo */
+var ENSAYO    = /[?&]ensayo=1\b/.test(location.search);
 var ENSAYO_AUDIO = { 2:'s02-audio', 4:'s04-audio', 5:'s05-audio', 6:'s06-audio', 7:'s07-audio', 8:'s08-audio' };
 /* S03 (Mauricio, quién soy) suena siempre — en vivo y en ensayo — como S01. */
 var SLIDE_AUDIO  = { 3:'s03-audio' };
