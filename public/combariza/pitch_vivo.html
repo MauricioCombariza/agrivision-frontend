@@ -53,6 +53,24 @@
     #timer-total.on   { opacity: 0.6; }
     #timer-total.warn { color: var(--rojo); opacity: 0.85; }
 
+    /* ── Pantalla de inicio: el gesto (clic / Enter / espacio / →) desbloquea el audio ── */
+    #start-screen {
+      position: fixed; inset: 0; z-index: 99999; background: var(--bg-claro);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px;
+      transition: opacity .6s ease; cursor: pointer;
+    }
+    #start-screen.oculto { opacity: 0; pointer-events: none; }
+    #start-screen .ss-kick { font-family: 'DM Mono', monospace; font-size: 13px; letter-spacing: .28em; text-transform: uppercase; color: var(--verde-acc); }
+    #start-screen .ss-title { font-family: 'Sansation', sans-serif; font-weight: 700; font-size: 64px; color: var(--ink); line-height: 1; }
+    #start-btn {
+      margin-top: 22px; padding: 16px 44px; border: none; border-radius: 999px; cursor: pointer;
+      background: var(--verde-acc); color: var(--crema);
+      font-family: 'DM Mono', monospace; font-size: 15px; letter-spacing: .22em; text-transform: uppercase;
+      transition: transform .2s ease, background .2s ease;
+    }
+    #start-btn:hover, #start-btn:focus-visible { background: var(--verde-mid); transform: scale(1.04); outline: none; }
+    #start-screen .ss-hint { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .14em; color: var(--ink-mute); }
+
     .reveal-viewport       { background: var(--bg-claro); }
     .reveal                { font-family: 'Inter', sans-serif; color: var(--crema); font-size: 28px; }
     .reveal .slides section {
@@ -382,6 +400,15 @@
   </style>
 </head>
 <body>
+
+<!-- Pantalla de inicio — los navegadores bloquean el audio hasta un gesto del usuario:
+     este clic (o Enter / espacio / → del control) lo desbloquea y arranca el pitch con sonido. -->
+<div id="start-screen" role="button" aria-label="Comenzar el pitch">
+  <div class="ss-kick">AgriVision · Pitch</div>
+  <div class="ss-title">La planta habla.</div>
+  <button id="start-btn" type="button">▶&nbsp;&nbsp;Comenzar</button>
+  <div class="ss-hint">clic · Enter · espacio · →</div>
+</div>
 
 <div id="prog-bar"></div>
 <div id="auto-ind">AUTO ▶</div>
@@ -2543,11 +2570,20 @@ Object.keys(AUDIO_SLIDE).forEach(function(aid) {
   });
 });
 
-Reveal.on('ready', function() {
-  resetAll();
-  TL[0] = buildTL0();
-  TL[1] = buildTL1();
-  TL[9] = buildTL9();
+/* Arranque: el pitch espera el gesto de "Comenzar". En ese mismo gesto se desbloquean
+   todos los <audio> (play silenciado + pausa), así S01, S03 y los audios de ensayo suenan
+   solos cuando llega su slide, sin pedir otro clic. */
+var PITCH_READY = false, PITCH_STARTED = false;
+function unlockAudios() {
+  document.querySelectorAll('audio').forEach(function(a) {
+    if (!a.getAttribute('src')) return;
+    a.muted = true;
+    var p = a.play();
+    var done = function() { a.pause(); a.currentTime = 0; a.muted = false; };
+    if (p && p.then) { p.then(done).catch(function() { a.muted = false; }); } else { done(); }
+  });
+}
+function runIntro() {
   setTimeout(function() {
     TL[0].play();
     if (AUTOPLAY) {
@@ -2557,6 +2593,30 @@ Reveal.on('ready', function() {
       scheduleNextAdvance();
     }
   }, 650);
+}
+function startPitch() {
+  if (PITCH_STARTED) return;
+  PITCH_STARTED = true;
+  unlockAudios();
+  var ss = document.getElementById('start-screen');
+  if (ss) { ss.classList.add('oculto'); setTimeout(function() { ss.remove(); }, 650); }
+  if (PITCH_READY) runIntro();
+}
+document.getElementById('start-screen').addEventListener('click', startPitch);
+window.addEventListener('keydown', function(e) {
+  if (PITCH_STARTED) return;
+  /* Antes de comenzar, ninguna tecla mueve las slides; las de avance arrancan el pitch. */
+  e.preventDefault(); e.stopImmediatePropagation();
+  if (['Enter', ' ', 'ArrowRight', 'PageDown', 'n', 'N'].indexOf(e.key) !== -1) startPitch();
+}, true);
+
+Reveal.on('ready', function() {
+  resetAll();
+  TL[0] = buildTL0();
+  TL[1] = buildTL1();
+  TL[9] = buildTL9();
+  PITCH_READY = true;
+  if (PITCH_STARTED) runIntro();
 });
 
 Reveal.on('slidechanged', function(e) {
