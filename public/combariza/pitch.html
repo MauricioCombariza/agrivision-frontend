@@ -415,17 +415,17 @@
 
 
     <audio id="s01-audio" src="https://res.cloudinary.com/combariza/video/upload/v1793115572/S01_La_Planta_habla.m4a" preload="auto"></audio>
-    <audio id="s03-audio" src="https://res.cloudinary.com/combariza/video/upload/v1784921933/Pitch_ceis_2026/mauro.m4a" preload="auto"></audio>
+    <audio id="s03-audio" src="https://res.cloudinary.com/combariza/video/upload/v1794084794/Pitch_ceis_2026/mauro.m4a" preload="auto"></audio>
     <!-- S01 (apertura) y S03 (Mauricio, mauro.m4a) llevan audio pre-grabado y suenan siempre.
          S02 y S04–S08 son diálogo en vivo entre Catalina y Mauricio. Con ?ensayo=1 en la URL
          además suenan sus audios de ensayo: pegar en cada <audio> el src de la grabación de v9.
          (Sin src, la slide avanza en silencio con los `data-dur` estimados de pitch_v9.md.) -->
-    <audio id="s02-audio" src="https://res.cloudinary.com/combariza/video/upload/v1791566577/S02_San%20Valentin.m4a" preload="auto"></audio>
-    <audio id="s04-audio" src="https://res.cloudinary.com/combariza/video/upload/v1791567389/S04_Propuesta_de_valor.m4a" preload="auto"></audio>
-    <audio id="s05-audio" src="https://res.cloudinary.com/combariza/video/upload/v1791567797/S05_Modelo_de_negocio.m4a" preload="auto"></audio>
-    <audio id="s06-audio" src="https://res.cloudinary.com/combariza/video/upload/v1791568187/S06_Plan_de_marketing.m4a" preload="auto"></audio>
-    <audio id="s07-audio" src="https://res.cloudinary.com/combariza/video/upload/v1791569947/S07_Plan_comercial.m4a" preload="auto"></audio>
-    <audio id="s08-audio" src="https://res.cloudinary.com/combariza/video/upload/v1791570195/S08_Escalabilidad.m4a" preload="auto"></audio>
+    <audio id="s02-audio" src="https://res.cloudinary.com/combariza/video/upload/v1794083458/S02_Problema.m4a" preload="auto"></audio>
+    <audio id="s04-audio" src="https://res.cloudinary.com/combariza/video/upload/v1794083596/S04_Propuesta_de_valor.m4a" preload="auto"></audio>
+    <audio id="s05-audio" src="https://res.cloudinary.com/combariza/video/upload/v1794083726/S05_Modelo_de_negocio.m4a" preload="auto"></audio>
+    <audio id="s06-audio" src="https://res.cloudinary.com/combariza/video/upload/v1794083785/S06_Plan_de_marketing.m4a" preload="auto"></audio>
+    <audio id="s07-audio" src="https://res.cloudinary.com/combariza/video/upload/v1794083833/S07_Plan_comercial.m4a" preload="auto"></audio>
+    <audio id="s08-audio" src="https://res.cloudinary.com/combariza/video/upload/v1794083883/S08_Escalabilidad.m4a" preload="auto"></audio>
 
 
     <!-- ═══════════════════════════ S01 · A — APERTURA ═══════════════════════ -->
@@ -647,26 +647,26 @@
         </div>
       </div>
 
-      <!-- Cada cue avanza con espacio/→. Calibrado al audio de ensayo v9 (58,8 s, transcrito por palabra):
+      <!-- Cada cue avanza con espacio/→. Calibrado a S02_Problema.m4a (74,3 s, transcrito por palabra): "Atrasada" 3,7 ·
+           "llena de botritis" 7,9 · "Tres días tarde" 9,6 · "diez años" 15,0 · "20%" 19,4 · "40%" 23,6 · "Espera" 33,1 · "En 2025" 36,3 ·
+           "2.400" 38,5 · "7%" 42,7 · "5%" 44,9 · "Casi 300" 46,6 · "Vemos la botritis" 55,8 · "Los videos" 59,0 · "Finalmente" 68,4 —
            cada cifra ~0,3 s antes de su palabra; la slide termina 1,2 s después del audio. -->
-      <span class="fragment cue" data-scene="valentine" data-dur="2200"></span>
-      <span class="fragment cue" data-scene="valentine" data-stat-value="17 FEB" data-stat-label="Fecha de entrega (3 días después de San Valentín)" data-dur="4700"></span>
-      <span class="fragment cue" data-scene="botrytis" data-dur="1900"></span>
-      <span class="fragment cue" data-scene="botrytis" data-stat-value="TARDE" data-stat-label="Botrytis visible a simple vista — cuando ya es tarde" data-dur="5200"></span>
-      <span class="fragment cue" data-scene="stat" data-stat-value="10" data-stat-label="Años en invernaderos, Sabana Norte" data-dur="4500"></span>
-      <span class="fragment cue" data-scene="stat" data-stat-value="20%" data-stat-label="Error de estimado de producción" data-stat-source="valor-error-estimados-produccion.md" data-dur="4500"></span>
-      <span class="fragment cue" data-scene="stat" data-stat-value="~40%" data-stat-label="Del fungicida se aplica a ciegas" data-stat-source="enfoques_ventas_deteccion_botritys.md" data-dur="9000"></span>
-      <span class="fragment cue" data-dur="2000"></span>
-      <!-- Ajuste S02 (valor agregado + ventajas, diálogo final del Word): desde aquí los tiempos son ESTIMADOS por palabras
-           (0,44 s/palabra del ensayo v9) — recalibrar al regrabar el audio de ensayo. -->
-      <span class="fragment cue" data-scene="stat" data-dur="4500"></span>
-      <span class="fragment cue" data-scene="stat" data-stat-value="USD 2.400M" data-stat-label="Ventas de flores de Colombia · 2025" data-stat-source="Procolombia / Corficolombiana 2025" data-dur="3500"></span>
-      <span class="fragment cue" data-scene="stat" data-stat-value="7%" data-stat-label="Valor que agrega Estimados · ≈ USD 170M / año" data-stat-source="supuesto del fundador · estimación de escritorio" data-dur="3100"></span>
-      <span class="fragment cue" data-scene="stat" data-stat-value="5%" data-stat-label="Valor que agrega Botrytis · ≈ USD 120M / año" data-stat-source="supuesto del fundador · estimación de escritorio" data-dur="2200"></span>
-      <span class="fragment cue" data-scene="stat" data-stat-value="USD ~290M / año" data-stat-label="Valor que AgriVision devuelve al sector" data-stat-source="7% + 5% de las ventas 2025 · estimación de escritorio, no cifra oficial" data-dur="6200"></span>
-      <span class="fragment cue" data-scene="stat" data-stat-value="Presintomático" data-stat-label="Vemos la botritys antes del síntoma · los demás ven lo que ya se ve" data-stat-source="benchmark global v2.0 · GHT Corp, Lima Labs, Corvus" data-dur="4200"></span>
-      <span class="fragment cue" data-scene="stat" data-stat-value="Muestreo ×10" data-stat-label="El video cuenta mejor los estados fenológicos · mejores estimados" data-stat-source="supuesto del fundador" data-dur="9200"></span>
-      <span class="fragment cue" data-scene="stat" data-stat-value="Algoritmos por región" data-stat-label="Entrenados con la luz y las variedades de cada región" data-stat-source="supuesto del fundador" data-dur="7800"></span>
+      <span class="fragment cue" data-scene="valentine" data-dur="2700"></span>
+      <span class="fragment cue" data-scene="valentine" data-stat-value="17 FEB" data-stat-label="Fecha de entrega (3 días después de San Valentín)" data-dur="4200"></span>
+      <span class="fragment cue" data-scene="botrytis" data-dur="1700"></span>
+      <span class="fragment cue" data-scene="botrytis" data-stat-value="TARDE" data-stat-label="Botrytis visible a simple vista — cuando ya es tarde" data-dur="5400"></span>
+      <span class="fragment cue" data-scene="stat" data-stat-value="10" data-stat-label="Años en invernaderos, Sabana Norte" data-dur="4400"></span>
+      <span class="fragment cue" data-scene="stat" data-stat-value="20%" data-stat-label="Error de estimado de producción" data-stat-source="valor-error-estimados-produccion.md" data-dur="4200"></span>
+      <span class="fragment cue" data-scene="stat" data-stat-value="~40%" data-stat-label="Del fungicida se aplica a ciegas" data-stat-source="enfoques_ventas_deteccion_botritys.md" data-dur="9500"></span>
+      <span class="fragment cue" data-dur="3200"></span>
+      <span class="fragment cue" data-scene="stat" data-dur="2200"></span>
+      <span class="fragment cue" data-scene="stat" data-stat-value="USD 2.400M" data-stat-label="Ventas de flores de Colombia · 2025" data-stat-source="Procolombia / Corficolombiana 2025" data-dur="4200"></span>
+      <span class="fragment cue" data-scene="stat" data-stat-value="7%" data-stat-label="Valor que agrega Estimados · ≈ USD 170M / año" data-stat-source="supuesto del fundador · estimación de escritorio" data-dur="2200"></span>
+      <span class="fragment cue" data-scene="stat" data-stat-value="5%" data-stat-label="Valor que agrega Botrytis · ≈ USD 120M / año" data-stat-source="supuesto del fundador · estimación de escritorio" data-dur="1700"></span>
+      <span class="fragment cue" data-scene="stat" data-stat-value="USD ~290M / año" data-stat-label="Valor que AgriVision devuelve al sector" data-stat-source="7% + 5% de las ventas 2025 · estimación de escritorio, no cifra oficial" data-dur="9200"></span>
+      <span class="fragment cue" data-scene="stat" data-stat-value="Presintomático" data-stat-label="Vemos la botritys antes del síntoma · los demás ven lo que ya se ve" data-stat-source="benchmark global v2.0 · GHT Corp, Lima Labs, Corvus" data-dur="3200"></span>
+      <span class="fragment cue" data-scene="stat" data-stat-value="Muestreo ×10" data-stat-label="El video cuenta mejor los estados fenológicos · mejores estimados" data-stat-source="supuesto del fundador" data-dur="9400"></span>
+      <span class="fragment cue" data-scene="stat" data-stat-value="Algoritmos por región" data-stat-label="Entrenados con la luz y las variedades de cada región" data-stat-source="supuesto del fundador" data-dur="7400"></span>
     </section>
 
 
@@ -820,12 +820,12 @@
         </div>
       </div>
 
-      <!-- Sincronizado a mauro.m4a (17,3 s): muñeco desde "Soy Mauricio" → hoja en "la planta hablaba"
-           → logo en "era el traductor" → 2026 en "Decidí hacerlo" → 1 s de silencio. -->
-      <span class="fragment cue" data-scene="muneco" data-step="play" data-dur="10200"></span>
-      <span class="fragment cue" data-scene="sketch" data-step="draw-fill" data-dur="3800"></span>
-      <span class="fragment cue" data-scene="final" data-step="reveal" data-dur="1300"></span>
-      <span class="fragment cue" data-scene="final" data-stat-value="2026" data-stat-label="Nace AgriVision" data-dur="3300"></span>
+      <!-- Sincronizado a mauro.m4a v1794084794 (18,6 s): muñeco desde "Soy Mauricio" 1,2 → hoja en "la planta hablaba" 11,3
+           → logo en "era el traductor" 15,7 → 2026 en "Decidí serlo" 17,5 → ~1,5 s de silencio. -->
+      <span class="fragment cue" data-scene="muneco" data-step="play" data-dur="10300"></span>
+      <span class="fragment cue" data-scene="sketch" data-step="draw-fill" data-dur="4400"></span>
+      <span class="fragment cue" data-scene="final" data-step="reveal" data-dur="1800"></span>
+      <span class="fragment cue" data-scene="final" data-stat-value="2026" data-stat-label="Nace AgriVision" data-dur="3000"></span>
     </section>
 
 
@@ -1068,16 +1068,15 @@
         </div>
       </div>
 
-      <!-- Calibrado al audio de ensayo v9 (53,7 s): "Con un video" 4,6 · "detecta" 7,2 · "predice" 13,2 ·
-           "Y la Botritis" 23,5 · "cámara" 29,3 · cierre callback 39,0 — cada cue ~0,3 s antes.
-           El cierre ("Eso es lo que me dijiste que nadie más hace…") es ESTIMADO por palabras: recalibrar al regrabar. -->
-      <span class="fragment cue" data-step="s04-fase1-intro" data-dur="3600"></span>
-      <span class="fragment cue" data-dur="2600"></span>
-      <span class="fragment cue" data-step="s04-detect" data-dur="6000"></span>
-      <span class="fragment cue" data-step="s04-gauss" data-dur="10300"></span>
+      <!-- Calibrado a S04_Propuesta_de_valor.m4a (51,4 s): "Con un video" 5,9 · "detecta" 8,6 · "predice" 14,8 ·
+           "Y la botritis" 25,9 · "cámara" 31,7 · cierre "¿Es lo que me dijiste…?" 42,8 — cada cue ~0,3 s antes. -->
+      <span class="fragment cue" data-step="s04-fase1-intro" data-dur="4900"></span>
+      <span class="fragment cue" data-dur="2700"></span>
+      <span class="fragment cue" data-step="s04-detect" data-dur="6200"></span>
+      <span class="fragment cue" data-step="s04-gauss" data-dur="11100"></span>
       <span class="fragment cue" data-step="s04-fase2-intro" data-dur="5800"></span>
-      <span class="fragment cue" data-step="s04-fase2-scan" data-dur="9700"></span>
-      <span class="fragment cue" data-step="s04-compete" data-dur="12800"></span>
+      <span class="fragment cue" data-step="s04-fase2-scan" data-dur="11100"></span>
+      <span class="fragment cue" data-step="s04-compete" data-dur="10100"></span>
     </section>
 
 
@@ -1108,15 +1107,15 @@
                 <div class="s05-big" style="font-size:76px; margin-top:12px;">USD 40</div>
                 <div class="s05-lab" style="margin-top:8px;">por hectárea · al mes</div>
               </div>
-              <div class="v9-panel rv" style="--d:4.7s;">
+              <div class="v9-panel rv" style="--d:4.5s;">
                 <div class="s05-lab" style="color:#cfe3d3;">Detección de Botrytis</div>
                 <div class="s05-big" style="font-size:76px; margin-top:12px;">USD 45</div>
                 <div class="s05-lab" style="margin-top:8px;">por hectárea · al mes</div>
               </div>
             </div>
             <div style="display:flex; justify-content:space-between; align-items:center; margin-top:22px;">
-              <div class="s05-val rv" style="--d:6.4s; font-size:18px; color:var(--crema);">Ambos servicios al 100% · USD 1.020 / ha·año</div>
-              <div class="s05-src rv" style="--d:6.6s;">precio v8 · market-tam-sam-som.md §2.1</div>
+              <div class="s05-val rv" style="--d:6.2s; font-size:18px; color:var(--crema);">Ambos servicios al 100% · USD 1.020 / ha·año</div>
+              <div class="s05-src rv" style="--d:6.4s;">precio v8 · market-tam-sam-som.md §2.1</div>
             </div>
           </div>
         </div>
@@ -1152,18 +1151,17 @@
         </div>
       </div>
 
-      <!-- Calibrado al audio de ensayo v9 (46,0 s): "Cobramos" 6,1 · "180" 14,7 · "4 millones" 17,8 · "2 millones" 21,7 ·
-           "6 millones" 24,4 · "33" 32,8 · "¿Y para nosotros?" 34,2 · "Como el costo" 36,0 — cada cue ~0,3 s antes.
-           Recorte 2: se quitó "Tomemos una finca de ciento ochenta hectáreas." (~2,9 s) y el cue "180"; la finca de 180 ha
-           pasa a la etiqueta de $3,96M. Desde aquí el audio de ensayo va ~2,9 s adelantado: regrabar. -->
-      <span class="fragment cue" data-dur="5100"></span>
-      <span class="fragment cue" data-scene="price" data-dur="8800"></span>
-      <span class="fragment cue" data-scene="stat" data-stat-value="$3,96M" data-stat-label="Valor / año — Estimados de Cosecha · finca de 180 ha" data-stat-source="precios-y-valor-agregado-100ha.md" data-dur="3900"></span>
-      <span class="fragment cue" data-scene="stat" data-stat-value="$2,16M" data-stat-label="Valor / año — Botrytis" data-stat-source="precios-y-valor-agregado-100ha.md" data-dur="2700"></span>
-      <span class="fragment cue" data-scene="stat" data-stat-value="$6,12M / $183,6K" data-stat-label="Valor total generado / inversión en AgriVision (año)" data-dur="8400"></span>
+      <!-- Calibrado a S05_Modelo_de_negocio.m4a (44,1 s): "Cobramos" 8,5 (USD 40 en 11,3 · USD 45 en 13,0) ·
+           "4 millones" 18,7 · "2 millones" 21,8 · "6 millones" 24,2 · "33" 31,2 · "¿Y para nosotros?" 32,6 ·
+           "Como el costo" 35,4 ("finca madura" 39,9 · "60%" 42,0) — cada cue ~0,3 s antes. -->
+      <span class="fragment cue" data-dur="7500"></span>
+      <span class="fragment cue" data-scene="price" data-dur="10200"></span>
+      <span class="fragment cue" data-scene="stat" data-stat-value="$3,96M" data-stat-label="Valor / año — Estimados de Cosecha · finca de 180 ha" data-stat-source="precios-y-valor-agregado-100ha.md" data-dur="3100"></span>
+      <span class="fragment cue" data-scene="stat" data-stat-value="$2,16M" data-stat-label="Valor / año — Botrytis" data-stat-source="precios-y-valor-agregado-100ha.md" data-dur="2400"></span>
+      <span class="fragment cue" data-scene="stat" data-stat-value="$6,12M / $183,6K" data-stat-label="Valor total generado / inversión en AgriVision (año)" data-dur="7000"></span>
       <span class="fragment cue" data-scene="stat" data-stat-value="≈33×" data-stat-label="Retorno por cada dólar invertido" data-stat-source="estimación de escritorio — no citar literal" data-dur="1400"></span>
-      <span class="fragment cue" data-dur="1800"></span>
-      <span class="fragment cue" data-scene="margin" data-dur="11500"></span>
+      <span class="fragment cue" data-dur="2800"></span>
+      <span class="fragment cue" data-scene="margin" data-dur="10200"></span>
     </section>
 
 
@@ -1182,13 +1180,13 @@
             </div>
             <div style="flex:1;">
               <div class="s05-kick">Mercado objetivo · Colombia</div>
-              <div class="s05-big rv" style="--d:1.8s; font-size:72px; margin-top:12px;">~70</div>
-              <div class="s05-lab rv" style="--d:2.0s;">empresas floricultoras</div>
-              <div class="s05-val rv" style="--d:3.7s; font-size:18px; margin-top:16px; color:var(--crema);">fincas &gt; 50 ha · ~6.200 ha</div>
-              <div class="s05-lab rv" style="--d:5.0s; margin-top:6px;">Sabana de Bogotá · Oriente antioqueño</div>
-              <div class="s05-big rv" style="--d:8.5s; font-size:52px; margin-top:24px;">USD 6,3M<span style="font-size:0.5em;"> / año</span></div>
-              <div class="s05-lab rv" style="--d:8.7s;">mercado alcanzable (SAM) · solo Colombia</div>
-              <div class="s05-src rv" style="--d:8.9s; margin-top:8px;">6.200 ha × USD 1.020 · market-tam-sam-som.md §3.1 · distribución por tamaño: estimación propia</div>
+              <div class="s05-big rv" style="--d:1.2s; font-size:72px; margin-top:12px;">~70</div>
+              <div class="s05-lab rv" style="--d:1.4s;">empresas floricultoras</div>
+              <div class="s05-val rv" style="--d:2.8s; font-size:18px; margin-top:16px; color:var(--crema);">fincas &gt; 50 ha · ~6.200 ha</div>
+              <div class="s05-lab rv" style="--d:4.5s; margin-top:6px;">Sabana de Bogotá · Oriente antioqueño</div>
+              <div class="s05-big rv" style="--d:7.7s; font-size:52px; margin-top:24px;">USD 6,3M<span style="font-size:0.5em;"> / año</span></div>
+              <div class="s05-lab rv" style="--d:7.9s;">mercado alcanzable (SAM) · solo Colombia</div>
+              <div class="s05-src rv" style="--d:8.1s; margin-top:8px;">6.200 ha × USD 1.020 · market-tam-sam-som.md §3.1 · distribución por tamaño: estimación propia</div>
             </div>
           </div>
         </div>
@@ -1205,19 +1203,19 @@
                     <div class="chip" style="display:inline-block; margin-top:8px;">→ Estimados</div>
                   </div>
                 </div>
-                <div class="v9-quote rv" style="--d:4.3s; margin-top:22px;">“Negocia los precios conociendo lo que tienes para ofrecer.”</div>
+                <div class="v9-quote rv" style="--d:5.3s; margin-top:22px;">“Negocia los precios conociendo lo que tienes para ofrecer.”</div>
               </div>
-              <div class="v9-panel rv" style="--d:7.0s;">
+              <div class="v9-panel rv" style="--d:8.0s;">
                 <div style="display:flex; align-items:center; gap:14px;"><svg viewBox="0 0 40 40" width="44" height="44" style="display:block;"><circle cx="20" cy="13" r="7" fill="none" stroke="#f2da6e" stroke-width="2.2"/><path d="M6,36 C6,26 12,22 20,22 C28,22 34,26 34,36" fill="none" stroke="#f2da6e" stroke-width="2.2" stroke-linecap="round"/></svg>
                   <div>
                     <div class="s05-title" style="font-size:24px; margin-top:0;">Jefe de Sanidad</div>
                     <div class="chip dis" style="display:inline-block; margin-top:8px;">→ Botrytis</div>
                   </div>
                 </div>
-                <div class="v9-quote rv" style="--d:8.8s; margin-top:22px;">“Ve el foco antes y fumiga solo donde está.”</div>
+                <div class="v9-quote rv" style="--d:9.3s; margin-top:22px;">“Ve el foco antes y fumiga solo donde está.”</div>
               </div>
             </div>
-            <div class="s05-src rv" style="--d:9.6s; margin-top:16px;">market-tam-sam-som.md §5.1 · buyer_persona.md</div>
+            <div class="s05-src rv" style="--d:10.1s; margin-top:16px;">market-tam-sam-som.md §5.1 · buyer_persona.md</div>
           </div>
         </div>
 
@@ -1234,10 +1232,10 @@
               <div style="padding:20px 26px 24px;">
                 <div style="font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.2em; color:var(--verde-acc); text-transform:uppercase;">Diagnóstico gratuito</div>
                 <div style="font-family:'Sansation',sans-serif; font-size:26px; color:var(--ink); margin-top:4px; margin-bottom:8px;">¿Cuánto vale AgriVision para tu finca?</div>
-                <div class="v9-field rv" style="--d:2.9s;"><span class="v9-field-l">Hectáreas en producción</span><span class="v9-field-v">75</span></div>
-                <div class="v9-field rv" style="--d:3.4s;"><span class="v9-field-l">¿Qué parte de tus ventas se pierde por Botrytis?</span><span class="v9-field-v">5%</span></div>
-                <div class="v9-field rv" style="--d:3.9s;"><span class="v9-field-l">¿Qué tan lejos queda tu estimado de lo que sale?</span><span class="v9-field-v">20%</span></div>
-                <div class="rv" style="--d:5.6s; margin-top:16px; background:var(--verde-deep); border-radius:12px; padding:16px 20px; display:flex; justify-content:space-between; align-items:center;">
+                <div class="v9-field rv" style="--d:2.1s;"><span class="v9-field-l">Hectáreas en producción</span><span class="v9-field-v">75</span></div>
+                <div class="v9-field rv" style="--d:2.6s;"><span class="v9-field-l">¿Qué parte de tus ventas se pierde por Botrytis?</span><span class="v9-field-v">5%</span></div>
+                <div class="v9-field rv" style="--d:3.1s;"><span class="v9-field-l">¿Qué tan lejos queda tu estimado de lo que sale?</span><span class="v9-field-v">20%</span></div>
+                <div class="rv" style="--d:4.3s; margin-top:16px; background:var(--verde-deep); border-radius:12px; padding:16px 20px; display:flex; justify-content:space-between; align-items:center;">
                   <div>
                     <div class="s05-lab" style="font-size:11px;">Valor estimado para tu finca</div>
                     <div class="s05-src" style="margin-top:4px;">ejemplo · escenario medio</div>
@@ -1249,7 +1247,7 @@
             <div style="width:330px;">
               <div class="rv" style="--d:0.4s; font-family:'DM Mono',monospace; font-size:13px; letter-spacing:0.24em; color:var(--verde-acc); text-transform:uppercase;">Cómo empieza la conversación</div>
               <div class="rv" style="--d:0.6s; font-family:'Sansation',sans-serif; font-size:34px; color:var(--ink); line-height:1.15; margin-top:10px;">La finca pone sus números.<br>Nosotros, su valor.</div>
-              <div class="rv" style="--d:6.2s; font-family:'Inter',sans-serif; font-style:italic; font-size:13px; color:var(--ink-mute); margin-top:16px;">Cuestionario Diagnóstico de Valor · gratis · en línea</div>
+              <div class="rv" style="--d:5.0s; font-family:'Inter',sans-serif; font-style:italic; font-size:13px; color:var(--ink-mute); margin-top:16px;">Cuestionario Diagnóstico de Valor · gratis · en línea</div>
             </div>
           </div>
         </div>
@@ -1308,16 +1306,16 @@
         </div>
       </div>
 
-      <!-- Calibrado al audio de ensayo v9 (54,2 s): "Le hablamos" 3,7 · "Y dentro de cada finca" 15,8 ·
-           "Con un diagnóstico" 31,3 · "Lo movemos" 39,6 · "Y siempre cuatro meses" 46,3 — cada cue ~0,3 s antes. -->
-      <span class="fragment cue" data-dur="2700"></span>
-      <span class="fragment cue" data-scene="sam" data-dur="12100"></span>
-      <span class="fragment cue" data-scene="buyers" data-dur="15500"></span>
-      <span class="fragment cue" data-scene="diag" data-dur="8300"></span>
-      <!-- Recorte 1: "Lo movemos por WhatsApp, Asocolflores y Proflora." (sin "y nuestra red" ni "LinkedIn"); los íconos
-           de LinkedIn y Referidos siguen en pantalla. Cue −2,0 s; el audio de ensayo ya no coincide desde aquí. -->
-      <span class="fragment cue" data-scene="channels" data-dur="4700"></span>
-      <span class="fragment cue" data-scene="calendar" data-dur="9400"></span>
+      <!-- Calibrado a S06_Plan_de_marketing.m4a (50,0 s): "Le hablamos" 4,1 ("70" 5,3 · "6 millones" 11,8) ·
+           "dentro de cada finca" 15,4 ("gerente" 18,0 · "jefe de sanidad" 23,4) · "Con un diagnóstico" 33,3 ·
+           "Lo movemos" 39,9 · "Y siempre cuatro meses" 44,0 — cada cue ~0,3 s antes. -->
+      <span class="fragment cue" data-dur="3100"></span>
+      <span class="fragment cue" data-scene="sam" data-dur="11300"></span>
+      <span class="fragment cue" data-scene="buyers" data-dur="17900"></span>
+      <span class="fragment cue" data-scene="diag" data-dur="6600"></span>
+      <!-- "Lo movemos por WhatsApp, Asocolflores y Proflora." — LinkedIn y Referidos solo en pantalla. -->
+      <span class="fragment cue" data-scene="channels" data-dur="4100"></span>
+      <span class="fragment cue" data-scene="calendar" data-dur="7500"></span>
     </section>
 
 
@@ -1342,17 +1340,17 @@
                   <span class="s05-val">20%</span>
                 </div>
               </div>
-              <div class="v9-step rv" style="--d:4.1s;"><div class="v9-step-n">03</div><div class="v9-step-t">Contrato<br>donde más duele</div></div>
-              <div class="v9-step rv" style="--d:7.3s;"><div class="v9-step-n">04</div><div class="v9-step-t">Expansión<br>bloque a bloque</div></div>
+              <div class="v9-step rv" style="--d:3.5s;"><div class="v9-step-n">03</div><div class="v9-step-t">Contrato<br>donde más duele</div></div>
+              <div class="v9-step rv" style="--d:5.9s;"><div class="v9-step-n">04</div><div class="v9-step-t">Expansión<br>bloque a bloque</div></div>
             </div>
-            <div class="rv" style="--d:10.3s; margin-top:24px; display:flex; align-items:center; gap:18px; padding:16px 22px; border-radius:14px; border:1.5px dashed rgba(242,218,110,0.5);">
+            <div class="rv" style="--d:8.4s; margin-top:24px; display:flex; align-items:center; gap:18px; padding:16px 22px; border-radius:14px; border:1.5px dashed rgba(242,218,110,0.5);">
               <div class="s05-big" style="font-size:40px;">&lt; 25%</div>
               <div>
                 <div class="s05-val" style="color:var(--crema);">Cada bloque nuevo se gana con un número</div>
                 <div class="s05-lab" style="margin-top:4px;">si el error del estimado (MAPE) baja de 25%, se abre el siguiente</div>
               </div>
             </div>
-            <div class="s05-src rv" style="--d:12.4s; margin-top:12px;">market-tam-sam-som.md §5.2 · reglas de expansión</div>
+            <div class="s05-src rv" style="--d:9.0s; margin-top:12px;">market-tam-sam-som.md §5.2 · reglas de expansión</div>
           </div>
         </div>
 
@@ -1365,8 +1363,8 @@
                 <div class="s05-title">De un bloque a toda la finca</div>
               </div>
               <div style="text-align:right;">
-                <div class="s05-big rv" style="--d:6.5s; font-size:92px;">×10,6</div>
-                <div class="s05-lab rv" style="--d:6.7s;">ingreso año 5 vs. año 1</div>
+                <div class="s05-big rv" style="--d:6.8s; font-size:92px;">×10,6</div>
+                <div class="s05-lab rv" style="--d:7.0s;">ingreso año 5 vs. año 1</div>
               </div>
             </div>
             <div style="display:flex; gap:22px; align-items:flex-end;">
@@ -1431,20 +1429,20 @@
               <div class="s05-kick">Piloto real · una finca de la Sabana</div>
               <div class="s05-big rv" style="--d:0.4s; font-size:64px; margin-top:10px;">desde oct-2025</div>
               <div style="display:flex; gap:40px; margin-top:24px; align-items:flex-end;">
-                <div class="rv" style="--d:4.8s;">
+                <div class="rv" style="--d:5.0s;">
                   <div class="s05-big" style="font-size:56px;">12</div>
                   <div class="s05-lab">camas grabadas</div>
                 </div>
                 <div>
                   <div style="display:flex; gap:10px;">
-                    <div class="chip rv" style="--d:5.7s;">Rosa</div>
-                    <div class="chip rv" style="--d:6.0s;">Clavel</div>
-                    <div class="chip rv" style="--d:6.4s;">Alstroemeria</div>
+                    <div class="chip rv" style="--d:5.8s;">Rosa</div>
+                    <div class="chip rv" style="--d:6.2s;">Clavel</div>
+                    <div class="chip rv" style="--d:6.6s;">Alstroemeria</div>
                   </div>
-                  <div class="s05-lab rv" style="--d:6.8s; margin-top:10px;">3 flores × 2 variedades × 2 camas</div>
+                  <div class="s05-lab rv" style="--d:7.0s; margin-top:10px;">3 flores × 2 variedades × 2 camas</div>
                 </div>
               </div>
-              <div class="s05-src rv" style="--d:7.2s; margin-top:18px;">Piloto de desarrollo de algoritmos de Estimados · nombre de la finca reservado por confidencialidad</div>
+              <div class="s05-src rv" style="--d:7.4s; margin-top:18px;">Piloto de desarrollo de algoritmos de Estimados · nombre de la finca reservado por confidencialidad</div>
             </div>
           </div>
         </div>
@@ -1458,8 +1456,8 @@
                 <div class="s05-title">Ingreso recurrente anual (ARR, USD)</div>
               </div>
               <div style="text-align:right;">
-                <div class="s05-big rv" style="--d:8.0s; font-size:44px;">18 fincas</div>
-                <div class="s05-big rv" style="--d:10.4s; font-size:30px; margin-top:6px;">USD 603K ARR · 2031</div>
+                <div class="s05-big rv" style="--d:8.2s; font-size:44px;">18 fincas</div>
+                <div class="s05-big rv" style="--d:10.7s; font-size:30px; margin-top:6px;">USD 603K ARR · 2031</div>
               </div>
             </div>
             <div style="display:flex; gap:22px; align-items:stretch; margin-top:18px;">
@@ -1475,44 +1473,45 @@
                   <div class="s05-lab" style="color:var(--crema);">2027</div>
                   <div class="s05-lab" style="font-size:11px;">2 fincas</div>
                 </div>
-                <div class="rv" style="--d:5.4s; flex:1; display:flex; flex-direction:column; align-items:center; gap:8px;">
+                <div class="rv" style="--d:6.4s; flex:1; display:flex; flex-direction:column; align-items:center; gap:8px;">
                   <div class="s05-val" style="">$74K</div>
-                  <div style="height:210px; display:flex; align-items:flex-end;"><div class="grow-y" style="--d:5.6s; width:62px; height:26px; border-radius:6px 6px 0 0; background:linear-gradient(180deg,#6f9c78,#3f6b48);"></div></div>
+                  <div style="height:210px; display:flex; align-items:flex-end;"><div class="grow-y" style="--d:6.6s; width:62px; height:26px; border-radius:6px 6px 0 0; background:linear-gradient(180deg,#6f9c78,#3f6b48);"></div></div>
                   <div class="s05-lab" style="color:var(--crema);">2028</div>
                   <div class="s05-lab" style="font-size:11px;">5 fincas</div>
                 </div>
-                <div class="rv" style="--d:5.8s; flex:1; display:flex; flex-direction:column; align-items:center; gap:8px;">
+                <div class="rv" style="--d:6.8s; flex:1; display:flex; flex-direction:column; align-items:center; gap:8px;">
                   <div class="s05-val" style="">$179K</div>
-                  <div style="height:210px; display:flex; align-items:flex-end;"><div class="grow-y" style="--d:6.0s; width:62px; height:62px; border-radius:6px 6px 0 0; background:linear-gradient(180deg,#6f9c78,#3f6b48);"></div></div>
+                  <div style="height:210px; display:flex; align-items:flex-end;"><div class="grow-y" style="--d:7.0s; width:62px; height:62px; border-radius:6px 6px 0 0; background:linear-gradient(180deg,#6f9c78,#3f6b48);"></div></div>
                   <div class="s05-lab" style="color:var(--crema);">2029</div>
                   <div class="s05-lab" style="font-size:11px;">8 fincas</div>
                 </div>
-                <div class="rv" style="--d:6.2s; flex:1; display:flex; flex-direction:column; align-items:center; gap:8px;">
+                <div class="rv" style="--d:7.2s; flex:1; display:flex; flex-direction:column; align-items:center; gap:8px;">
                   <div class="s05-val" style="">$374K</div>
-                  <div style="height:210px; display:flex; align-items:flex-end;"><div class="grow-y" style="--d:6.4s; width:62px; height:130px; border-radius:6px 6px 0 0; background:linear-gradient(180deg,#6f9c78,#3f6b48);"></div></div>
+                  <div style="height:210px; display:flex; align-items:flex-end;"><div class="grow-y" style="--d:7.4s; width:62px; height:130px; border-radius:6px 6px 0 0; background:linear-gradient(180deg,#6f9c78,#3f6b48);"></div></div>
                   <div class="s05-lab" style="color:var(--crema);">2030</div>
                   <div class="s05-lab" style="font-size:11px;">13 fincas</div>
                 </div>
-                <div class="rv" style="--d:6.6s; flex:1; display:flex; flex-direction:column; align-items:center; gap:8px;">
+                <div class="rv" style="--d:7.6s; flex:1; display:flex; flex-direction:column; align-items:center; gap:8px;">
                   <div class="s05-val" style="font-size:18px;">$603K</div>
-                  <div style="height:210px; display:flex; align-items:flex-end;"><div class="grow-y" style="--d:6.8s; width:62px; height:210px; border-radius:6px 6px 0 0; background:linear-gradient(180deg,#f2da6e,#b89a35);"></div></div>
+                  <div style="height:210px; display:flex; align-items:flex-end;"><div class="grow-y" style="--d:7.8s; width:62px; height:210px; border-radius:6px 6px 0 0; background:linear-gradient(180deg,#f2da6e,#b89a35);"></div></div>
                   <div class="s05-lab" style="color:var(--crema);">2031</div>
                   <div class="s05-lab" style="font-size:11px;">18 fincas</div>
                 </div>
               </div>
             </div>
-            <div class="s05-src rv" style="--d:10.8s; margin-top:14px;">market-tam-sam-som.md §4.3 · 15 fincas en Colombia + 3 en Ecuador · escenario base: 35 fincas, USD 1,68M</div>
+            <div class="s05-src rv" style="--d:11.1s; margin-top:14px;">market-tam-sam-som.md §4.3 · 15 fincas en Colombia + 3 en Ecuador · escenario base: 35 fincas, USD 1,68M</div>
           </div>
         </div>
       </div>
 
-      <!-- Calibrado al audio de ensayo v9 (53,5 s): "nunca la finca completa" 3,1 · "y al segundo año" 18,5 ·
-           "Desde octubre" 30,3 · "El primer trimestre" 38,3 — cada cue ~0,3 s antes. -->
-      <span class="fragment cue" data-dur="2100"></span>
-      <span class="fragment cue" data-scene="funnel" data-dur="13600"></span>
-      <span class="fragment cue" data-scene="expand" data-dur="11800"></span>
-      <span class="fragment cue" data-scene="traction" data-dur="8000"></span>
-      <span class="fragment cue" data-scene="roadmap" data-dur="16700"></span>
+      <!-- Calibrado a S07_Plan_comercial.m4a (52,3 s): "Generalmente empezamos con un bloque" 5,0 ("Cada bloque nuevo" 10,9 ·
+           "Cuando el error baja" 13,4) · "Al segundo año" 16,3 ("10 veces" 23,1) · "Desde octubre" 28,2 ("12 camas" 33,2) ·
+           "En el primer trimestre" 36,1 ("2031" 42,9 · "18 fincas" 44,3 · "600 mil" 46,8) — cada cue ~0,3 s antes. -->
+      <span class="fragment cue" data-dur="4000"></span>
+      <span class="fragment cue" data-scene="funnel" data-dur="11300"></span>
+      <span class="fragment cue" data-scene="expand" data-dur="11900"></span>
+      <span class="fragment cue" data-scene="traction" data-dur="7900"></span>
+      <span class="fragment cue" data-scene="roadmap" data-dur="17700"></span>
     </section>
 
 
@@ -1538,12 +1537,12 @@
             </div>
             <div style="flex:1;">
               <div class="s05-kick">Cada flor y cada enfermedad nueva</div>
-              <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:16px;"><div class="chip  rv" style="--d:2.2s;">Rosa</div><div class="chip  rv" style="--d:2.5s;">Clavel</div><div class="chip  rv" style="--d:2.8s;">Alstroemeria</div><div class="chip dis rv" style="--d:3.2s;">Botrytis</div><div class="chip dis rv" style="--d:3.5s;">Mildeo velloso</div><div class="chip  rv" style="--d:3.8s;">Nuevo cultivo</div></div>
-              <div class="rv" style="--d:5.3s; margin-top:26px; display:flex; align-items:center; gap:20px;">
+              <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:16px;"><div class="chip  rv" style="--d:2.5s;">Rosa</div><div class="chip  rv" style="--d:2.8s;">Clavel</div><div class="chip  rv" style="--d:3.1s;">Alstroemeria</div><div class="chip dis rv" style="--d:3.6s;">Botrytis</div><div class="chip dis rv" style="--d:3.9s;">Mildeo velloso</div><div class="chip  rv" style="--d:4.2s;">Nuevo cultivo</div></div>
+              <div class="rv" style="--d:6.2s; margin-top:26px; display:flex; align-items:center; gap:20px;">
                 <svg viewBox="0 0 260 110" width="260" height="110" style="display:block; flex-shrink:0;">
                   <line x1="10" y1="100" x2="255" y2="100" stroke="rgba(253,253,251,0.25)" stroke-width="1.5"/>
                   <line x1="10" y1="100" x2="10" y2="6" stroke="rgba(253,253,251,0.25)" stroke-width="1.5"/>
-                  <path class="draw" pathLength="1" style="--d:5.5s;" d="M14,14 C60,18 80,62 130,74 C175,85 210,88 250,90" fill="none" stroke="#f2da6e" stroke-width="3.5" stroke-linecap="round"/>
+                  <path class="draw" pathLength="1" style="--d:6.4s;" d="M14,14 C60,18 80,62 130,74 C175,85 210,88 250,90" fill="none" stroke="#f2da6e" stroke-width="3.5" stroke-linecap="round"/>
                 </svg>
                 <div>
                   <div class="s05-lab" style="color:var(--crema);">Costo por cliente</div>
@@ -1596,26 +1595,26 @@
             </div>
             <div style="display:grid; grid-template-columns:44px 130px 1fr 110px; align-items:center; gap:16px; margin-top:14px;">
               <div class="rv-crops" style="--d:4.30s;"><svg viewBox="0 0 40 40" width="40" height="40"><path d="M21,9 C25,4 31,4 33,6 C29,7 26,9 23,11 Z" fill="#6f9c78"/><ellipse cx="19" cy="23" rx="13" ry="11" fill="#f2a33a"/><ellipse cx="14" cy="20" rx="6" ry="5" fill="#e2603a" opacity="0.7"/></svg></div>
-              <div class="s05-lab rv-crops" style="--d:4.30s; color:var(--crema); font-size:15px;">Mango*</div>
-              <div class="hbar-track rv-crops" style="--d:4.30s;"><div class="hbar-fill grow-x" style="--d:0.30s; width:100%;"></div></div>
+              <div class="s05-lab rv-crops" style="--d:2.90s; color:var(--crema); font-size:15px;">Mango*</div>
+              <div class="hbar-track rv-crops" style="--d:2.90s;"><div class="hbar-fill grow-x" style="--d:0.30s; width:100%;"></div></div>
               <div class="s05-val rv" style="--d:1.00s; text-align:right;">6,2M ha</div>
             </div>
             <div style="display:grid; grid-template-columns:44px 130px 1fr 110px; align-items:center; gap:16px; margin-top:14px;">
               <div class="rv-crops" style="--d:4.80s;"><svg viewBox="0 0 40 40" width="40" height="40"><path d="M7,9 C8,27 22,36 34,27 C25,29 14,23 11,8 Z" fill="#f2da6e" stroke="#c9a93c" stroke-width="1.2"/><path d="M7,9 L10,6" stroke="#6b5a2a" stroke-width="2.4" stroke-linecap="round"/></svg></div>
-              <div class="s05-lab rv-crops" style="--d:4.80s; color:var(--crema); font-size:15px;">Banano</div>
-              <div class="hbar-track rv-crops" style="--d:4.80s;"><div class="hbar-fill grow-x" style="--d:0.55s; width:94.8%;"></div></div>
+              <div class="s05-lab rv-crops" style="--d:3.40s; color:var(--crema); font-size:15px;">Banano</div>
+              <div class="hbar-track rv-crops" style="--d:3.40s;"><div class="hbar-fill grow-x" style="--d:0.55s; width:94.8%;"></div></div>
               <div class="s05-val rv" style="--d:1.25s; text-align:right;">5,88M ha</div>
             </div>
             <div style="display:grid; grid-template-columns:44px 130px 1fr 110px; align-items:center; gap:16px; margin-top:14px;">
               <div class="rv-crops" style="--d:5.30s;"><svg viewBox="0 0 40 40" width="40" height="40"><path d="M20,4 C13,4 12,13 10,19 C7,28 11,36 20,36 C29,36 33,28 30,19 C28,13 27,4 20,4 Z" fill="#3e6b2a"/><ellipse cx="20" cy="25" rx="7.5" ry="8.5" fill="#d9e3a0"/><circle cx="20" cy="26" r="4.2" fill="#7a4a2a"/></svg></div>
-              <div class="s05-lab rv-crops" style="--d:5.30s; color:var(--crema); font-size:15px;">Aguacate</div>
-              <div class="hbar-track rv-crops" style="--d:5.30s;"><div class="hbar-fill grow-x" style="--d:0.80s; width:15.4%;"></div></div>
+              <div class="s05-lab rv-crops" style="--d:4.00s; color:var(--crema); font-size:15px;">Aguacate</div>
+              <div class="hbar-track rv-crops" style="--d:4.00s;"><div class="hbar-fill grow-x" style="--d:0.80s; width:15.4%;"></div></div>
               <div class="s05-val rv" style="--d:1.50s; text-align:right;">0,95M ha</div>
             </div>
             <div style="display:grid; grid-template-columns:44px 130px 1fr 110px; align-items:center; gap:16px; margin-top:14px;">
               <div class="rv-crops" style="--d:5.90s;"><svg viewBox="0 0 40 40" width="40" height="40"><circle cx="14" cy="24" r="8" fill="#4a5fa8"/><circle cx="27" cy="22" r="8" fill="#5b70b8"/><circle cx="20" cy="13" r="7" fill="#3f5296"/><path d="M17,10 L20,7 L23,10" stroke="#c9d3f0" stroke-width="1.4" fill="none"/></svg></div>
-              <div class="s05-lab rv-crops" style="--d:5.90s; color:var(--crema); font-size:15px;">Arándano</div>
-              <div class="hbar-track rv-crops" style="--d:5.90s;"><div class="hbar-fill grow-x" style="--d:1.05s; width:4.5%;"></div></div>
+              <div class="s05-lab rv-crops" style="--d:4.50s; color:var(--crema); font-size:15px;">Arándano</div>
+              <div class="hbar-track rv-crops" style="--d:4.50s;"><div class="hbar-fill grow-x" style="--d:1.05s; width:4.5%;"></div></div>
               <div class="s05-val rv" style="--d:1.75s; text-align:right;">0,28M ha</div>
             </div>
             <div class="s05-src rv" style="--d:2.4s; margin-top:18px;">FAOSTAT 2023 (*mango incluye guayaba y mangostán) · International Blueberry Organization 2024</div>
@@ -1655,7 +1654,7 @@
               <div class="s05-val rv" style="--d:4.0s; font-size:20px; margin-top:6px; color:var(--crema);">× USD 1.020 / ha·año</div>
               <div class="s05-big rv" style="--d:5.2s; font-size:54px; margin-top:16px;">≈ USD 13,6M<span style="font-size:0.5em;"> / año</span></div>
               <div class="s05-src rv" style="--d:5.6s; margin-top:10px;">Estimación de escritorio — aplica el precio de flores a frutales; precio sin validar</div>
-              <div class="rv" style="--d:7.6s; margin-top:22px; font-family:'Sansation',sans-serif; font-style:italic; font-size:24px; color:var(--crema);">Hoy empezamos en flores.</div>
+              <div class="rv" style="--d:6.9s; margin-top:22px; font-family:'Sansation',sans-serif; font-style:italic; font-size:24px; color:var(--crema);">Hoy empezamos en flores.</div>
             </div>
           </div>
         </div>
@@ -1682,17 +1681,17 @@
         </div>
       </div>
 
-      <!-- Calibrado al audio de ensayo v9 (44,9 s): geografía con la pregunta de Catalina 0,6 · "la misma cámara" 3,5 ·
-           "Y la misma botritis" 11,4 (íconos en "mango… arándano" 15,7–17,3) · "En el mundo" 20,6 · "casi setecientas" 25,2 ·
-           "Si llegamos" 30,0 — cada cue ~0,3 s antes. -->
-      <span class="fragment cue" data-scene="geo" data-dur="2500"></span>
-      <span class="fragment cue" data-scene="platform" data-dur="7900"></span>
-      <span class="fragment cue" data-scene="crops" data-dur="9200"></span>
-      <span class="fragment cue" data-scene="global" data-dur="4600"></span>
-      <span class="fragment cue" data-scene="ratio" data-dur="4800"></span>
-      <span class="fragment cue" data-scene="share" data-dur="15300"></span>
-      <!-- Cierre de Catalina ("…San Valentín llega a tiempo y con una flor divina") — ESTIMADO por palabras. -->
-      <span class="fragment cue" data-scene="promise" data-dur="10400"></span>
+      <!-- Calibrado a S08_Escalabilidad.m4a (55,7 s; última palabra 52,1): geografía con la pregunta de Catalina 1,3 ·
+           "La misma cámara" 4,8 (chips en "cada flor… enfermedad nueva" 7,5–8,4; costo en "cada cliente" 11,0) ·
+           "Y la misma botritis" 13,3 (íconos en "mango… arándano" 16,2–17,8) · "En el mundo" 21,6 · "Casi 700" 26,5 ·
+           "Si llegamos" 31,8 ("Hoy empezamos en flores" 38,7) · cierre "Bueno, Mauri" 43,7 — cada cue ~0,3 s antes. -->
+      <span class="fragment cue" data-scene="geo" data-dur="3800"></span>
+      <span class="fragment cue" data-scene="platform" data-dur="8500"></span>
+      <span class="fragment cue" data-scene="crops" data-dur="8300"></span>
+      <span class="fragment cue" data-scene="global" data-dur="4900"></span>
+      <span class="fragment cue" data-scene="ratio" data-dur="5300"></span>
+      <span class="fragment cue" data-scene="share" data-dur="11900"></span>
+      <span class="fragment cue" data-scene="promise" data-dur="10200"></span>
     </section>
 
 
@@ -2156,8 +2155,8 @@ function playS03Muneco() {
      del audio, así que cada posición = segundo de la palabra − 0,7. */
   var tl = gsap.timeline();
   LOOP_TLS.push(tl);
-  tl.to(sq('s03name'), { opacity:1, y:0, duration:0.5, ease:'power2.out' }, 0.3)          /* "Soy Mauricio" 1,1 */
-    .to(sq('s03role'), { opacity:1, y:0, duration:0.4, ease:'power2.out' }, 2.7)          /* "10 años" 3,6 */
+  tl.to(sq('s03name'), { opacity:1, y:0, duration:0.5, ease:'power2.out' }, 0.4)          /* "Soy Mauricio" 1,2 */
+    .to(sq('s03role'), { opacity:1, y:0, duration:0.4, ease:'power2.out' }, 2.7)          /* "10 años" 3,5 */
     .to(sq('s03charwrap'), { opacity:1, y:0, duration:0.6, ease:'power2.out' }, 3.2)
     .add(function() {
       var idle = gsap.to('#s03charwrap', {
@@ -2166,28 +2165,28 @@ function playS03Muneco() {
       });
       LOOP_TLS.push(idle);
     }, 3.8)
-    /* "Lo viví" 7,5 */
-    .to(sq('s03prop1'), { opacity:1, rotationY:0, scale:1, duration:0.45, ease:'back.out(1.4)', transformPerspective:800 }, 6.6)
-    .to('#s03charwrap', { rotationY:-14, duration:0.4, ease:'power2.out' }, 6.6)
-    .to(sq('s03-armL'), { rotation:-38, duration:0.4, ease:'power2.out', svgOrigin:'65 158' }, 6.6)
-    .to(sq('s03prop1'), { opacity:0, rotationY:-90, scale:0.7, duration:0.25, ease:'power2.in' }, 7.15)
-    .to(sq('s03-armL'), { rotation:0, duration:0.25, ease:'power2.in' }, 7.15)
-    /* "lo conté" 8,1 */
-    .to(sq('s03prop2'), { opacity:1, rotationY:0, scale:1, duration:0.4, ease:'back.out(1.4)', transformPerspective:800 }, 7.3)
-    .to('#s03charwrap', { rotationY:14, duration:0.3, ease:'power2.out' }, 7.3)
-    .to(sq('s03-armR'), { rotation:38, duration:0.3, ease:'power2.out', svgOrigin:'135 158' }, 7.3)
-    .to(sq('s03prop2'), { opacity:0, rotationY:90, scale:0.7, duration:0.25, ease:'power2.in' }, 7.7)
-    .to(sq('s03-armR'), { rotation:0, duration:0.25, ease:'power2.in' }, 7.7)
-    .to('#s03charwrap', { rotationY:0, duration:0.3, ease:'power2.out' }, 7.7)
-    /* "lo calculé" 8,6 — se sostiene durante "y lo sufrí" */
-    .to(sq('s03prop3'), { opacity:1, rotationX:0, scale:1, duration:0.45, ease:'back.out(1.4)', transformPerspective:800 }, 7.85)
-    .to(sq('s03-armL'), { rotation:-20, duration:0.4, ease:'power2.out', svgOrigin:'65 158' }, 7.85)
-    .to(sq('s03-armR'), { rotation:20, duration:0.4, ease:'power2.out', svgOrigin:'135 158' }, 7.85)
-    .to('#s03graph-arrow', { strokeDashoffset:0, duration:0.8, ease:'power2.inOut' }, 8.0)
-    .to(sq('s03prop3'), { opacity:0, rotationX:-90, scale:0.7, duration:0.35, ease:'power2.in' }, 9.0)
-    .to(sq('s03-armL'), { rotation:0, duration:0.35, ease:'power2.in' }, 9.0)
-    .to(sq('s03-armR'), { rotation:0, duration:0.35, ease:'power2.in' }, 9.0)
-    .to(sq('s03bridge'), { opacity:1, y:0, duration:0.5, ease:'power2.out' }, 9.3);
+    /* "Lo viví" 7,0 */
+    .to(sq('s03prop1'), { opacity:1, rotationY:0, scale:1, duration:0.45, ease:'back.out(1.4)', transformPerspective:800 }, 6.1)
+    .to('#s03charwrap', { rotationY:-14, duration:0.4, ease:'power2.out' }, 6.1)
+    .to(sq('s03-armL'), { rotation:-38, duration:0.4, ease:'power2.out', svgOrigin:'65 158' }, 6.1)
+    .to(sq('s03prop1'), { opacity:0, rotationY:-90, scale:0.7, duration:0.25, ease:'power2.in' }, 6.65)
+    .to(sq('s03-armL'), { rotation:0, duration:0.25, ease:'power2.in' }, 6.65)
+    /* "lo conté" 7,6 */
+    .to(sq('s03prop2'), { opacity:1, rotationY:0, scale:1, duration:0.4, ease:'back.out(1.4)', transformPerspective:800 }, 6.8)
+    .to('#s03charwrap', { rotationY:14, duration:0.3, ease:'power2.out' }, 6.8)
+    .to(sq('s03-armR'), { rotation:38, duration:0.3, ease:'power2.out', svgOrigin:'135 158' }, 6.8)
+    .to(sq('s03prop2'), { opacity:0, rotationY:90, scale:0.7, duration:0.25, ease:'power2.in' }, 7.2)
+    .to(sq('s03-armR'), { rotation:0, duration:0.25, ease:'power2.in' }, 7.2)
+    .to('#s03charwrap', { rotationY:0, duration:0.3, ease:'power2.out' }, 7.2)
+    /* "lo calculé" 8,2 — se sostiene durante "y lo sufrí" (8,7–9,2) */
+    .to(sq('s03prop3'), { opacity:1, rotationX:0, scale:1, duration:0.45, ease:'back.out(1.4)', transformPerspective:800 }, 7.35)
+    .to(sq('s03-armL'), { rotation:-20, duration:0.4, ease:'power2.out', svgOrigin:'65 158' }, 7.35)
+    .to(sq('s03-armR'), { rotation:20, duration:0.4, ease:'power2.out', svgOrigin:'135 158' }, 7.35)
+    .to('#s03graph-arrow', { strokeDashoffset:0, duration:0.8, ease:'power2.inOut' }, 7.5)
+    .to(sq('s03prop3'), { opacity:0, rotationX:-90, scale:0.7, duration:0.35, ease:'power2.in' }, 8.8)
+    .to(sq('s03-armL'), { rotation:0, duration:0.35, ease:'power2.in' }, 8.8)
+    .to(sq('s03-armR'), { rotation:0, duration:0.35, ease:'power2.in' }, 8.8)
+    .to(sq('s03bridge'), { opacity:1, y:0, duration:0.5, ease:'power2.out' }, 9.1);
     /* s03tag ("Para que el agricultor…") no se muestra: no está en el audio y
        solo alcanzaría ~1 s antes de que la escena pase a la hoja. */
 }
@@ -2311,15 +2310,15 @@ function runS04Step(step) {
   }
   if (step === 's04-compete') {
     /* Timeline (no tweens sueltos con delay) para que se mate al cambiar de slide.
-       Tiempos ESTIMADOS desde el cue: "Los demás ven la flor enferma" +4,1 s;
-       "Nosotros, la que se va a enfermar" +7,1 s — recalibrar al regrabar el ensayo. */
+       Tiempos desde el cue (S04_Propuesta_de_valor.m4a): "Los demás ven la flor enferma" +3,4 s;
+       "Nosotros, la que se va a enfermar" +6,1 s. */
     var ct = gsap.timeline();
     LOOP_TLS.push(ct);
     ct.to([sq('s04esqh'), sq('s04esq')], { opacity:0, y:-16, stagger:0.05, duration:0.35, ease:'power2.in', overwrite:true }, 0)
       .to(sq('s04comph'), { opacity:1, y:0, duration:0.5, ease:'power2.out' }, 0.4)
       .to(sq('s04comp'),  { opacity:1, y:0, duration:0.6, ease:'power2.out' }, 0.55)
-      .to(['#comp-0','#comp-1','#comp-2','#comp-3'], { opacity:1, duration:0.4, stagger:0.25 }, 4.1)
-      .fromTo('#comp-av', { opacity:0, scale:0.6, transformOrigin:'50% 50%' }, { opacity:1, scale:1, duration:0.6, ease:'back.out(1.8)' }, 7.1);
+      .to(['#comp-0','#comp-1','#comp-2','#comp-3'], { opacity:1, duration:0.4, stagger:0.25 }, 3.4)
+      .fromTo('#comp-av', { opacity:0, scale:0.6, transformOrigin:'50% 50%' }, { opacity:1, scale:1, duration:0.6, ease:'back.out(1.8)' }, 6.1);
   }
 }
 
@@ -2426,9 +2425,8 @@ function syncSceneFromState(section) {
    de saltar de slide, así que un solo mecanismo cubre ambos casos). */
 var AUTOPLAY  = true;
 /* Modo ensayo (pitch_v9.html?ensayo=1): además de S01/S03, S02 y S04–S08 reproducen
-   su audio de ensayo (si el <audio> ya tiene src). Los `data-dur` de v9 son ESTIMADOS
-   (pitch_v9.md); se recalibran con esos audios, cada cue ~0,3 s antes de la palabra clave.
-   Un solo archivo sirve para presentar en vivo o para ensayar con audio. */
+   su audio de ensayo. Los `data-dur` de S02–S08 están calibrados a las grabaciones de
+   nov-2026 (transcritas por palabra con whisper), cada cue ~0,3 s antes de la palabra clave. */
 var ENSAYO    = /[?&]ensayo=1\b/.test(location.search);
 var ENSAYO_AUDIO = { 2:'s02-audio', 4:'s04-audio', 5:'s05-audio', 6:'s06-audio', 7:'s07-audio', 8:'s08-audio' };
 /* S03 (Mauricio, quién soy) suena siempre — en vivo y en ensayo — como S01. */
